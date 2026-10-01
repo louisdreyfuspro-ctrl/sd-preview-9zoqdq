@@ -45,23 +45,17 @@ var CSS=`
 .cm3-bars .col.on .bar.comb{fill:rgba(59,130,246,.55);stroke:#9CC2FF}
 .cm3-bars .tick{fill:var(--txt,#F2F5F8);opacity:0;transition:opacity .3s}
 .cm3-bars .col.on .tick{opacity:1}
-.cm3-bars .val{fill:var(--mut,#8A94A3);font-size:8.2px;font-weight:700;letter-spacing:-.02em;transition:fill .3s}
-.cm3-bars .str{fill:var(--mut,#8A94A3);opacity:.75;font-size:7.4px;font-weight:600;transition:fill .3s}
-.cm3-bars .col.on .str{fill:var(--txt,#F2F5F8);opacity:1}
+.cm3-bars .val{fill:var(--mut,#8A94A3);font-size:9px;font-weight:700;transition:fill .3s}
 .cm3-bars .id{fill:var(--dim,#5A6472);font-size:7.6px;font-weight:700;letter-spacing:.02em;transition:fill .3s}
 .cm3-bars .col.on .val{fill:var(--txt,#F2F5F8)}
 .cm3-bars .col.on .id{fill:#5B9BFF}
-.cm3-sel{display:flex;align-items:baseline;gap:8px;margin-top:8px;font-size:13px;color:var(--mut,#8A94A3);min-height:18px}
-.cm3-sel b{font-size:15px;font-weight:800;color:var(--txt,#F2F5F8);letter-spacing:-.01em}
-.cm3-sel .ar{font-weight:700;color:#5B9BFF}
-.cm3-note{margin-top:6px;font-size:10.5px;line-height:1.4;color:var(--dim,#5A6472)}
 .cm3-leg{display:flex;gap:16px;margin-top:8px;font-size:11px;font-weight:500;color:var(--mut,#8A94A3)}
 .cm3-leg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:-.5px}
 .cm3-leg i.f{background:rgba(59,130,246,.6)} .cm3-leg i.o{box-shadow:inset 0 0 0 1.2px #5B9BFF}
 .cm3-in{animation:cm3in .42s cubic-bezier(.23,1,.32,1) both}
 @keyframes cm3in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 html[data-theme="light"] .cm3-bars .bar{fill:rgba(37,99,235,.26)} html[data-theme="light"] .cm3-bars .col.on .bar{fill:#2563EB}
-html[data-theme="light"] .cm3-bars .col.on .id{fill:#2563EB} html[data-theme="light"] .cm3-sel .ar{color:#2563EB}
+html[data-theme="light"] .cm3-bars .col.on .id{fill:#2563EB}
 html[data-theme="light"] .cm3-map{margin-left:0;margin-right:0;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.06),0 8px 22px rgba(16,24,40,.10)}
 @media (prefers-reduced-motion:reduce){.cm3-in{animation:none}.cm3-btn,.cm3-hint{transition:none}}`;
 
@@ -98,22 +92,17 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
   root.innerHTML='';
   var wrap=document.createElement('div'); wrap.className='cm3';
   var legs=F.slice(1).filter(function(f){return f.dPrev!=null;}), total=legs.reduce(function(a,f){return a+f.dPrev;},0);
-  /* strides between two fences: not in the data, derived from the real distances (shown with ≈) */
-  var strides=function(f){ var k=idx(f.id), pv=k>0?F[k-1]:null; if(!opts.stride||!pv||f.dPrev==null) return null;
-    var free=f.dPrev-((JDATA[pv.id]||{}).land||0)-((JDATA[f.id]||{}).toff||0); return Math.max(0,Math.round(free/opts.stride)); };
   wrap.innerHTML='<div class="cm3-map"><svg viewBox="0 0 '+VW+' '+VH+'" translate="no" role="img" aria-label="Course map"></svg>'
     +(STORY?'':'<button class="cm3-btn" type="button"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Whole course</span></button>'
     +'<div class="cm3-hint">Tap a fence · drag to turn · pinch to zoom</div>')+'</div>'
     +(STORY?'':'<div class="cm3-rd">'
-      +'<div class="cm3-cap"><span>'+(opts.stride?'Metres and strides between fences':'Metres ridden to each fence')+'</span><em>'+Math.round(total)+' m in total</em></div>'
-      +'<div class="cm3-sel"></div>'
-      +'<svg class="cm3-bars" viewBox="0 0 330 '+(opts.stride?72:64)+'" translate="no"></svg>'
+      +'<div class="cm3-cap"><span>Metres ridden to each fence</span><em>'+Math.round(total)+' m in total</em></div>'
+      +'<svg class="cm3-bars" viewBox="0 0 330 64" translate="no"></svg>'
       +'<div class="cm3-leg"><span><i class="f"></i>Between two fences</span><span><i class="o"></i>Inside a combination</span></div>'
-      +(opts.stride?'<div class="cm3-note">Strides are estimated from the round\'s average stride ('+opts.stride.toFixed(1)+' m).</div>':'')
       +'</div>');
   root.appendChild(wrap);
   var mapEl=wrap.querySelector('.cm3-map'), svg=mapEl.querySelector('svg'), btn=wrap.querySelector('.cm3-btn'),
-      hint=wrap.querySelector('.cm3-hint'), bars=wrap.querySelector('.cm3-bars'), selEl=wrap.querySelector('.cm3-sel');
+      hint=wrap.querySelector('.cm3-hint'), bars=wrap.querySelector('.cm3-bars');
   /* the page can slot its own block (the jump's numbers) between the map and the bars */
   if(opts.between&&!STORY) wrap.insertBefore(opts.between, wrap.querySelector('.cm3-rd'));
   if(STORY){ mapEl.style.margin='0'; mapEl.style.background='transparent'; mapEl.style.boxShadow='none'; svg.style.cursor='default'; }
@@ -313,21 +302,16 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
   function buildBars(){
     if(!bars) return;
     var n=legs.length, gap=4, w=(330-gap*(n-1))/n, max=Math.max.apply(null,legs.map(function(f){return f.dPrev;})), H=38, h='';
-    legs.forEach(function(f,i){ var x=i*(w+gap), bh=Math.max(3,f.dPrev/max*H), comb=f.dPrev<opts.combination, st=strides(f);
+    legs.forEach(function(f,i){ var x=i*(w+gap), bh=Math.max(3,f.dPrev/max*H), comb=f.dPrev<opts.combination;
       h+='<g class="col" data-j="'+f.id+'"><rect x="'+x.toFixed(2)+'" y="0" width="'+w.toFixed(2)+'" height="64" fill="transparent"/>'
         +'<rect class="bar'+(comb?' comb':'')+'" x="'+(x+.6).toFixed(2)+'" y="'+(H-bh+.6).toFixed(2)+'" width="'+(w-1.2).toFixed(2)+'" height="'+(bh-.6).toFixed(2)+'" rx="2.2"/>'
         +'<rect class="tick" x="'+x.toFixed(2)+'" y="'+(H+2.4)+'" width="'+w.toFixed(2)+'" height="1.5" rx=".75"/>'
-        +'<text class="val" x="'+(x+w/2).toFixed(2)+'" y="'+(H+13)+'" text-anchor="middle">'+T(n1(f.dPrev))+'</text>'
-        +(st!=null?'<text class="str" x="'+(x+w/2).toFixed(2)+'" y="'+(H+22.5)+'" text-anchor="middle">≈'+st+'</text>':'')
-        +'<text class="id" x="'+(x+w/2).toFixed(2)+'" y="'+(H+(st!=null?32:24))+'" text-anchor="middle">'+f.id+'</text></g>'; });
+        +'<text class="val" x="'+(x+w/2).toFixed(2)+'" y="'+(H+14)+'" text-anchor="middle">'+Math.round(f.dPrev)+'</text>'
+        +'<text class="id" x="'+(x+w/2).toFixed(2)+'" y="'+(H+24)+'" text-anchor="middle">'+f.id+'</text></g>'; });
     bars.innerHTML=h;
     bars.querySelectorAll('.col').forEach(function(g){ g.addEventListener('click',function(){ pick(g.dataset.j); }); });
   }
-  function barsOn(){ if(!bars) return; bars.querySelectorAll('.col').forEach(function(g){ g.classList.toggle('on',g.dataset.j===sel); });
-    /* the leg into the jump in focus, in words: 4 → 5A · 28.6 m · ≈ 6 strides */
-    if(selEl){ var k=idx(sel), f=F[k], pv=k>0?F[k-1]:null, st=strides(f);
-      selEl.innerHTML=pv&&f.dPrev!=null?'<span class="ar" translate="no">'+pv.id+' → '+f.id+'</span><b>'+n1(f.dPrev)+' m</b>'+(st!=null?'<span>≈ '+st+' '+(st===1?'stride':'strides')+'</span>':'')
-        :'<span class="ar" translate="no">'+f.id+'</span><span>First fence</span>'; } }
+  function barsOn(){ if(bars) bars.querySelectorAll('.col').forEach(function(g){ g.classList.toggle('on',g.dataset.j===sel); }); }
   function barsIntro(){
     if(!bars||reduce()) return;
     bars.querySelectorAll('.bar').forEach(function(b,i){ b.style.transformBox='fill-box'; b.style.transformOrigin='50% 100%';
