@@ -645,11 +645,11 @@
 
 /* the app: one horse, three renderings to choose from (A Studio, B Body map, C Lab), the choice is remembered */
 (function(){
-  const LOOKS=[['A','Studio',window.SD_LOOK_A],['B','Body map',window.initHorseMap],['C','Lab',window.SD_LOOK_C],['D','Bay',window.SD_LOOK_BAY]];
+  const LOOKS=[['D','Bay',window.SD_LOOK_BAY],['A','Studio',window.SD_LOOK_A],['B','Body map',window.initHorseMap],['C','Lab',window.SD_LOOK_C]];   /* bay first and by default (Louis, 1 Oct) */
   const TR={fr:{'Studio':'Studio','Body map':'Carte du corps','Lab':'Labo','Bay':'Bai'},it:{'Studio':'Studio','Body map':'Mappa del corpo','Lab':'Laboratorio','Bay':'Baio'},
     es:{'Studio':'Estudio','Body map':'Mapa del cuerpo','Lab':'Laboratorio','Bay':'Castaño'},de:{'Studio':'Studio','Body map':'Körperkarte','Lab':'Labor','Bay':'Brauner'}};
   const lang=(()=>{ try{ return localStorage.getItem('sdLang')||'en'; }catch(e){ return 'en'; } })(), t=s=>(TR[lang]||{})[s]||s;
-  let cur='A'; try{ const k=localStorage.getItem('sdHorseLook'); if(LOOKS.some(l=>l[0]===k)) cur=k; }catch(e){}
+  let cur='D'; try{ const k=localStorage.getItem('sdHorseLook2'); if(LOOKS.some(l=>l[0]===k)) cur=k; }catch(e){}
   const css=document.createElement('style'); css.textContent=
     '.hlPick{display:flex;gap:3px;background:var(--card2,#1A1F28);border:1px solid var(--line,rgba(255,255,255,.07));border-radius:11px;padding:3px;margin:8px 0 10px}'
     +'.hlPick button{flex:1;font:inherit;font-size:12.5px;font-weight:750;color:var(--mut,#8A94A3);background:none;border:0;border-radius:8px;padding:8px 6px;cursor:pointer;transition:background .25s,color .25s}'
@@ -677,7 +677,7 @@
       inst.onKeypointTap=id=>{ sel=id; if(typeof api.onKeypointTap==='function') api.onKeypointTap(id); };
       if(sel!=null) inst.select(sel); if(paused) inst.pause(); }
     function drawPick(){ pick.innerHTML=LOOKS.map(([k,n])=>'<button role="tab" aria-selected="'+(k===cur)+'" class="'+(k===cur?'on':'')+'" data-k="'+k+'">'+t(n)+'</button>').join('');
-      pick.querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(b.dataset.k===cur) return; cur=b.dataset.k; try{ localStorage.setItem('sdHorseLook',cur); }catch(e){}
+      pick.querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(b.dataset.k===cur) return; cur=b.dataset.k; try{ localStorage.setItem('sdHorseLook2',cur); }catch(e){}
         drawPick(); stage.classList.add('out'); setTimeout(()=>{ mount(); requestAnimationFrame(()=>stage.classList.remove('out')); },220); }); }
     drawPick(); mount(); return api; };
 })();
