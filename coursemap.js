@@ -4,12 +4,12 @@
    the floor. Tap a fence (or a bar under the map): the camera flies to a three
    quarter side view and the real jump is drawn in the air (takeoff, highest
    point, landing). Drag to turn, pinch or wheel to zoom.
-   Under the map, the read-out laid out like proposition C (broadcast): metres
-   ridden to each fence, then the jump in focus in four figures and a sentence.
+   Under the map: an optional page block (opts.between, the jump's numbers), then
+   the metres ridden to each fence as bars (layout of proposition C), tap a bar to go there.
    No invented figure: everything comes from TD (arena, fences, ridden line)
    and JDATA (per jump facts) of the page.
 
-   API   const cm = renderCourseMap(el, TD, JDATA, {selected, onSelect, bands, autoplay})
+   API   const cm = renderCourseMap(el, TD, JDATA, {selected, onSelect, bands, autoplay, between})
          cm.select(id)  cm.intro()  cm.overview()  cm.destroy()
    Story (onboarding): const cm = renderCourseMap(el, TD, null, {story:true}); cm.progress(t)
    Pure SVG redrawn by a small pinhole camera, no library. Respects reduced motion.
@@ -52,23 +52,8 @@ var CSS=`
 .cm3-leg{display:flex;gap:16px;margin-top:8px;font-size:11px;font-weight:500;color:var(--mut,#8A94A3)}
 .cm3-leg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:-.5px}
 .cm3-leg i.f{background:rgba(59,130,246,.6)} .cm3-leg i.o{box-shadow:inset 0 0 0 1.2px #5B9BFF}
-.cm3-fx{margin-top:16px;padding-top:14px;border-top:1px solid var(--line,rgba(255,255,255,.07))}
-.cm3-ty::before{content:"·";margin:0 6px;color:var(--dim,#5A6472)}
-.cm3-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:10px;border-radius:14px;background:var(--card2,#1A1F28);
-  box-shadow:inset 0 0 0 1px var(--line,rgba(255,255,255,.07));overflow:hidden}
-.cm3-grid>div{padding:11px 8px 10px 11px;min-width:0;position:relative}
-.cm3-grid>div+div::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;background:var(--line,rgba(255,255,255,.07))}
-.cm3-grid .k{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut,#8A94A3);white-space:nowrap}
-.cm3-grid .v{font-size:21px;font-weight:800;letter-spacing:-.02em;margin-top:5px;white-space:nowrap;color:var(--txt,#F2F5F8);line-height:1.1}
-.cm3-grid .v.w{font-size:17px;letter-spacing:-.01em;line-height:1.3}
-.cm3-grid .v small{font-size:11px;font-weight:600;color:var(--mut,#8A94A3);margin-left:2px;letter-spacing:0}
-.cm3-grid .s{font-size:10.5px;line-height:1.3;color:var(--mut,#8A94A3);margin-top:3px}
-.cm3-grid .good{color:#4CC077} .cm3-grid .watch{color:#F0A030} .cm3-grid .bad{color:#E85454}
-.cm3-say{margin-top:11px;font-size:13px;line-height:1.45;color:var(--mut,#8A94A3)}
-.cm3-say span+span::before{content:" "}
 .cm3-in{animation:cm3in .42s cubic-bezier(.23,1,.32,1) both}
 @keyframes cm3in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-html[data-theme="light"] .cm3-grid .good{color:#0E8F53} html[data-theme="light"] .cm3-grid .watch{color:#B76E00} html[data-theme="light"] .cm3-grid .bad{color:#C9303A}
 html[data-theme="light"] .cm3-bars .bar{fill:rgba(37,99,235,.26)} html[data-theme="light"] .cm3-bars .col.on .bar{fill:#2563EB}
 html[data-theme="light"] .cm3-bars .col.on .id{fill:#2563EB}
 html[data-theme="light"] .cm3-map{margin-left:0;margin-right:0;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.06),0 8px 22px rgba(16,24,40,.10)}
@@ -114,10 +99,12 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
       +'<div class="cm3-cap"><span>Metres ridden to each fence</span><em>'+Math.round(total)+' m in total</em></div>'
       +'<svg class="cm3-bars" viewBox="0 0 330 64" translate="no"></svg>'
       +'<div class="cm3-leg"><span><i class="f"></i>Between two fences</span><span><i class="o"></i>Inside a combination</span></div>'
-      +'<div class="cm3-fx"></div></div>');
+      +'</div>');
   root.appendChild(wrap);
   var mapEl=wrap.querySelector('.cm3-map'), svg=mapEl.querySelector('svg'), btn=wrap.querySelector('.cm3-btn'),
-      hint=wrap.querySelector('.cm3-hint'), bars=wrap.querySelector('.cm3-bars'), fx=wrap.querySelector('.cm3-fx');
+      hint=wrap.querySelector('.cm3-hint'), bars=wrap.querySelector('.cm3-bars');
+  /* the page can slot its own block (the jump's numbers) between the map and the bars */
+  if(opts.between&&!STORY) wrap.insertBefore(opts.between, wrap.querySelector('.cm3-rd'));
   if(STORY){ mapEl.style.margin='0'; mapEl.style.background='transparent'; mapEl.style.boxShadow='none'; svg.style.cursor='default'; }
 
   /* ---------- pinhole camera ---------- */
@@ -330,36 +317,6 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
     bars.querySelectorAll('.bar').forEach(function(b,i){ b.style.transformBox='fill-box'; b.style.transformOrigin='50% 100%';
       b.animate([{transform:'scaleY(0)'},{transform:'scaleY(1)'}],{duration:620,delay:300+i*45,easing:'cubic-bezier(.23,1,.32,1)',fill:'backwards'}); });
   }
-  var shown={};
-  function roll(el,to,dec){
-    var from=shown[el.dataset.k]; shown[el.dataset.k]=to;
-    if(from==null||from===to||reduce()){ el.textContent=(+to).toFixed(dec); return; }
-    var t0=performance.now(), step=function(now){ if(!alive) return; var u=clamp((now-t0)/480), q=eOut(u);
-      el.textContent=(from+(to-from)*q).toFixed(dec); if(u<1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
-  }
-  function renderFacts(animate){
-    if(!fx) return;
-    var k=idx(sel), f=F[k], J=JDATA[sel]||{}, prev=k>0?F[k-1]:null, b=band(J.score);
-    var changed=J.leadT&&J.leadL&&J.leadT!==J.leadL;
-    var ty=(J.type||'').trim();
-    fx.innerHTML='<div class="'+(animate?'cm3-in':'')+'">'
-      +'<div class="cm3-cap"><span><b>Jump</b> <b>'+f.id+'</b>'+(ty?'<span class="cm3-ty">'+ty+'</span>':'')+'</span><em>'+(prev?prev.id+' → '+f.id:'First fence')+'</em></div>'
-      +'<div class="cm3-grid">'
-        +'<div><div class="k">Score</div><div class="v '+b+'"><span data-k="sc"></span><small>%</small></div><div class="s">'+WORD[b]+'</div></div>'
-        +'<div><div class="k">Takeoff</div><div class="v"><span data-k="to"></span><small>m</small></div><div class="s">before the fence</div></div>'
-        +'<div><div class="k">Landing</div><div class="v"><span data-k="la"></span><small>m</small></div><div class="s">after the fence</div></div>'
-        +'<div><div class="k">Lead</div><div class="v w">'+(J.leadT||'')+'</div><div class="s">'+(changed?'changed in the air':'kept on landing')+'</div></div>'
-      +'</div>'
-      +'<p class="cm3-say">'+(prev?'<span>'+n1(f.dPrev)+' m ridden from fence '+prev.id+' in '+n1(f.t-prev.t)+' s.</span>':'<span>First fence of the round.</span>')
-        +(changed?'<span>The horse changed leg in the air.</span>':'')+'</p></div>';
-    /* long words (Atterraggio, Puntuación...) shrink to fit their column instead of being cut */
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ if(!alive) return;
-      fx.querySelectorAll('.cm3-grid .k,.cm3-grid .v.w').forEach(function(el){ var fs=parseFloat(getComputedStyle(el).fontSize), min=el.classList.contains('k')?7.5:12;
-        while(el.scrollWidth>el.clientWidth+.5&&fs>min){ fs-=.5; el.style.fontSize=fs+'px'; if(el.classList.contains('k')) el.style.letterSpacing='.04em'; } }); }); });
-    roll(fx.querySelector('[data-k=sc]'),J.score,0); roll(fx.querySelector('[data-k=to]'),J.toff,2); roll(fx.querySelector('[data-k=la]'),J.land,2);
-  }
-
   /* ---------- camera shots ---------- */
   function shot(){
     var f=F[idx(sel)], t=vec(f).t, c=W(f.x,f.y);
@@ -399,7 +356,7 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
 
   /* ---------- go ---------- */
   var api={
-    select:function(id,force){ if(idx(id)<0||(id===sel&&!force)) return; sel=id; barsOn(); renderFacts(true);
+    select:function(id,force){ if(idx(id)<0||(id===sel&&!force)) return; sel=id; barsOn();
       clearTimeout(flyTimer);
       fly(shot(),1100); if(!reduce()){ arcT0=performance.now()+700; kick(); } else draw(); },
     intro:function(){
@@ -413,7 +370,7 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
       Object.assign(cam,OVER,{az:-.32+.6*p, el:(52-6*p)*Math.PI/180}); render(performance.now()); },
     destroy:function(){ alive=false; cancelAnimationFrame(raf); clearTimeout(flyTimer); root.innerHTML=''; }
   };
-  buildBars(); barsOn(); renderFacts(false);
+  buildBars(); barsOn();
   if(STORY){ storyT=T0; api.progress(T0); }
   else if(opts.autoplay) api.intro();
   else { Object.assign(cam,shot()); draw(); }
