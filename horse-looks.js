@@ -266,14 +266,24 @@
     name:'studio', aspect:'1/0.86', background:'#14181F',
     camera:{fov:15,pitch:7,fit:[1.93,1.63],target:[0,1.16,0]},
     idle:{rest:.12,amp:.2,period:18},
+    /* points like the reference photo: a small solid dot, a thin leader line and a quiet label pill, pointing away from the body */
     css:
-      '.h3d-studio .mk .pin{position:relative;display:block;width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 1.5px rgba(10,12,16,.75);opacity:.7;transition:transform .3s cubic-bezier(.32,.72,0,1),opacity .3s}'
-      +'.h3d-studio .mk[data-state=watch] .pin,.h3d-studio .mk[data-state=attention] .pin{width:9px;height:9px;opacity:1;background:#fff;box-shadow:0 0 0 2px var(--c),0 0 12px 2px var(--c)}'
-      +'.h3d-studio .mk .pin::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1.5px solid var(--c);opacity:0;transform:scale(.5);transition:opacity .3s,transform .35s cubic-bezier(.32,.72,0,1)}'
-      +'.h3d-studio .mk[aria-pressed=true] .pin{transform:scale(1.15);opacity:1}.h3d-studio .mk[aria-pressed=true] .pin::after{opacity:1;transform:scale(1)}'
-      +'.h3d-studio .mk .tag{position:absolute;bottom:31px;left:50%;transform:translate(-50%,4px);white-space:nowrap;padding:4px 8px;border-radius:7px;background:rgba(12,15,20,.86);border:1px solid rgba(255,255,255,.1);font:600 11px/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;color:#F2F5F8;opacity:0;pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.32,.72,0,1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}'
-      +'.h3d-studio .mk[aria-pressed=true] .tag{opacity:1;transform:translate(-50%,0)}',
-    markerHTML(m){return '<span class="pin"></span><span class="tag">'+m.p.name+'</span>';},
+      '.h3d-studio .mk .pin{position:relative;display:block;width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 6px rgba(0,0,0,.45);opacity:.92;transition:transform .3s cubic-bezier(.32,.72,0,1)}'
+      +'.h3d-studio .mk[data-state=watch] .pin,.h3d-studio .mk[data-state=attention] .pin{width:9px;height:9px;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 28%,transparent),0 0 12px 1px var(--c);opacity:1}'
+      +'.h3d-studio .mk[aria-pressed=true] .pin{transform:scale(1.35)}'
+      +'.h3d-studio .mk .tag{position:absolute;top:50%;left:calc(50% + 22px);transform:translate(4px,-50%);white-space:nowrap;padding:5px 10px;border-radius:999px;background:rgba(24,28,36,.86);border:1px solid rgba(255,255,255,.08);'
+      +'font:500 11.5px/1.15 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;letter-spacing:.1px;color:#D9DEE6;opacity:0;pointer-events:none;transition:opacity .3s,transform .35s cubic-bezier(.32,.72,0,1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}'
+      +'.h3d-studio .mk .tag::before{content:"";position:absolute;top:50%;right:100%;width:16px;height:1px;background:rgba(255,255,255,.3)}'
+      +'.h3d-studio .mk[data-dir=l] .tag{left:auto;right:calc(50% + 22px);transform:translate(-4px,-50%)}'
+      +'.h3d-studio .mk[data-dir=l] .tag::before{right:auto;left:100%}'+'.h3d-studio .mk[data-dir=t] .tag{left:50%;top:auto;bottom:calc(50% + 14px);transform:translate(-50%,-4px)}.h3d-studio .mk[data-dir=t] .tag::before{display:none}'
+      +'.h3d-studio .mk[aria-pressed=true] .tag{opacity:1;transform:translate(0,-50%)}'+'.h3d-studio .mk[data-dir=t][aria-pressed=true] .tag{transform:translate(-50%,0)}'
+      +'.h3d-studio .mk .tag i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c);margin-right:7px;vertical-align:1px}',
+    markerHTML(m){return '<span class="pin"></span><span class="tag"><i></i>'+m.p.name+'</span>';},
+    /* the label goes away from the body, and flips (or sits above) when it would leave the picture */
+    frame(S,F){ for(const m of F.markers){ if(!m.screen||!m.button) continue; const b=m.button, w=b.parentNode.clientWidth||1, x=m.screen[0];
+      const t=b.querySelector('.tag'), tw=(t&&t.offsetWidth)||90, room=22+tw+8;
+      let d=x<w*.5?'l':'r'; if(d==='l'&&x-room<0) d=x+room<=w?'r':'t'; else if(d==='r'&&x+room>w) d=x-room>=0?'l':'t';
+      if(b.dataset.dir!==d) b.dataset.dir=d; } },
     setup(S){
       const {gl,SHADER}=S;
       S.progs.bg=S.program('attribute vec2 a;varying vec2 uv;void main(){uv=a*.5+.5;gl_Position=vec4(a,0.,1.);}',
@@ -295,17 +305,17 @@
       S.progs.horse=S.program(SHADER.HORSE_VS,
         'precision highp float;varying vec3 vw;varying vec3 vn;varying vec3 vo;varying float vao;uniform vec3 eye;uniform vec3 kpPos[12];uniform vec4 kpCol[12];uniform float refl;'+SHADER.DITHER+SHADER.TONE
         +'void main(){vec3 N=normalize(vn);vec3 V=normalize(eye-vw);float ndv=clamp(dot(N,V),0.,1.);float ao=smoothstep(.05,.82,vao);'
-        +'vec3 alb=vec3(.105,.11,.12);'
+        +'vec3 alb=vec3(.052,.056,.064);'
         +'vec3 Lk=normalize(vec3(-.42,.86,.55));float wrap=max((dot(N,Lk)+.12)/1.12,0.);'
         +'vec3 c=alb*(vec3(1.95,1.9,1.82)*wrap*mix(.25,1.,ao)+vec3(.11,.13,.17)*(.55+.45*N.y)*ao);'
-        +'vec3 H=normalize(Lk+V);float nh=max(dot(N,H),0.);c+=vec3(1.,.98,.96)*(pow(nh,8.)*.035+pow(nh,40.)*.07)*ao;'
-        +'vec3 R=reflect(-V,N);float fr=.04+.96*pow(1.-ndv,5.);c+=vec3(.85,.9,1.)*smoothstep(.45,.95,R.y)*fr*.12*ao;'
+        +'vec3 H=normalize(Lk+V);float nh=max(dot(N,H),0.);c+=vec3(1.,.98,.96)*(pow(nh,8.)*.045+pow(nh,44.)*.16)*ao;'
+        +'vec3 R=reflect(-V,N);float fr=.04+.96*pow(1.-ndv,5.);c+=vec3(.85,.9,1.)*smoothstep(.45,.95,R.y)*fr*.26*ao;'
         +'vec3 L1=normalize(vec3(-.75,.32,-.58));vec3 L2=normalize(vec3(.8,.42,-.45));float edge=pow(1.-ndv,2.2);'
-        +'c+=vec3(.55,.68,.95)*edge*(max(dot(N,L1),0.)*.55+max(dot(N,L2),0.)*.5+.03)*mix(.45,1.,ao);'
+        +'c+=vec3(.55,.68,.95)*edge*(max(dot(N,L1),0.)*1.0+max(dot(N,L2),0.)*.9+.04)*mix(.45,1.,ao);'
         +'vec3 q=vec3(vo.xy,abs(vo.z));vec3 heat=vec3(0.);'
         +'for(int i=0;i<12;i++){float r=kpCol[i].a;if(r<=0.)continue;float dd=length(q-kpPos[i])/r;'
         +'heat+=kpCol[i].rgb*(exp(-dd*dd*1.9)*1.55+exp(-dd*dd*.6)*.18);}'
-        +'c+=heat*(.4+.6*ndv);'
+        +'c+=heat*(.4+.6*ndv)*.6;'
         +'c=tone(c*1.18);c=pow(c,vec3(1./2.2));'
         +'if(refl>.5){float fade=exp(vw.y*3.2)*.16;gl_FragColor=vec4(c,fade);}else gl_FragColor=vec4(c+dither(gl_FragCoord.xy)/255.,1.);}',
         ['p','n','ao'],['rot','vp','flip','eye','kpPos','kpCol','refl']);
