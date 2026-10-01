@@ -9,6 +9,7 @@
   let plan=null; try{ plan=new URLSearchParams(location.search).get('plan'); }catch(e){}
   /* a link with ?plan= also becomes the account type you stay in (not inside the TV boards' frames) */
   if(P.includes(plan)&&window.top===window){ try{ localStorage.setItem('sdPlan',plan); }catch(e){} }
+  try{ if(new URLSearchParams(location.search).get('demo')==='1') localStorage.removeItem('sdMe'); }catch(e){}
   if(!P.includes(plan)){ try{ plan=localStorage.getItem('sdPlan'); }catch(e){} }
   if(!P.includes(plan)) plan='pro';
   window.SD_PLAN=plan;
@@ -39,20 +40,39 @@
     const u=new URL(location.href); u.searchParams.delete('plan'); location.href=u.toString(); };
   /* which horses this account sees */
   window.planHorses=list=>plan==='premium'?list.filter(h=>h.id==='qz')
-    :plan==='rider'?list.filter(h=>(h.r||h.rider)==='John Doe'):SD_STAFF?list.filter(h=>SD_FOLLOW().includes(h.id)):list;
+    :plan==='rider'?list.filter(h=>(h.r||h.rider)==='John Doe'):SD_STAFF?list.filter(h=>SD_FOLLOW().includes(h.id))
+    :(window.SD_MYIDS&&plan==='pro')?list.filter(h=>SD_MYIDS.includes(h.id)):list;
   /* keep ?plan= on internal links, so a board preview stays in its account type */
   if(new URLSearchParams(location.search).get('plan')) document.addEventListener('click',e=>{ const a=e.target.closest('a[href]'); if(!a) return;
     const h=a.getAttribute('href'); if(!h||!/^Etape/.test(h)) return; const u=new URL(h,location.href); u.searchParams.set('plan',plan); a.href=u.toString(); },true);
   /* the person who signed up: their first name everywhere, and their horse on Home */
   let ME=null; try{ ME=JSON.parse(localStorage.getItem('sdMe')); }catch(e){}
   window.SD_ME=ME;
+  /* a new account sees ITS horses and ITS name: the sample data of the demo horses is shown under their names (test app, sample numbers) */
+  const MYH=ME?(ME.horses&&ME.horses.length?ME.horses:ME.horse&&ME.horse.name?[ME.horse.name]:[]).map(n=>String(n).trim()).filter(Boolean):[];
+  if(ME&&(MYH.length||ME.name)&&['pro','premium','owner'].includes(plan)){
+    const DEMO=plan==='premium'?[['qz','Quintus Z','QZ']]:[['mb','Midnight Bolt','MB'],['qz','Quintus Z','QZ'],['bd','Bella Donna','BD'],['sa','Silver Arrow','SA'],['nl','Nova de Lys','NL']];
+    const ini=n=>n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const MAP=[], INI={};
+    MYH.slice(0,DEMO.length).forEach((n,i)=>{ MAP.push([DEMO[i][1],n]); INI[DEMO[i][2]]=ini(n); });
+    if(MYH.length&&plan==='premium'){ MAP.push(['Midnight Bolt',MYH[0]]); INI.MB=ini(MYH[0]); }
+    if(MYH.length&&plan==='pro') window.SD_MYIDS=DEMO.slice(0,MYH.length).map(d=>d[0]);
+    if(MYH.length&&plan!=='owner') window.SD_HN=MYH.slice(0,DEMO.length);
+    const FN=(ME.name||'').trim(), FULL=(ME.full||FN).trim();
+    if(FULL){ MAP.push(['Marie S.',FULL]); if(plan!=='owner') ['John Doe','Lea Martin'].forEach(r=>MAP.push([r,FULL])); }
+    if(FN) MAP.push(['Marie',FN]);
+    const fix=n=>{ let v=n.nodeValue, o=v; MAP.forEach(([a,b])=>{ if(v.includes(a)) v=v.split(a).join(b); }); const t=v.trim(); if(INI[t]) v=v.replace(t,INI[t]); if(v!==o) n.nodeValue=v; };
+    const walk=r=>{ if(r.nodeType===3) return fix(r); if(r.nodeType!==1||/^(SCRIPT|STYLE)$/.test(r.nodeName)) return; const w=document.createTreeWalker(r,4); let n; while((n=w.nextNode())) fix(n); };
+    new MutationObserver(L=>L.forEach(m=>{ if(m.type==='characterData') fix(m.target); else m.addedNodes.forEach(walk); })).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+    document.addEventListener('DOMContentLoaded',()=>walk(document.body)); }
   if(ME&&ME.name&&['pro','premium','owner'].includes(plan)){ SD_PLANS[plan].me=ME.name;
     document.addEventListener('DOMContentLoaded',()=>{ const T=x=>(window.SD_T||(y=>y))(x);
       const n=document.querySelector('.hi .n'); if(n) n.textContent=ME.name;
       const av=document.querySelector('.av'); if(av&&av.firstChild&&av.firstChild.nodeType===3) av.firstChild.nodeValue=ME.name[0].toUpperCase();
       const pN=document.getElementById('pN'), pE=document.getElementById('pE'); if(pN) pN.textContent=ME.full||ME.name; if(pE&&ME.email) pE.textContent=ME.email;
       const avp=document.getElementById('av'); if(avp&&avp.firstChild&&avp.firstChild.nodeType===3) avp.firstChild.nodeValue=ME.name[0].toUpperCase();
-      if(ME.horse&&document.getElementById('errBan')){ const w=document.querySelector('.wrap');
+      const eb=document.getElementById('errBan'); if(eb&&window.SD_MYIDS&&!SD_MYIDS.includes('nl')) eb.style.display='none';
+      if(ME.horse&&ME.sent&&document.getElementById('errBan')){ const w=document.querySelector('.wrap');
         w.insertAdjacentHTML('afterbegin',`<div class="sec in"><div class="card" style="display:flex;align-items:center;gap:12px"><span style="width:44px;height:44px;border-radius:50%;background:rgba(59,130,246,.14);display:grid;place-items:center;font-weight:800;color:#8DB8FF;flex:0 0 auto">${ME.horse.name.slice(0,2).toUpperCase()}</span>
           <div style="flex:1;min-width:0"><b style="display:block;font-size:15px">${ME.horse.name}</b><span style="display:block;font-size:12.5px;color:var(--mut);margin-top:2px">${T(ME.sent?'First video being analysed, about 3 minutes':'Add a first video to get the analysis')}</span>
           ${ME.sent?'<div style="height:4px;border-radius:2px;background:rgba(255,255,255,.08);margin-top:8px;overflow:hidden"><i style="display:block;height:100%;width:62%;background:#3B82F6;border-radius:2px"></i></div>':''}</div></div></div>`); } });
@@ -103,7 +123,7 @@
       <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><div><b>${T('Unlimited horses')}</b><span>${T('Every horse with its own page, trends and alerts')}</span></div></div>
       <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
     <button class="plBtn" id="plGo">${T('See the Pro plan')}</button><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
-    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1001130425#plans'; }; });
+    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1001131134#plans'; }; });
 
   /* professionals: pick one of their horses, then log the care of their job */
   const JOBTYPE={vet:'vet',farrier:'farrier',groom:null};
