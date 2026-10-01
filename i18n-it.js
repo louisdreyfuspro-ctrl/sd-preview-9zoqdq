@@ -77,6 +77,11 @@ SD_I18N_RUN({
 ]
 },
 "T": {
+"Metres and strides between fences": "Metri e falcate tra gli ostacoli",
+"≈ {#} strides": "≈ {#} falcate",
+"≈ {#} stride": "≈ {#} falcata",
+"Strides are estimated from the round's average stride ({#} m).": "Falcate stimate dalla falcata media del percorso ({#} m).",
+"highest point": "punto più alto",
 "Whole course": "Tutto il percorso",
 "Tap a fence · drag to turn · pinch to zoom": "Tocca un ostacolo · trascina per ruotare · pizzica per lo zoom",
 "Metres ridden to each fence": "Metri fino a ogni ostacolo",

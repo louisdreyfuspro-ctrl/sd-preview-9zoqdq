@@ -83,6 +83,11 @@ SD_I18N_RUN({
 ]
 },
 "T": {
+"Metres and strides between fences": "Mètres et foulées entre obstacles",
+"≈ {#} strides": "≈ {#} foulées",
+"≈ {#} stride": "≈ {#} foulée",
+"Strides are estimated from the round's average stride ({#} m).": "Foulées estimées à partir de la foulée moyenne du parcours ({#} m).",
+"highest point": "point le plus haut",
 "Whole course": "Tout le parcours",
 "Tap a fence · drag to turn · pinch to zoom": "Touchez un obstacle · glissez pour tourner · pincez pour zoomer",
 "Metres ridden to each fence": "Mètres jusqu'à chaque obstacle",

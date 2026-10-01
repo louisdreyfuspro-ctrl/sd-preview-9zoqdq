@@ -95,6 +95,11 @@ SD_I18N_RUN({
 ]
 },
 "T": {
+"Metres and strides between fences": "Metros y trancos entre obstáculos",
+"≈ {#} strides": "≈ {#} trancos",
+"≈ {#} stride": "≈ {#} tranco",
+"Strides are estimated from the round's average stride ({#} m).": "Trancos estimados a partir del tranco medio del recorrido ({#} m).",
+"highest point": "punto más alto",
 "Whole course": "Todo el recorrido",
 "Tap a fence · drag to turn · pinch to zoom": "Toca un obstáculo · arrastra para girar · pellizca para ampliar",
 "Metres ridden to each fence": "Metros hasta cada obstáculo",

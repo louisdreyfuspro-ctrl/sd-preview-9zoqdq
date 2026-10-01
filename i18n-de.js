@@ -107,6 +107,11 @@ SD_I18N_RUN({
 ]
 },
 "T": {
+"Metres and strides between fences": "Meter und Galoppsprünge",
+"≈ {#} strides": "≈ {#} Galoppsprünge",
+"≈ {#} stride": "≈ {#} Galoppsprung",
+"Strides are estimated from the round's average stride ({#} m).": "Galoppsprünge geschätzt aus dem durchschnittlichen Galoppsprung der Runde ({#} m).",
+"highest point": "höchster Punkt",
 "Whole course": "Ganzer Parcours",
 "Tap a fence · drag to turn · pinch to zoom": "Hindernis antippen · ziehen zum Drehen · mit zwei Fingern zoomen",
 "Metres ridden to each fence": "Meter bis zu jedem Hindernis",
