@@ -268,9 +268,12 @@
     idle:{rest:.12,amp:.2,period:18},
     /* points like the reference photo: a small solid dot, a thin leader line and a quiet label pill, pointing away from the body */
     css:
-      '.h3d-studio .mk .pin{position:relative;display:block;width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 6px rgba(0,0,0,.45);opacity:.92;transition:transform .3s cubic-bezier(.32,.72,0,1)}'
-      +'.h3d-studio .mk[data-state=watch] .pin,.h3d-studio .mk[data-state=attention] .pin{width:9px;height:9px;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 28%,transparent),0 0 12px 1px var(--c);opacity:1}'
-      +'.h3d-studio .mk[aria-pressed=true] .pin{transform:scale(1.35)}'
+      /* style A « Anneau fin » (chosen 1 Oct): a thin ring with a tiny core; the points to watch get a coloured ring */
+      '.h3d-studio .mk .pin{position:relative;display:block;width:11px;height:11px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);box-sizing:border-box;transition:transform .3s cubic-bezier(.32,.72,0,1)}'
+      +'.h3d-studio .mk .pin::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;margin:-1.5px 0 0 -1.5px;border-radius:50%;background:rgba(255,255,255,.8)}'
+      +'.h3d-studio .mk:not([data-state=normal]) .pin{width:15px;height:15px;border:2px solid var(--c);box-shadow:0 0 14px color-mix(in srgb,var(--c) 60%,transparent)}'
+      +'.h3d-studio .mk:not([data-state=normal]) .pin::after{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;background:var(--c)}'
+      +'.h3d-studio .mk[aria-pressed=true] .pin{transform:scale(1.25)}'
       +'.h3d-studio .mk .tag{position:absolute;top:50%;left:calc(50% + 22px);transform:translate(4px,-50%);white-space:nowrap;padding:5px 10px;border-radius:999px;background:rgba(24,28,36,.86);border:1px solid rgba(255,255,255,.08);'
       +'font:500 11.5px/1.15 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;letter-spacing:.1px;color:#D9DEE6;opacity:0;pointer-events:none;transition:opacity .3s,transform .35s cubic-bezier(.32,.72,0,1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}'
       +'.h3d-studio .mk .tag::before{content:"";position:absolute;top:50%;right:100%;width:16px;height:1px;background:rgba(255,255,255,.3)}'
