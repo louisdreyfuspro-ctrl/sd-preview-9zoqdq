@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1001131815"></script>
-<script src="plan.js?v=1001131815"></script>
-<script src="care.js?v=1001131815"></script>
+<script src="i18n.js?v=1001132435"></script>
+<script src="plan.js?v=1001132435"></script>
+<script src="care.js?v=1001132435"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -724,7 +724,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
 <div class="dev" id="devToggle">tabs: below video</div>
 
 <div class="top">
-  <div class="back" onclick="history.length>1?history.back():location.href='Etape%204%20-%20Sessions.html?v=1001131815'" style="cursor:pointer"><svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg></div>
+  <div class="back" onclick="history.length>1?history.back():location.href='Etape%204%20-%20Sessions.html?v=1001132435'" style="cursor:pointer"><svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg></div>
   <h1>Session</h1>
 </div>
 
@@ -1029,11 +1029,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg>Add a horse</button>
 </div>
 <div class="nav">
-  <a href="Etape%202%20-%20Home%20Pro.html?v=1001131815"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
-  <a href="Etape%203%20-%20My%20Horses.html?v=1001131815"><svg class="horse" viewBox="0 0 24 24"><image id="navHorse" x="1.5" y="2" width="21" height="20"/></svg>My Horses</a>
+  <a href="Etape%202%20-%20Home%20Pro.html?v=1001132435"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
+  <a href="Etape%203%20-%20My%20Horses.html?v=1001132435"><svg class="horse" viewBox="0 0 24 24"><image id="navHorse" x="1.5" y="2" width="21" height="20"/></svg>My Horses</a>
   <a href="#" class="plus" id="plusTab"><span class="plusBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></a>
-  <a href="Etape%204%20-%20Sessions.html?v=1001131815" class="on"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
-  <a href="Etape%205%20-%20Profile.html?v=1001131815"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.3" r="3.4"/><path d="M4.8 19.5c1.5-3.6 4.1-5.2 7.2-5.2s5.7 1.6 7.2 5.2"/></svg>Profile</a>
+  <a href="Etape%204%20-%20Sessions.html?v=1001132435" class="on"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
+  <a href="Etape%205%20-%20Profile.html?v=1001132435"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.3" r="3.4"/><path d="M4.8 19.5c1.5-3.6 4.1-5.2 7.2-5.2s5.7 1.6 7.2 5.2"/></svg>Profile</a>
 </div>
 
 <script id="horse3d-module">// 3D horse mesh: "Horse basemesh" by Sid Ahearne (sketchfab.com/SidAhearne), CC BY 4.0
@@ -2348,6 +2348,8 @@ function trSeries(m){
 const fmtD=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
 let trCur='s_perf', trMonths=3, trSel=null, trVisit=null;
 function renderTrends(){
+  /* the chart and the numbers animate when the metric, the period or the horse changes, not when a point is picked */
+  const ck=trCur+'|'+trMonths+'|'+((typeof CUR_H!=='undefined'&&CUR_H)?CUR_H.id:''), trSvg=document.getElementById('trChart'), trAnim=trSvg.dataset.ck!==ck; trSvg.dataset.ck=ck;
   const m=TR_ALL.find(x=>x.id===trCur), vals=trSeries(m), dec=(m.u==='per round'?0:(m.v<10?(m.sd<1?2:1):0)), f=v=>(+v).toFixed(dec);
   const since=new Date(TR_SESS[TR_SESS.length-1].date); since.setMonth(since.getMonth()-trMonths);   /* the period counts back from the latest session */
   const idx=TR_SESS.map((s,i)=>i).filter(i=>TR_SESS[i].date>=since);
@@ -2365,10 +2367,9 @@ function renderTrends(){
   const period={1:'the last month',3:'the last 3 months',6:'the last 6 months'}[trMonths];
   const big=document.getElementById('trBig'), target=vals[vals.length-1];
   big.innerHTML=`<span>${f(target)}</span><small>${m.u}</small>`;
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&big.dataset.m!==m.id){ const sp=big.firstChild, t0=performance.now();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&trAnim){ const sp=big.firstChild, t0=performance.now();
     const from=target*.82, tick=now=>{ const k=Math.min(1,(now-t0)/700), e=1-Math.pow(1-k,4); sp.textContent=f(from+(target-from)*e); if(k<1) requestAnimationFrame(tick); };
     requestAnimationFrame(tick); }
-  big.dataset.m=m.id;
   const lastV=vals[vals.length-1], isBest=m.better!==0&&P.every(p=>m.better>0?p.v<=lastV:p.v>=lastV);
   const tone=flat||m.better===0?'':((up===(m.better>0))?'up':'down'), LC={'':'#5B9BFF',up:'#3DD68C',down:'#F2555A'}[tone];
   document.getElementById('trWord').outerHTML=`<div class="trWord ${tone}" id="trWord"><svg viewBox="0 0 24 24">${arrow}</svg>${word}</div>`
@@ -2384,9 +2385,10 @@ function renderTrends(){
   const line=P.map((p,k)=>`${k?'L':'M'}${X(k).toFixed(1)} ${Y(p.v).toFixed(1)}`).join(' ');
   const avgY=Y(my), sk=P.findIndex(p=>p.i===trSel);
   let months='', lastM=-1;
-  P.forEach((p,k)=>{ const mo=p.s.date.getMonth(); if(mo!==lastM){ lastM=mo;
+  if(trMonths===1) P.forEach((p,k)=>{ months+=`<text x="${Math.min(X1-12,Math.max(X0+12,X(k)))}" y="${Y1+16}" text-anchor="middle" fill="#5A6472" font-size="8.5" font-weight="700">${fmtD(p.s.date)}</text>`; });
+  else P.forEach((p,k)=>{ const mo=p.s.date.getMonth(); if(mo!==lastM){ lastM=mo;
     months+=`<text x="${Math.min(X1-10,Math.max(X0+8,X(k)))}" y="${Y1+16}" text-anchor="middle" fill="#5A6472" font-size="8.5" font-weight="700">${p.s.date.toLocaleDateString('en-GB',{month:'short'})}</text>`; } });
-  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches||!trAnim;
   svg.innerHTML=`<defs><linearGradient id="trFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${LC}" stop-opacity=".32"/><stop offset="1" stop-color="${LC}" stop-opacity="0"/></linearGradient>
       <clipPath id="trClip"><rect x="0" y="0" width="${rm?330:0}" height="170">${rm?'':'<animate attributeName="width" from="0" to="330" dur=".9s" fill="freeze" calcMode="spline" keySplines=".23 1 .32 1" keyTimes="0;1"/>'}</rect></clipPath></defs>
     <line x1="${X0}" x2="${X1}" y1="${avgY}" y2="${avgY}" stroke="rgba(255,255,255,.35)" stroke-dasharray="3 4"/>
@@ -2394,9 +2396,9 @@ function renderTrends(){
     <g clip-path="url(#trClip)"><path d="${line} L${X(n-1)} ${Y1} L${X(0)} ${Y1}Z" fill="url(#trFill)"/>
       <path d="${line}" fill="none" stroke="${LC}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       ${P.map((p,k)=>`<circle cx="${X(k)}" cy="${Y(p.v)}" r="${p.s.kind==='Competition'?3.6:2.4}" fill="${p.s.kind==='Competition'?'#F5B544':'#0A0C10'}" stroke="${p.s.kind==='Competition'?'#F5B544':LC}" stroke-width="1.5"/>`).join('')}</g>
-    <line x1="${X(sk)}" x2="${X(sk)}" y1="${Y0-6}" y2="${Y1}" stroke="rgba(255,255,255,.25)"/>
+    <g class="trSelM"><line x1="${X(sk)}" x2="${X(sk)}" y1="${Y0-6}" y2="${Y1}" stroke="rgba(255,255,255,.25)"/>
     <circle cx="${X(sk)}" cy="${Y(P[sk].v)}" r="11" fill="${LC}" opacity=".18"/>
-    <circle cx="${X(sk)}" cy="${Y(P[sk].v)}" r="6" fill="#fff" stroke="${LC}" stroke-width="2.5"/>
+    <circle cx="${X(sk)}" cy="${Y(P[sk].v)}" r="6" fill="#fff" stroke="${LC}" stroke-width="2.5"/></g>
     <line x1="${X0}" x2="${X1}" y1="${Y1}" y2="${Y1}" stroke="rgba(255,255,255,.12)"/>${months}
     <rect id="trHit" x="0" y="0" width="330" height="170" fill="transparent"/>`;
   /* care visits (vet, osteopath, farrier…) on the timeline, with the average before and after */
@@ -2419,6 +2421,7 @@ function renderTrends(){
   const best=m.better<0?P.reduce((a,p)=>p.v<a.v?p:a):P.reduce((a,p)=>p.v>a.v?p:a);
   const cell=(k,v,x)=>`<div class="jstat"><div class="k">${k}</div><div class="v">${v}<small>${m.u}</small></div><div class="x">${x}</div></div>`;
   document.getElementById('trStats').innerHTML=cell(m.better===0?'Highest':'Best',f(best.v),fmtD(best.s.date))+cell('Average',f(my),n+' sessions')
+  if(trAnim&&window.SD_COUNT){ SD_COUNT(document.getElementById('trStats')); SD_FADE(trSvg.querySelector('.trSelM'),650); SD_FADE(document.getElementById('trSentence'),120); }
     +cell('Shows',f(P.filter(p=>p.s.kind==='Competition').reduce((a,p,_,A)=>a+p.v/A.length,0)),'average in competition');
   /* sessions, newest first */
   document.getElementById('trList').innerHTML=[...P].reverse().map(p=>`<div class="row trRow${p.i===trSel?' sel':''}" data-i="${p.i}" style="cursor:pointer">
@@ -3336,7 +3339,7 @@ document.getElementById('devToggle').onclick=()=>{
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1001131815'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1001132435'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;

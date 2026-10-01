@@ -5,6 +5,16 @@
    rider   : a rider inside a stable: only the horses the owner gave them, billing handled by the stable
    Chosen with ?plan= in the URL (boards) or kept in localStorage 'sdPlan' (Profile > Account type). */
 (function(){
+  /* motion shared by the charts: numbers count up, a chart wipes in from the left, only when what it shows changes */
+  const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.SD_COUNT=(root,dur=650)=>{ if(!root||RM()) return; const w=document.createTreeWalker(root,4), L=[]; let n;
+    while((n=w.nextNode())) if(/^\s*\d+(\.\d+)?\s*%?\s*$/.test(n.nodeValue)) L.push(n);
+    L.forEach(t=>{ const s=t.nodeValue, num=parseFloat(s), dec=((s.match(/\.(\d+)/)||[,''])[1]).length, from=num*.82, t0=performance.now();
+      const step=now=>{ const k=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-k,4); t.nodeValue=s.replace(/\d+(\.\d+)?/,(from+(num-from)*e).toFixed(dec)); if(k<1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); }); };
+  window.SD_WIPE=(el,delay=0)=>{ if(!el||RM()||!el.animate) return;
+    el.animate([{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)'}],{duration:850,delay,easing:'cubic-bezier(.23,1,.32,1)',fill:'backwards'}); };
+  window.SD_FADE=(el,delay=0)=>{ if(!el||RM()||!el.animate) return; el.animate([{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:380,delay,easing:'cubic-bezier(.23,1,.32,1)',fill:'backwards'}); };
   const P=['pro','premium','owner','rider','vet','farrier','groom'];
   let plan=null; try{ plan=new URLSearchParams(location.search).get('plan'); }catch(e){}
   /* a link with ?plan= also becomes the account type you stay in (not inside the TV boards' frames) */
@@ -123,7 +133,7 @@
       <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><div><b>${T('Unlimited horses')}</b><span>${T('Every horse with its own page, trends and alerts')}</span></div></div>
       <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
     <button class="plBtn" id="plGo">${T('See the Pro plan')}</button><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
-    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1001131815#plans'; }; });
+    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1001132435#plans'; }; });
 
   /* professionals: pick one of their horses, then log the care of their job */
   const JOBTYPE={vet:'vet',farrier:'farrier',groom:null};
