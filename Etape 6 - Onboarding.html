@@ -1503,6 +1503,12 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   document.getElementById('otpGo').onclick=verify;
   /* first steps: add the horse, then its first session */
   let horse=null, sess=null;
+  /* the account you just created is the one you land in: its plan, your name, your horse */
+  function goHome(){ const P={premium:'premium',pro:'pro',stable:'owner'}[plan]||'pro';
+    try{ localStorage.setItem('sdPlan',P);
+      localStorage.setItem('sdMe',JSON.stringify({name:firstName(),full:nE.value.trim(),email:eE.value.trim(),roles:[...role],
+        horse:horse?{name:horse.name}:null,sent:!!sess})); }catch(e){}
+    location.href='Etape%202%20-%20Home%20Pro.html?plan='+P; }
   function done(){ document.getElementById('hiName').textContent=`You're in, ${firstName()}.`; show(4); }
   function drawCl(){
     const y=document.getElementById('yay'); y.style.animation='none'; void y.offsetWidth; y.style.animation='';
@@ -1513,11 +1519,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
     const bar=document.getElementById('clBar');
     if(!horse) bar.innerHTML=`<button class="obBtn" id="clH">Add my horse</button>`;
     else if(!sess) bar.innerHTML=`<button class="obBtn" id="clS">Add ${horse.name}'s first session</button>${plan!=='premium'?'<button class="obBtn sec" id="clH2">Add another horse</button>':''}<span class="obLink"><b id="clLater">I'll do it later</b></span>`;
-    else bar.innerHTML=`<a class="obBtn" href="Etape%202%20-%20Home%20Pro.html">Go to my home</a>`;
+    else bar.innerHTML=`<button class="obBtn" id="clGo">Go to my home</button>`;
     const h=document.getElementById('clH'), h2=document.getElementById('clH2'), s=document.getElementById('clS'), l=document.getElementById('clLater');
     if(h) h.onclick=()=>openAddHorse(); if(h2) h2.onclick=()=>openAddHorse();
     if(s) s.onclick=()=>openUploadFor(horse.name);
-    if(l) l.onclick=()=>{ location.href='Etape%202%20-%20Home%20Pro.html'; };
+    if(l) l.onclick=goHome; const g=document.getElementById('clGo'); if(g) g.onclick=goHome;
     if(sess){ let p=12; const t=setInterval(()=>{ const b=document.getElementById('anaBar'); if(!b){ clearInterval(t); return; } p=Math.min(92,p+3); b.style.width=p+'%'; },900); }
   }
   /* Pro and Premium have one rider: no "who is it for" step in Add a horse */

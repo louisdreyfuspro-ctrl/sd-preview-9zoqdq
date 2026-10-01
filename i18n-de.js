@@ -1628,7 +1628,9 @@ SD_I18N_RUN({
 "No visit this month.": "Kein Besuch diesen Monat.",
 "A vet who follows horses of the stable": "Ein Tierarzt, der Pferde des Stalls betreut",
 "A farrier who shoes horses of the stable": "Ein Hufschmied, der Pferde des Stalls beschlägt",
-"A groom who looks after the horses": "Ein Pfleger, der die Pferde versorgt"
+"A groom who looks after the horses": "Ein Pfleger, der die Pferde versorgt",
+"First video being analysed, about 3 minutes": "Erstes Video wird analysiert, etwa 3 Minuten",
+"Add a first video to get the analysis": "Füge ein erstes Video hinzu, um die Analyse zu erhalten"
 },
 "dayDot": true
 });

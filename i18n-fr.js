@@ -1604,6 +1604,8 @@ SD_I18N_RUN({
 "No visit this month.": "Aucune visite ce mois-ci.",
 "A vet who follows horses of the stable": "Un véto qui suit des chevaux de l'écurie",
 "A farrier who shoes horses of the stable": "Un maréchal qui ferre des chevaux de l'écurie",
-"A groom who looks after the horses": "Un groom qui s'occupe des chevaux"
+"A groom who looks after the horses": "Un groom qui s'occupe des chevaux",
+"First video being analysed, about 3 minutes": "Première vidéo en cours d'analyse, environ 3 minutes",
+"Add a first video to get the analysis": "Ajoutez une première vidéo pour avoir l'analyse"
 }
 });

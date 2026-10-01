@@ -43,6 +43,20 @@
   /* keep ?plan= on internal links, so a board preview stays in its account type */
   if(new URLSearchParams(location.search).get('plan')) document.addEventListener('click',e=>{ const a=e.target.closest('a[href]'); if(!a) return;
     const h=a.getAttribute('href'); if(!h||!/^Etape/.test(h)) return; const u=new URL(h,location.href); u.searchParams.set('plan',plan); a.href=u.toString(); },true);
+  /* the person who signed up: their first name everywhere, and their horse on Home */
+  let ME=null; try{ ME=JSON.parse(localStorage.getItem('sdMe')); }catch(e){}
+  window.SD_ME=ME;
+  if(ME&&ME.name&&['pro','premium','owner'].includes(plan)){ SD_PLANS[plan].me=ME.name;
+    document.addEventListener('DOMContentLoaded',()=>{ const T=x=>(window.SD_T||(y=>y))(x);
+      const n=document.querySelector('.hi .n'); if(n) n.textContent=ME.name;
+      const av=document.querySelector('.av'); if(av&&av.firstChild&&av.firstChild.nodeType===3) av.firstChild.nodeValue=ME.name[0].toUpperCase();
+      const pN=document.getElementById('pN'), pE=document.getElementById('pE'); if(pN) pN.textContent=ME.full||ME.name; if(pE&&ME.email) pE.textContent=ME.email;
+      const avp=document.getElementById('av'); if(avp&&avp.firstChild&&avp.firstChild.nodeType===3) avp.firstChild.nodeValue=ME.name[0].toUpperCase();
+      if(ME.horse&&document.getElementById('errBan')){ const w=document.querySelector('.wrap');
+        w.insertAdjacentHTML('afterbegin',`<div class="sec in"><div class="card" style="display:flex;align-items:center;gap:12px"><span style="width:44px;height:44px;border-radius:50%;background:rgba(59,130,246,.14);display:grid;place-items:center;font-weight:800;color:#8DB8FF;flex:0 0 auto">${ME.horse.name.slice(0,2).toUpperCase()}</span>
+          <div style="flex:1;min-width:0"><b style="display:block;font-size:15px">${ME.horse.name}</b><span style="display:block;font-size:12.5px;color:var(--mut);margin-top:2px">${T(ME.sent?'First video being analysed, about 3 minutes':'Add a first video to get the analysis')}</span>
+          ${ME.sent?'<div style="height:4px;border-radius:2px;background:rgba(255,255,255,.08);margin-top:8px;overflow:hidden"><i style="display:block;height:100%;width:62%;background:#3B82F6;border-radius:2px"></i></div>':''}</div></div></div>`); } });
+  }
   if(plan==='pro') return;
 
   const T=x=>(window.SD_T||(y=>y))(x);

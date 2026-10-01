@@ -1616,6 +1616,8 @@ SD_I18N_RUN({
 "No visit this month.": "Ninguna visita este mes.",
 "A vet who follows horses of the stable": "Un veterinario que sigue caballos de la cuadra",
 "A farrier who shoes horses of the stable": "Un herrador que hierra caballos de la cuadra",
-"A groom who looks after the horses": "Un mozo que cuida los caballos"
+"A groom who looks after the horses": "Un mozo que cuida los caballos",
+"First video being analysed, about 3 minutes": "Primer vídeo en análisis, unos 3 minutos",
+"Add a first video to get the analysis": "Añade un primer vídeo para tener el análisis"
 }
 });
