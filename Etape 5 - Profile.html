@@ -2,9 +2,9 @@
 <html lang="en" data-page="profile">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1001144910"></script>
-<script src="plan.js?v=1001144910"></script>
-<script src="care.js?v=1001144910"></script>
+<script src="i18n.js?v=1001145144"></script>
+<script src="plan.js?v=1001145144"></script>
+<script src="care.js?v=1001145144"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -833,10 +833,10 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg>Add a horse</button>
 </div>
 <div class="nav">
-  <a href="Etape%202%20-%20Home%20Pro.html?v=1001144910"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
-  <a href="Etape%203%20-%20My%20Horses.html?v=1001144910"><svg class="horse" viewBox="0 0 24 24"><image id="navHorse" x="1.5" y="2" width="21" height="20"/></svg>My Horses</a>
+  <a href="Etape%202%20-%20Home%20Pro.html?v=1001145144"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
+  <a href="Etape%203%20-%20My%20Horses.html?v=1001145144"><svg class="horse" viewBox="0 0 24 24"><image id="navHorse" x="1.5" y="2" width="21" height="20"/></svg>My Horses</a>
   <a href="#" class="plus" id="plusTab"><span class="plusBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></a>
-  <a href="Etape%204%20-%20Sessions.html?v=1001144910"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
+  <a href="Etape%204%20-%20Sessions.html?v=1001145144"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
   <a href="#" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.3" r="3.4"/><path d="M4.8 19.5c1.5-3.6 4.1-5.2 7.2-5.2s5.7 1.6 7.2 5.2"/></svg>Profile</a>
 </div>
 
@@ -866,7 +866,7 @@ function groups(){
   const TEAM=[['Marie S.','You · owner','Quintus Z, Nova de Lys'],['John Doe','Rider','Midnight Bolt, Silver Arrow'],['Lea Martin','Rider','Bella Donna'],['Paul Girard','Groom','All horses'],['Dr. Anne Keller','Vet','Midnight Bolt, Silver Arrow'],['Lucas Bernard','Farrier','All horses']];
   const ini=n=>n.replace('Dr. ','').split(' ').map(x=>x[0]).join('').slice(0,2);
   const G=[
-    ...(SD_PLAN==='owner'?[['TEAM & ACCESS',[...TEAM.map(([n,r,h])=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1001144910#p=${ini(n)}" style="text-decoration:none;color:inherit"><span class="ri tmI">${ini(n)}</span><div class="t"><div class="a">${n}</div><div class="b">${r} · ${h}</div></div>${CHV}</a>`),
+    ...(SD_PLAN==='owner'?[['TEAM & ACCESS',[...TEAM.map(([n,r,h])=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1001145144#p=${ini(n)}" style="text-decoration:none;color:inherit"><span class="ri tmI">${ini(n)}</span><div class="t"><div class="a">${n}</div><div class="b">${r} · ${h}</div></div>${CHV}</a>`),
       li('user-plus-rounded','Add a user','Rider, trainer, groom, vet: invite them, choose their horses',null,'rider')]]]:[]),
     ...(SD_PLAN==='rider'||window.SD_STAFF?[['YOUR STABLE',[`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">É</span><div class="t"><div class="a">${SD_STABLE}</div><div class="b">${window.SD_STAFF?"Managed by Marie S. · "+SD_FOLLOW().length+" horses you follow":"Managed by Marie S. · you ride 2 horses"}</div></div></div>`]]]:[]),
     ['ACCOUNT',[li('user-rounded','Personal info',`${ME.name} ${ME.last} · ${ME.email}`,null,'edit'),
@@ -1317,7 +1317,7 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1001144910'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1001145144'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;
