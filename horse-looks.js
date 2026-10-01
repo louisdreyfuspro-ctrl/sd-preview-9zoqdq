@@ -551,6 +551,8 @@
     +'.hlStage{transition:opacity .28s cubic-bezier(.23,1,.32,1)}.hlStage.out{opacity:0}';
   document.head.append(css);
   window.initHorse3D=function(container,options){
+    const fixed=options.look||window.SD_HL_FIXED;   /* a fixed rendering, no picker (onboarding) */
+    if(fixed){ const l=LOOKS.find(x=>x[0]===fixed)||LOOKS[0]; return l[2](container,options); }
     let inst=null, states={}, sel=null, side=options.side||'left', paused=false;
     (options.keypoints||[]).forEach(k=>states[k.id]=k.state);
     const stage=document.createElement('div'); stage.className='hlStage'; container.append(stage);
