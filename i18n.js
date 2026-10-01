@@ -107,5 +107,5 @@
     if(document.body) walk(document.body);
     document.addEventListener('DOMContentLoaded',function(){ walk(document.body); });
   };
-  document.write('<script src="i18n-'+lang+'.js?v=1001134453"><\/script>');
+  document.write('<script src="i18n-'+lang+'.js?v=1001134653"><\/script>');
 })();
