@@ -145,8 +145,8 @@ window.renderCourseMap=function(root,TD,JDATA,opts){
   }
   function kick(){ if(!raf&&alive) raf=requestAnimationFrame(frame); }
   function draw(){ render(performance.now()); ui(); }
-  function frame(now){
-    raf=0; if(!alive) return; var busy=false;
+  function frame(){
+    var now=performance.now(); raf=0; if(!alive) return; var busy=false;
     if(camAnim){ var u=clamp((now-camAnim.t0)/camAnim.ms), q=eIO(u), A=camAnim.a, to=camAnim.to;
       if(now>=camAnim.t0){ ['cx','cy','el','k'].forEach(function(key){ cam[key]=A[key]+(to[key]-A[key])*q; }); cam.az=A.az+camAnim.daz*q; }
       if(u<1) busy=true; else camAnim=null; }
