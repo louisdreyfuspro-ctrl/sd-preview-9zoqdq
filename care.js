@@ -20,7 +20,16 @@
     nl:[['dentist','2026-04-07','',''],['farrier','2026-07-01','',''],['osteo','2026-09-15','','']],
     /* client horses of the vet and of the farrier (outside the stable) */
     c_orf:[['vet','2026-04-14','Dr. Anne Keller','Vaccination'],['farrier','2026-08-05','',''],['vet','2026-09-22','Dr. Anne Keller','Check-up'],['vet','2026-10-09','Dr. Anne Keller','Follow-up']],
-    c_uly:[['farrier','2026-06-24','Lucas Bernard',''],['vet','2026-07-15','',''],['farrier','2026-08-12','Lucas Bernard','']]};
+    c_uly:[['farrier','2026-06-24','Lucas Bernard',''],['vet','2026-07-15','',''],['farrier','2026-08-12','Lucas Bernard','']],
+    /* horses of the other stables of the vet and of the farrier (Haras des Tilleuls, Écurie du Moulin, Domaine des Landes) */
+    x_cas:[['vet','2026-04-21','Dr. Anne Keller','Vaccination'],['farrier','2026-08-26','Lucas Bernard',''],['vet','2026-09-10','Dr. Anne Keller','Check-up']],
+    x_val:[['vet','2026-07-30','',''],['farrier','2026-08-05','Lucas Bernard',''],['vet','2026-09-24','Dr. Anne Keller','Check-up']],
+    x_jaz:[['vet','2026-06-18','Dr. Anne Keller','Vaccination'],['farrier','2026-09-14','Lucas Bernard','']],
+    x_eli:[['farrier','2026-08-20','',''],['vet','2026-09-17','Dr. Anne Keller','Vaccination']],
+    x_opa:[['vet','2026-08-11','Dr. Anne Keller','Check-up'],['farrier','2026-08-31','','']],
+    x_tor:[['vet','2026-05-06','',''],['farrier','2026-09-21','Lucas Bernard','']],
+    x_bon:[['farrier','2026-08-17','Lucas Bernard',''],['osteo','2026-09-08','','']],
+    x_iro:[['farrier','2026-08-24','Lucas Bernard',''],['vet','2026-09-03','','']]};
   let store={}; try{ store=JSON.parse(localStorage.getItem('sdVisits'))||{}; }catch(e){}
   function list(hid){ if(!store[hid]) store[hid]=(SAMPLE[hid]||[]).map(([type,date,who,note],i)=>({id:hid+i,type,date,who,note}));
     return store[hid].map(v=>({...v,d:day(v.date)})).sort((a,b)=>a.d-b.d); }

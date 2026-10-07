@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1007111803"></script>
+<script src="i18n.js?v=1007115209"></script>
 <script>window.SD_OFFERS_ONLY=true;   /* plan.js gives this page only the plans (one source with Profile) */</script>
-<script src="plan.js?v=1007111803"></script>
-<script src="coursemap.js?v=1007111803"></script>
+<script src="plan.js?v=1007115209"></script>
+<script src="coursemap.js?v=1007115209"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -317,7 +317,12 @@ html[data-theme="light"] .lgSheet{background:var(--card)}
   .pc.on .rad{border-color:var(--blue);background:var(--blue)} .pc.on .rad::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
   .pc .tag{position:absolute;top:-9px;right:14px;font-size:10px;font-weight:800;color:#fff;background:var(--blue);border-radius:999px;padding:2px 9px}
   .trial{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:12.5px;color:var(--mut);line-height:1.45}
-  .trial .ic{width:18px;height:18px;color:#5BE3A0;margin-top:1px}
+  .trial .ic{width:18px;height:18px;color:#8DB8FF;margin-top:1px}
+  .pc .trP{display:inline-flex;margin-top:9px;font-size:11px;font-weight:800;letter-spacing:.2px;color:#C7CFDB;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px}
+  .pc.on .trP{color:#CFE0FF;background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.3)}
+  .obThen{font-size:12px;line-height:1.45;color:var(--mut);text-align:center;margin-top:10px}
+  html[data-theme="light"] .pc .trP{color:#4A5361;background:rgba(16,24,40,.04);border-color:rgba(16,24,40,.1)} html[data-theme="light"] .pc.on .trP{color:#1D4ED8;background:rgba(59,130,246,.08);border-color:rgba(37,99,235,.25)}
+  html[data-theme="light"] .trial .ic{color:#2563EB}
   /* account */
   .or{display:flex;align-items:center;gap:10px;margin:18px 0 4px;font-size:12px;color:var(--dim)} .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
   .fl{font-size:11px;font-weight:800;letter-spacing:.7px;color:var(--mut);margin:14px 2px 7px}
@@ -514,11 +519,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
 <!-- 1 PLAN -->
 <section class="ob" id="ob1">
   <div class="obTop"><div class="obBk" data-back><svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg></div><div class="obDots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div></div>
-  <div class="obW"><div class="obH">Choose your plan</div><div class="obS">7 days free. You can change plan at any time.</div>
+  <div class="obW"><div class="obH">Choose your plan</div><div class="obS">30 days free. You can change plan at any time.</div>
     <div class="per2" id="per"><button class="on" data-p="m">Monthly</button><button data-p="h">6 months <em>−15%</em></button></div>
     <div class="plans" id="plans"></div>
     <div class="trial"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"><path stroke-linecap="round" d="M4 11v4c0 3.3 0 4.95 1.025 5.975S7.7 22 11 22h2c3.3 0 4.95 0 5.975-1.025S20 18.3 20 15v-4"/><path d="M3 9c0-.748 0-1.122.201-1.4a1.4 1.4 0 0 1 .549-.44C4.098 7 4.565 7 5.5 7h13c.935 0 1.402 0 1.75.16c.228.106.417.258.549.44C21 7.878 21 8.252 21 9s0 1.121-.201 1.4a1.4 1.4 0 0 1-.549.44c-.348.16-.815.16-1.75.16h-13c-.935 0-1.402 0-1.75-.16a1.4 1.4 0 0 1-.549-.44C3 10.121 3 9.748 3 9Zm3-5.214C6 2.799 6.8 2 7.786 2h.357A3.857 3.857 0 0 1 12 5.857V7H9.214A3.214 3.214 0 0 1 6 3.786Zm12 0C18 2.799 17.2 2 16.214 2h-.357A3.857 3.857 0 0 0 12 5.857V7h2.786A3.214 3.214 0 0 0 18 3.786Z"/><path stroke-linecap="round" d="M12 11v11"/></g></svg></span><span>Nothing to pay today. We remind you 2 days before the trial ends, cancel in one tap.</span></div></div>
-  <div class="obBar"><button class="obBtn" id="planGo">Start my 7-day free trial</button></div>
+  <div class="obBar"><button class="obBtn" id="planGo">Start 30-day free trial</button><div class="obThen" id="planThen"></div></div>
 </section>
 <!-- 2 ACCOUNT -->
 <section class="ob" id="ob2">
@@ -530,7 +535,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
     <div class="fl">EMAIL</div><div class="fi" id="fMail"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"><path d="m2 6l6.913 3.917c2.549 1.444 3.625 1.444 6.174 0L22 6"/><path d="M2.016 13.476c.065 3.065.098 4.598 1.229 5.733c1.131 1.136 2.705 1.175 5.854 1.254c1.94.05 3.862.05 5.802 0c3.149-.079 4.723-.118 5.854-1.254c1.131-1.135 1.164-2.668 1.23-5.733c.02-.986.02-1.966 0-2.952c-.066-3.065-.099-4.598-1.23-5.733c-1.131-1.136-2.705-1.175-5.854-1.254a115 115 0 0 0-5.802 0c-3.149.079-4.723.118-5.854 1.254c-1.131 1.135-1.164 2.668-1.23 5.733a69 69 0 0 0 0 2.952Z"/></g></svg></span><input id="aE" type="email" inputmode="email" placeholder="you@stable.com" autocomplete="email"></div><div class="err" id="eMail"></div>
     <div class="fl">PASSWORD</div><div class="fi"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><g fill="currentColor"><path d="M232 98.36c-1.27 38.56-33.33 69.64-71.91 69.64a71.7 71.7 0 0 1-26.92-5.17L120 176H96v24H72v24H40a8 8 0 0 1-8-8v-28.69a8 8 0 0 1 2.34-5.65l58.83-58.83A71.7 71.7 0 0 1 88 95.91c0-38.58 31.08-70.64 69.64-71.87A72 72 0 0 1 232 98.36" opacity=".2"/><path d="M216.57 39.43a80 80 0 0 0-132.66 81.35L28.69 176A15.86 15.86 0 0 0 24 187.31V216a16 16 0 0 0 16 16h32a8 8 0 0 0 8-8v-16h16a8 8 0 0 0 8-8v-16h16a8 8 0 0 0 5.66-2.34l9.56-9.57A79.7 79.7 0 0 0 160 176h.1a80 80 0 0 0 56.47-136.57M224 98.1c-1.09 34.09-29.75 61.86-63.89 61.9H160a63.7 63.7 0 0 1-23.65-4.51a8 8 0 0 0-8.84 1.68L116.69 168H96a8 8 0 0 0-8 8v16H72a8 8 0 0 0-8 8v16H40v-28.69l58.83-58.82a8 8 0 0 0 1.68-8.84A63.7 63.7 0 0 1 96 95.92c0-34.14 27.81-62.8 61.9-63.89A64 64 0 0 1 224 98.1M192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12"/></g></svg></span><input id="aP" type="password" placeholder="8 characters or more" autocomplete="new-password"><button id="aShow">Show</button></div>
     <div class="pw" id="pw"><i></i><i></i><i></i><i></i></div><div class="pwT" id="pwT">Use 8 characters, with a number.</div>
-    <div class="fl">YOUR ROLES <span class="flH">Pick all that apply</span></div><div class="roles" id="roles"><button data-r="Rider">Rider</button><button data-r="Owner">Stable owner</button><button data-r="Trainer">Coach / Trainer</button><button data-r="Manager">Stable manager</button><button data-r="Groom">Groom</button><button data-r="Vet">Vet</button><button data-r="Farrier">Farrier</button><button data-r="Dentist">Dentist</button><button data-r="Breeder">Breeder</button><button data-r="HorseOwner">Horse owner</button><button data-r="Parent">Parent of a rider</button><button data-r="Other">Other</button></div><div class="roleSum" id="roleSum"></div>
+    <div class="fl">YOUR ROLES <span class="flH">Pick all that apply</span></div><div class="roles" id="roles"><button data-r="Owner">Stable Owner</button><button data-r="Rider">Rider</button><button data-r="Vet">Vet / Osteo</button><button data-r="Farrier">Farrier</button><button data-r="Trainer">Trainer</button><button data-r="HorseOwner">Horse Owner</button><button data-r="Groom">Groom</button><button data-r="Other">Others</button></div><div class="roleSum" id="roleSum"></div>
     <div class="ck" id="ckT"><i></i><span>I am 18 or older and I agree to the <a href="#">Terms</a> and the <a href="#">Privacy policy</a>.</span></div>
     <div class="ck" id="ckM"><i></i><span>Send me tips and news from StrydeUp. <span style="color:var(--dim)">Optional</span></span></div></div>
   <div class="obBar"><button class="obBtn" id="accGo" disabled>Continue</button></div>
@@ -790,7 +795,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   };
 })();
 </script>
-<script>window.SD_HL_FIXED='D';</script><script src="horse-looks.js?v=1007111803"></script>
+<script>window.SD_HL_FIXED='D';</script><script src="horse-looks.js?v=1007115209"></script>
 <style>
   /* ADD A SESSION v2: the StrydeUp form (video, core details, environment, specifications, rider feel) as 4 short steps */
   #upP{position:fixed;inset:0;max-width:420px;margin:0 auto;z-index:97;background:var(--bg);overflow-y:auto;transform:translateX(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);padding-bottom:120px;-webkit-overflow-scrolling:touch}
@@ -1063,7 +1068,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007111803'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007115209'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;
@@ -1452,11 +1457,14 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   function drawPlans(){ document.querySelectorAll('#per button').forEach(b=>b.classList.toggle('on',b.dataset.p===per));
     document.getElementById('plans').innerHTML=PL.map(p=>`<button class="pc${p.k===plan?' on':''}" data-k="${p.k}">${p.tag?`<span class="tag">${p.tag}</span>`:''}
       <div class="h"><span class="rad"></span>${PLI[p.k]||''}<b>${p.n}</b><span class="pr">$${per==='m'||!p.h?p.m:p.h}<small> / ${per==='m'||!p.h?'month':'6 months'}</small></span></div>
-      <div class="who">${p.who}${per==='h'&&!p.h?' <span style="color:var(--dim)">Monthly only.</span>':''}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul></button>`).join('');
-    document.querySelectorAll('#plans .pc').forEach(b=>b.onclick=()=>{ plan=b.dataset.k; drawPlans(); }); }
+      <div class="who">${p.who}${per==='h'&&!p.h?' <span style="color:var(--dim)">Monthly only.</span>':''}</div><span class="trP">30 days free</span><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul></button>`).join('');
+    document.querySelectorAll('#plans .pc').forEach(b=>b.onclick=()=>{ plan=b.dataset.k; drawPlans(); });
+    /* under the button: what happens after the 30 days */
+    const p=PL.find(x=>x.k===plan)||PL[0], six=per==='h'&&p.h;
+    document.getElementById('planThen').innerHTML=`<span>${six?`Then $${p.h} every 6 months.`:`Then $${p.m}/month.`}</span> <span>Cancel anytime before the trial ends.</span>`; }
   document.querySelectorAll('#per button').forEach(b=>b.onclick=()=>{ per=b.dataset.p; drawPlans(); });
   drawPlans();
-  document.getElementById('planGo').onclick=()=>{ const p=PL.find(x=>x.k===plan); document.getElementById('planRecap').textContent=`${p.n} · 7 days free, then $${per==='m'||!p.h?p.m+' a month':p.h+' every 6 months'}.`; show(2); };
+  document.getElementById('planGo').onclick=()=>{ const p=PL.find(x=>x.k===plan); document.getElementById('planRecap').textContent=`${p.n} · 30 days free, then $${per==='m'||!p.h?p.m+' a month':p.h+' every 6 months'}.`; show(2); };
   /* account: social in one tap, or 3 fields */
   const nE=document.getElementById('aN'), eE=document.getElementById('aE'), pE=document.getElementById('aP');
   const mailOk=x=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(x);
@@ -1502,13 +1510,15 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   /* first steps: add the horse, then its first session */
   let horse=null, sess=null; const MINE=[];
   /* the account you just created is the one you land in: its plan, your name, your horse */
-  function goHome(){ const P={premium:'premium',pro:'pro',owner:'owner'}[plan]||'pro';
+  /* the role picked decides the account you land in (the first one, in the order of the list); Trainer has its own account, Others is a rider for now */
+  const ROLE_ACC=[['Owner','owner'],['Rider','rider'],['Vet','vet'],['Farrier','farrier'],['Trainer','trainer'],['HorseOwner','horseowner'],['Groom','groom'],['Other','rider']];
+  function goHome(){ const R=ROLE_ACC.find(([r])=>role.has(r)), P=R?R[1]:({premium:'premium',pro:'pro',owner:'owner'}[plan]||'pro');
     /* a new account starts clean: nothing left over from accounts tried before on this phone */
     try{ ['sdVisits','sdPersonal','sdStaffHorses','sdGear','sdGearLast','sdLastFeel','sdHomeTrends','sdNotifRead','sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
     try{ localStorage.setItem('sdPlan',P);
       localStorage.setItem('sdMe',JSON.stringify({name:firstName(),full:nE.value.trim(),email:eE.value.trim(),roles:[...role],
-        horse:horse?{name:horse.name}:null,horses:MINE.map(h=>h.name),sent:!!sess})); }catch(e){}
-    location.href='Etape%202%20-%20Home%20Pro.html?v=1007111803&plan='+P; }
+        horse:horse?{name:horse.name}:null,horses:MINE.map(h=>h.name),sent:!!sess,trial:{plan,start:Date.now(),days:30}})); }catch(e){}
+    location.href='Etape%202%20-%20Home%20Pro.html?v=1007115209&plan='+P; }
   function done(){ document.getElementById('hiName').textContent=`You're in, ${firstName()}.`; show(4); }
   function drawCl(){
     const y=document.getElementById('yay'); y.style.animation='none'; void y.offsetWidth; y.style.animation='';

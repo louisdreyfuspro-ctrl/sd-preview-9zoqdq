@@ -2,9 +2,9 @@
 <html lang="en" data-page="profile">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1007111803"></script>
-<script src="plan.js?v=1007111803"></script>
-<script src="care.js?v=1007111803"></script>
+<script src="i18n.js?v=1007115209"></script>
+<script src="plan.js?v=1007115209"></script>
+<script src="care.js?v=1007115209"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -823,6 +823,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
 </div>
 
 <div class="veil" id="veil"></div>
+<style>
+  #planL .trP{display:inline-flex;margin-top:8px;font-size:11px;font-weight:800;color:#C7CFDB;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px}
+  #planL .trThen{font-size:11.5px;line-height:1.45;color:var(--mut);text-align:center;margin-top:8px}
+  html[data-theme="light"] #planL .trP{color:#4A5361;background:rgba(16,24,40,.04);border-color:rgba(16,24,40,.1)}
+</style>
 <div class="qs" id="planS"><div class="grab"></div><h3>Plans</h3><div style="font-size:12.5px;color:var(--mut);margin-top:3px">Pick the plan that fits how you ride.</div><div id="planL"></div></div>
 <div class="qs" id="edS"><div class="grab"></div><h3>Edit profile</h3><div class="fm" id="edF"></div><button class="saveB" id="edSave">Save</button></div>
 <div class="qs" id="pickS"><div class="grab"></div><h3 id="pickT"></h3><div id="pickO" style="margin-top:6px"></div></div>
@@ -833,10 +838,10 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg>Add a horse</button>
 </div>
 <div class="nav">
-  <a href="Etape%202%20-%20Home%20Pro.html?v=1007111803"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
-  <a href="Etape%203%20-%20My%20Horses.html?v=1007111803"><svg class="horse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 21c-4.5-5-1.5-8-1.5-8c.924 2.463 4 2 4 2l1.774 1.36a.885.885 0 0 0 1.197-.23l1.327-1.602a1.034 1.034 0 0 0-.068-1.312l-1.282-1.367a4.37 4.37 0 0 1-1.116-2.313C18.17 8.5 17.5 7.5 16.887 6.908L16 6l1-3s-2.576.03-3.5 2C7.5 5.5 3 9.536 3 21"/></svg>My Horses</a>
+  <a href="Etape%202%20-%20Home%20Pro.html?v=1007115209"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
+  <a href="Etape%203%20-%20My%20Horses.html?v=1007115209"><svg class="horse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 21c-4.5-5-1.5-8-1.5-8c.924 2.463 4 2 4 2l1.774 1.36a.885.885 0 0 0 1.197-.23l1.327-1.602a1.034 1.034 0 0 0-.068-1.312l-1.282-1.367a4.37 4.37 0 0 1-1.116-2.313C18.17 8.5 17.5 7.5 16.887 6.908L16 6l1-3s-2.576.03-3.5 2C7.5 5.5 3 9.536 3 21"/></svg>My Horses</a>
   <a href="#" class="plus" id="plusTab"><span class="plusBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></a>
-  <a href="Etape%204%20-%20Sessions.html?v=1007111803"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
+  <a href="Etape%204%20-%20Sessions.html?v=1007115209"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
   <a href="#" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.3" r="3.4"/><path d="M4.8 19.5c1.5-3.6 4.1-5.2 7.2-5.2s5.7 1.6 7.2 5.2"/></svg>Profile</a>
 </div>
 
@@ -847,7 +852,7 @@ const ic=(k,px,col)=>`<span class="ic" style="width:${px}px;height:${px}px;${col
 const CHV='<svg class="chv" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg>';
 /* the rider of the account (Pro = one rider) */
 const ME={name:'Marie', last:'S.', email:'marie@stable.com', level:'1.45 m', country:'France', fei:'10123456'};
-if(SD_PLAN==='rider') Object.assign(ME,window.SD_AS_GROOM?{name:'Paul',last:'Girard',email:'paul@stable.com'}:{name:'John',last:'Doe',email:'john@stable.com'});
+if(SD_PLAN==='rider') Object.assign(ME,window.SD_AS?{name:SD_PLANS.rider.full.split(' ')[0],last:SD_PLANS.rider.full.split(' ').slice(1).join(' '),email:SD_PLANS.rider.email}:{name:'John',last:'Doe',email:'john@stable.com'});
 if(window.SD_STAFF){ const m=SD_PLANS[SD_PLAN]; Object.assign(ME,{name:m.full.replace(/ [^ ]+$/,''),last:m.full.split(' ').pop(),email:m.email}); }
 const PREF={units:'Metric', lang:'English', notifReady:true, notifAlerts:true, wifi:true, faceid:true, twofa:false};
 Object.defineProperty(PREF,'notifAll',{get(){ return this.notifReady&&this.notifAlerts; },set(v){ this.notifReady=v; this.notifAlerts=v; },enumerable:false});
@@ -866,9 +871,17 @@ function groups(){
   const TEAM=[['Marie S.','You · owner','Quintus Z, Nova de Lys'],['John Doe','Rider','Midnight Bolt, Silver Arrow'],['Lea Martin','Rider','Bella Donna'],['Paul Girard','Groom','Midnight Bolt, Quintus Z, Bella Donna'],['Dr. Anne Keller','Vet','Midnight Bolt, Silver Arrow'],['Lucas Bernard','Farrier','All horses']];
   const ini=n=>n.replace('Dr. ','').split(' ').map(x=>x[0]).join('').slice(0,2);
   const G=[
-    ...(SD_PLAN==='owner'?[['TEAM & ACCESS',[...TEAM.map(([n,r,h])=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007111803#p=${ini(n)}" style="text-decoration:none;color:inherit"><span class="ri tmI">${ini(n)}</span><div class="t"><div class="a">${n}</div><div class="b">${r} · ${h}</div></div>${CHV}</a>`),
+    ...(SD_PLAN==='owner'?[['TEAM & ACCESS',[...TEAM.map(([n,r,h])=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007115209#p=${ini(n)}" style="text-decoration:none;color:inherit"><span class="ri tmI">${ini(n)}</span><div class="t"><div class="a">${n}</div><div class="b">${r} · ${h}</div></div>${CHV}</a>`),
       li('user-plus-rounded','Add a user','Rider, trainer, groom, vet: invite them, choose their horses',null,'rider')]]]:[]),
-    ...(SD_PLAN==='rider'||window.SD_STAFF?[['YOUR STABLE',[`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">É</span><div class="t"><div class="a">${SD_STABLE}</div><div class="b">${SD_OWNERIZE(window.SD_STAFF?"Managed by Marie S. · "+(SD_PLAN==='groom'?'you are its groom':SD_PLAN==='vet'?'you are its vet':'you are its farrier'):"Managed by Marie S. · you ride 2 horses")}</div></div></div>`]]]:[]),
+    /* Stable Owner: the private owners of the horses (added on each horse page), their horses and where their invitation is */
+    ...(SD_PLAN==='owner'&&window.SD_HOWNERS?[['OWNERS',[...(()=>{ const M=SD_HOWNERS(), by={}, N={mb:'Midnight Bolt',qz:'Quintus Z',bd:'Bella Donna',sa:'Silver Arrow',nl:'Nova de Lys'};
+        Object.keys(M).forEach(k=>{ const o=M[k], key=o.e||o.n; (by[key]=by[key]||{o,hs:[]}).hs.push(k); if(o.st==='invited') by[key].o=o; });
+        return Object.values(by).map(({o,hs})=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007115209#h=${hs[0]}" style="text-decoration:none;color:inherit"><span class="ri tmI">${o.n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span><div class="t"><div class="a">${o.n}</div><div class="b">${hs.map(k=>N[k]||k).join(', ')}</div></div><em class="hoPill${o.st==='invited'?' inv':''}">${o.st==='invited'?'Invited':'Active'}</em>${CHV}</a>`); })(),
+      `<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007115209#v=horses" style="text-decoration:none;color:inherit"><span class="ri">${ic('user-plus-rounded',18)}</span><div class="t"><div class="a">Add the owner of a horse</div><div class="b">On the horse page, in About</div></div>${CHV}</a>`]]]:[]),
+    /* a vet and a farrier work for several stables, and can join one more with its invite code */
+    ...(window.SD_MULTI?[['YOUR STABLES',[...SD_STABLES.map(s=>`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">${s.ini}</span><div class="t"><div class="a">${s.n}</div><div class="b">${'Managed by '+s.mgr+' · '+(SD_PLAN==='vet'?'you are its vet':'you are its farrier')}</div></div><span class="v">${(n=>n+' '+(n===1?'horse':'horses'))(s.id==='ms'?SD_FOLLOW().length:SD_XH.filter(h=>h.st===s.id).length)}</span></div>`),
+      li('users-group-rounded','Join a stable','Enter the invite code the stable gave you',null,'join')]]]:[]),
+    ...((SD_PLAN==='rider'||window.SD_STAFF)&&!window.SD_MULTI?[['YOUR STABLE',[`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">É</span><div class="t"><div class="a">${SD_STABLE}</div><div class="b">${SD_OWNERIZE(window.SD_STAFF?"Managed by Marie S. · "+(SD_PLAN==='groom'?'you are its groom':SD_PLAN==='vet'?'you are its vet':'you are its farrier'):"Managed by Marie S. · "+(({groom:'you are its groom',trainer:'you train here',horseowner:'2 of your horses live here'})[window.SD_AS]||'you ride 2 horses'))}</div></div></div>`]]]:[]),
     ['ACCOUNT',[li('user-id','Personal info',`${ME.name} ${ME.last} · ${ME.email}`,null,'edit'),
                 li('shield-keyhole','Password & security','Password, Face ID, devices',null,'sec')]],
     ['NOTIFICATIONS',[li('bell-bing','All notifications',PREF.notifReady||PREF.notifAlerts?'On':'Everything is off',tg('notifAll')),
@@ -895,7 +908,8 @@ function groups(){
     if(a==='sec') openSec();
     if(a==='help') openHelp();
     if(a==='rider') openAddRider();
-    if(a==='plan') openPlanPick(); });
+    if(a==='plan') openPlanPick();
+    if(a==='join'&&window.SD_JOIN_STABLE) SD_JOIN_STABLE(); });
 }
 groups();
 /* sheets */
@@ -908,7 +922,8 @@ function openLang(){ document.getElementById('pickT').textContent='Language';
   document.querySelectorAll('#pickO .li').forEach(r=>r.onclick=()=>{ if(r.dataset.v!==SD_LANG) setLang(r.dataset.v); else closeAll(); });
   open('pickS'); }
 function openPlanPick(){ document.getElementById('pickT').textContent='Account type';
-  const O=[['pro','Pro','One rider, unlimited horses'],['premium','Premium','One rider, one horse'],['owner','Stable Owner','The master account of a stable'],['rider','Rider','A rider inside a stable'],['vet','Vet','A vet who follows horses of the stable'],['farrier','Farrier','A farrier who shoes horses of the stable'],['groom','Groom','A groom who looks after the horses']];
+  /* the account types, in the order of the sign-up roles (Stable Owner, Rider, Vet / Osteo, Farrier, Trainer, Horse Owner, Groom), after the two solo plans */
+  const O=[['pro','Pro','One rider, unlimited horses'],['premium','Premium','One rider, one horse'],['owner','Stable Owner','The master account of a stable'],['rider','Rider','A rider inside a stable'],['vet','Vet / Osteo','Follows horses of several stables'],['farrier','Farrier','Shoes horses of several stables'],['trainer','Trainer','Trains riders of the stable'],['horseowner','Horse Owner','Owns horses kept at the stable'],['groom','Groom','A groom who looks after the horses']];
   document.getElementById('pickO').innerHTML=O.map(([k,n,d])=>`<div class="li" data-v="${k}" style="padding:12px 2px"><div class="t"><div class="a">${n}</div><div class="b">${d}</div></div>${k===(window.SD_ACCOUNT||SD_PLAN)?'<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#3B82F6;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</div>`).join('');
   document.querySelectorAll('#pickO .li').forEach(r=>r.onclick=()=>{ if(r.dataset.v!==(window.SD_ACCOUNT||SD_PLAN)) setPlan(r.dataset.v); else closeAll(); });
   open('pickS'); }
@@ -918,12 +933,15 @@ function openPlanPick(){ document.getElementById('pickT').textContent='Account t
     document.getElementById('plU').innerHTML=u([['HORSE','Quintus Z'],['VIDEOS','26'],['MEMBER SINCE','Mar 2026']]); }
   if(p==='owner'){ document.getElementById('plT').innerHTML='<b>StrydeUp Stable Owner</b><span>Renews 30 Oct 2026</span>'; document.getElementById('plD').textContent='You run the stable: every rider, every horse, every video.';
     document.getElementById('plU').innerHTML=u([['TEAM','5'],['HORSES','5'],['VIDEOS','130']]); }
-  if(window.SD_STAFF){ const m=SD_PLANS[p]; document.getElementById('plT').innerHTML=`<b>${SD_STABLE}</b><span>${m.role}</span>`; document.getElementById('plD').textContent='Your access is given and paid by the stable.';
-    document.getElementById('plU').innerHTML=u([['HORSES',p==='groom'?5:SD_FOLLOW().length],['VIDEOS',{vet:52,farrier:130,groom:130}[p]],['SINCE',{vet:'Jun 2026',farrier:'Feb 2026',groom:'Apr 2026'}[p]]]); document.getElementById('plB').style.display='none';
+  if(window.SD_STAFF){ const m=SD_PLANS[p]; document.getElementById('plT').innerHTML=`<b>${window.SD_MULTI?SD_STABLES.length+' stables':SD_STABLE}</b><span>${m.role}</span>`; document.getElementById('plD').textContent=window.SD_MULTI?'Your access is given and paid by each stable.':'Your access is given and paid by the stable.';
+    document.getElementById('plU').innerHTML=u([['HORSES',p==='groom'?5:SD_FOLLOW().length+(window.SD_XH||[]).length],['VIDEOS',{vet:52,farrier:130,groom:130}[p]],['SINCE',{vet:'Jun 2026',farrier:'Feb 2026',groom:'Apr 2026'}[p]]]); document.getElementById('plB').style.display='none';
     document.getElementById('pN').textContent=m.full; document.getElementById('pE').textContent=m.email; const av=document.getElementById('av'); if(av.firstChild.nodeType===3) av.firstChild.nodeValue=m.me[0]; }
-  if(p==='rider'){ document.getElementById('plT').innerHTML=`<b>${SD_STABLE}</b><span>${window.SD_AS_GROOM?'Groom':'Rider'}</span>`; document.getElementById('plD').textContent='Your access is given and paid by the stable.';
+  if(p==='rider'){ document.getElementById('plT').innerHTML=`<b>${SD_STABLE}</b><span>${window.SD_AS?SD_PLANS.rider.role:'Rider'}</span>`; document.getElementById('plD').textContent='Your access is given and paid by the stable.';
     document.getElementById('plU').innerHTML=u([['HORSES','2'],['VIDEOS','52'],['SINCE','Apr 2026']]); document.getElementById('plB').style.display='none';
     document.getElementById('pN').textContent=ME.name; document.getElementById('pE').textContent=ME.email; const av=document.getElementById('av'); if(av.firstChild.nodeType===3) av.firstChild.nodeValue=ME.name[0]; }
+  /* just signed up: the 30 days of the free trial, counted down */
+  const tr=window.SD_ME&&SD_ME.trial; if(tr&&['pro','premium','owner'].includes(p)){ const left=Math.max(0,(tr.days||30)-Math.floor((Date.now()-tr.start)/864e5)), sp=document.querySelector('#plT span');
+    if(sp) sp.textContent=`Free trial · ${left} ${left===1?'day':'days'} left`; }
   const b=document.querySelector('#av .pro'); if(b&&p!=='pro'){ const t=[...b.childNodes].find(n=>n.nodeType===3); if(t) t.nodeValue=SD_PLANS[p].badge; }
   if(location.hash==='#plans') setTimeout(()=>{ const x=document.getElementById('plans'); if(x) x.click(); },400);
 })();
@@ -1008,8 +1026,8 @@ const PRICING='https://www.strydeup.com/pricing';
 const PLI={premium:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m13.728 3.444l1.76 3.549c.24.494.88.968 1.42 1.058l3.189.535c2.04.343 2.52 1.835 1.05 3.307l-2.48 2.5c-.42.423-.65 1.24-.52 1.825l.71 3.095c.56 2.45-.73 3.397-2.88 2.117l-2.99-1.785c-.54-.322-1.43-.322-1.98 0L8.019 21.43c-2.14 1.28-3.44.322-2.88-2.117l.71-3.095c.13-.585-.1-1.402-.52-1.825l-2.48-2.5C1.39 10.42 1.86 8.929 3.899 8.586l3.19-.535c.53-.09 1.17-.564 1.41-1.058l1.76-3.549c.96-1.925 2.52-1.925 3.47 0"/></svg>',pro:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M5 21h14m-6.875-8.25H12m.25 0a.25.25 0 1 1-.5 0a.25.25 0 0 1 .5 0"/><path d="m14.915 7.61l-1.107-2.228C13.019 3.794 12.625 3 12 3s-1.019.794-1.808 2.382L9.085 7.61C8.58 8.625 8.329 9.132 7.88 9.246a1 1 0 0 1-.095.02c-.458.07-.886-.3-1.741-1.037C4.012 6.476 2.997 5.6 2.38 5.949a1 1 0 0 0-.114.076c-.564.43-.17 1.716.616 4.29l1.166 3.813c.423 1.384.635 2.076 1.17 2.474S6.473 17 7.91 17h8.178c1.438 0 2.158 0 2.693-.398s.747-1.09 1.17-2.474l1.166-3.813c.787-2.574 1.18-3.86.616-4.29a1 1 0 0 0-.114-.076c-.617-.349-1.632.527-3.664 2.28c-.855.738-1.283 1.107-1.741 1.036a1 1 0 0 1-.095-.019c-.45-.114-.701-.621-1.205-1.635"/></g></svg>',owner:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="currentColor"><path d="M20.9129 5.88881C21.25 6.39325 21.25 7.09549 21.25 8.49995V21.2499H21.75C22.1642 21.2499 22.5 21.5857 22.5 21.9999C22.5 22.4142 22.1642 22.7499 21.75 22.7499H1.75C1.33579 22.7499 1 22.4142 1 21.9999C1 21.5857 1.33579 21.2499 1.75 21.2499H2.25V8.49995C2.25 7.09549 2.25 6.39325 2.58706 5.88881C2.73298 5.67043 2.92048 5.48293 3.13886 5.33701C3.58008 5.04219 5.67561 5.00524 6.75702 5.00061C6.75291 5.292 6.75294 5.59649 6.75298 5.91045L6.75299 5.99995V7.24995H4.25C3.83579 7.24995 3.5 7.58573 3.5 7.99995C3.5 8.41416 3.83579 8.74995 4.25 8.74995H6.75299V10.2499H4.25C3.83579 10.2499 3.5 10.5857 3.5 10.9999C3.5 11.4142 3.83579 11.7499 4.25 11.7499H6.75299V13.2499H4.25C3.83579 13.2499 3.5 13.5857 3.5 13.9999C3.5 14.4142 3.83579 14.7499 4.25 14.7499H6.75299V21.2499H16.7529V14.7499H19.25C19.6642 14.7499 20 14.4142 20 13.9999C20 13.5857 19.6642 13.2499 19.25 13.2499H16.7529V11.7499H19.25C19.6642 11.7499 20 11.4142 20 10.9999C20 10.5857 19.6642 10.2499 19.25 10.2499H16.7529V8.74995H19.25C19.6642 8.74995 20 8.41416 20 7.99995C20 7.58573 19.6642 7.24995 19.25 7.24995H16.7529V5.99995L16.7529 5.91046V5.91043C16.753 5.59648 16.753 5.292 16.7489 5.00061C17.8303 5.00524 19.9199 5.04219 20.3611 5.33701C20.5795 5.48293 20.767 5.67043 20.9129 5.88881Z" opacity=".5"/><path fill-rule="evenodd" d="M10.75 2H12.75C14.6356 2 15.5784 2 16.1642 2.58579C16.75 3.17157 16.75 4.11438 16.75 6V21.25H18.25H21.25H21.75C22.1642 21.25 22.5 21.5858 22.5 22C22.5 22.4142 22.1642 22.75 21.75 22.75H1.75C1.33579 22.75 1 22.4142 1 22C1 21.5858 1.33579 21.25 1.75 21.25H2.25H5.25H6.75V6C6.75 4.11438 6.75 3.17157 7.33579 2.58579C7.92157 2 8.86438 2 10.75 2ZM11.75 18.25C12.1642 18.25 12.5 18.5858 12.5 19V21.25H11V19C11 18.5858 11.3358 18.25 11.75 18.25ZM9.75 14C9.33579 14 9 14.3358 9 14.75C9 15.1642 9.33579 15.5 9.75 15.5H13.75C14.1642 15.5 14.5 15.1642 14.5 14.75C14.5 14.3358 14.1642 14 13.75 14H9.75ZM9 11.75C9 11.3358 9.33579 11 9.75 11H13.75C14.1642 11 14.5 11.3358 14.5 11.75C14.5 12.1642 14.1642 12.5 13.75 12.5H9.75C9.33579 12.5 9 12.1642 9 11.75ZM9.75 8.5C9.33579 8.5 9 8.83579 9 9.25C9 9.66421 9.33579 10 9.75 10H13.75C14.1642 10 14.5 9.66421 14.5 9.25C14.5 8.83579 14.1642 8.5 13.75 8.5H9.75ZM9 6.25C9 5.83579 9.33579 5.5 9.75 5.5H13.75C14.1642 5.5 14.5 5.83579 14.5 6.25C14.5 6.66421 14.1642 7 13.75 7H9.75C9.33579 7 9 6.66421 9 6.25Z" clip-rule="evenodd"/></g></svg>'};
 function openPlans(){ const cur=PLANS.some(p=>p.k===SD_PLAN)?SD_PLAN:'pro';
   document.getElementById('planL').innerHTML=PLANS.map(p=>`<div class="pl${p.k===cur?' cur':''}">${p.k===cur?'<span class="badge">Your plan</span>':''}
-    <div class="h"><b>${PLI[p.k]||''}${p.n}</b><span>$${p.m} / month</span></div><div class="who">${p.who}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
-    ${p.k==='owner'?`<a class="plBtn" href="${PRICING}" target="_blank" rel="noopener">Talk to us about Stable Owner<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>`:`<button>Switch to ${p.n}</button>`}</div>`).join('');
+    <div class="h"><b>${PLI[p.k]||''}${p.n}</b><span>$${p.m} / month</span></div><div class="who">${p.who}</div>${p.k!==cur?'<span class="trP">30 days free</span>':''}<ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+    ${p.k==='owner'?`<a class="plBtn" href="${PRICING}" target="_blank" rel="noopener">Talk to us about Stable Owner<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>`:p.k===cur?`<button>Manage ${p.n}</button>`:`<button class="pri">Start 30-day free trial</button><div class="trThen"><span>Then $${p.m}/month.</span> <span>Cancel anytime before the trial ends.</span></div>`}</div>`).join('');
   open('planS'); }
 document.getElementById('plans').onclick=openPlans;
 document.getElementById('manage').onclick=openPlans;
@@ -1316,7 +1334,7 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007111803'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007115209'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;

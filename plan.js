@@ -3,6 +3,9 @@
    premium : one rider, one horse, the app is built around that horse
    owner   : Stable Owner, the master admin: every rider, every horse, the team
    rider   : a rider inside a stable: only the horses the owner gave them, billing handled by the stable
+   groom, trainer, horseowner : run EXACTLY as the rider (same screens), only the identity is their own;
+     a horse owner sees only the horses of the stable they own (set by the Stable Owner on the horse page)
+   vet, farrier : professionals, each one works for several stables (SD_STABLES) and has client horses of their own
    Chosen with ?plan= in the URL (boards) or kept in localStorage 'sdPlan' (Profile > Account type). */
 (function(){
   /* the StrydeUp plans: ONE source for sign-up (Etape 6) and Profile (names, prices in USD, what each one gives) */
@@ -21,63 +24,125 @@
   window.SD_WIPE=(el,delay=0)=>{ if(!el||RM()||!el.animate) return;
     el.animate([{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)'}],{duration:850,delay,easing:'cubic-bezier(.23,1,.32,1)',fill:'backwards'}); };
   window.SD_FADE=(el,delay=0)=>{ if(!el||RM()||!el.animate) return; el.animate([{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:380,delay,easing:'cubic-bezier(.23,1,.32,1)',fill:'backwards'}); };
-  const P=['pro','premium','owner','rider','vet','farrier','groom'];
+  const P=['pro','premium','owner','rider','vet','farrier','groom','trainer','horseowner'];
   let plan=null; try{ plan=new URLSearchParams(location.search).get('plan'); }catch(e){}
   /* a link with ?plan= also becomes the account type you stay in (not inside the TV boards' frames) */
   if(P.includes(plan)&&window.top===window){ try{ localStorage.setItem('sdPlan',plan); }catch(e){} }
-  try{ if(new URLSearchParams(location.search).get('demo')==='1') ['sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses','sdClientsVet','sdClientsFarrier','sdPersonalGroom'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
+  try{ if(new URLSearchParams(location.search).get('demo')==='1') ['sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses','sdClientsVet','sdClientsFarrier','sdPersonalGroom','sdPersonalTrainer','sdPersonalHowner','sdHorseOwners','sdStableSel_vet','sdStableSel_farrier'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
   if(!P.includes(plan)){ try{ plan=localStorage.getItem('sdPlan'); }catch(e){} }
   if(!P.includes(plan)) plan='pro';
   window.SD_PLAN=plan;
   /* the groom gets EXACTLY the rider's app (Louis, 7 Oct): it runs as 'rider'; only its identity stays its own
      (name Paul Girard, GROOM badge, role Groom). SD_ACCOUNT keeps the account picked in Profile > Account type. */
-  window.SD_ACCOUNT=plan; window.SD_AS_GROOM=plan==='groom'; if(plan==='groom'){ plan='rider'; window.SD_PLAN='rider'; }
+  window.SD_ACCOUNT=plan; window.SD_AS_GROOM=plan==='groom'; window.SD_AS_TRAINER=plan==='trainer'; window.SD_AS_HOWNER=plan==='horseowner';
+  /* the trainer and the horse owner too (Louis, 7 Oct): the rider's app, their own identity */
+  window.SD_AS=['groom','trainer','horseowner'].includes(plan)?plan:null; if(window.SD_AS){ plan='rider'; window.SD_PLAN='rider'; }
+  /* ---------- horse owners: the private owner of a horse of the stable, added by the Stable Owner on the horse page ----------
+     seeded: Camille Laurent owns Bella Donna and Nova de Lys (the horse owner demo account), Philippe Vasseur owns Quintus Z (invite pending).
+     An invitation sent in the demo shows Invited, and is accepted by the next visit (Active). */
+  const HO0={bd:{n:'Camille Laurent',e:'camille.laurent@gmail.com',st:'active',since:'May 2026'},nl:{n:'Camille Laurent',e:'camille.laurent@gmail.com',st:'active',since:'May 2026'},
+    qz:{n:'Philippe Vasseur',e:'p.vasseur@orange.fr',st:'invited'}};
+  let HOS={}; try{ HOS=JSON.parse(localStorage.getItem('sdHorseOwners'))||{}; }catch(e){}
+  const hoSave=()=>{ try{ localStorage.setItem('sdHorseOwners',JSON.stringify(HOS)); }catch(e){} };
+  { let ch=false; Object.keys(HOS).forEach(k=>{ const o=HOS[k]; if(o&&o.pend){ delete o.pend; o.st='active'; o.since=o.since||'Oct 2026'; ch=true; } }); if(ch) hoSave(); }
+  window.SD_HOWNERS=()=>{ const M=Object.assign({},HO0); Object.keys(HOS).forEach(k=>{ if(HOS[k]) M[k]=HOS[k]; else delete M[k]; }); return M; };
+  window.SD_HOWNER=hid=>SD_HOWNERS()[hid]||null;
+  window.SD_SET_HOWNER=(hid,o)=>{ HOS[hid]=o?{n:o.n,e:o.e,st:'invited',pend:1}:null; hoSave(); };
+  /* undo: put back exactly what was stored for this horse (undefined: the demo's own owner) */
+  window.SD_HO_RAW=hid=>Object.prototype.hasOwnProperty.call(HOS,hid)?HOS[hid]:undefined;
+  window.SD_HO_PUT=(hid,raw)=>{ if(raw===undefined) delete HOS[hid]; else HOS[hid]=raw; hoSave(); };
+  window.SD_HO_ME={n:'Camille Laurent',e:'camille.laurent@gmail.com'};
+  /* the horses of the horse owner account: the ones the stable gave them as owner (the demo ones if none is left) */
+  window.SD_HO_IDS=()=>{ const M=SD_HOWNERS(), L=Object.keys(M).filter(k=>M[k].e===SD_HO_ME.e); return L.length?L:['bd','nl']; };
+  /* ---------- a vet and a farrier work for several stables: the demo stable and two more (sample data) ---------- */
+  window.SD_MULTI=['vet','farrier'].includes(plan);
+  const XH=[
+    {id:'x_cas',st:'ht',n:'Cassiopée',ini:'CA',breed:'Selle Français',age:10,sex:'Mare',coat:'Bay',hue:['#6B3A20','#2E170A'],r:'Julien Roche',perf:72,d:+3,lastD:2,month:6,level:'1.40 m',height:166,weight:560,shoes:'All four'},
+    {id:'x_val',st:'ht',n:'Valdor du Bois',ini:'VB',breed:'BWP',age:12,sex:'Gelding',coat:'Grey',hue:['#8F96A1','#4B5058'],r:'Inès Roche',perf:58,d:-4,lastD:5,month:3,level:'1.30 m',height:171,weight:600,shoes:'Front only'},
+    {id:'x_jaz',st:'ht',n:'Jazz Royal',ini:'JR',breed:'Holsteiner',age:7,sex:'Stallion',coat:'Black',hue:['#2A2F38','#15181D'],r:'Julien Roche',perf:66,d:+1,lastD:1,month:7,level:'1.25 m',height:169,weight:590,shoes:'All four'},
+    {id:'x_eli',st:'mo',n:'Elixir',ini:'EL',breed:'KWPN',age:9,sex:'Gelding',coat:'Chestnut',hue:['#9A5328','#4A2410'],r:'Sophie Marchand',perf:69,d:+2,lastD:3,month:5,level:'1.35 m',height:168,weight:575,shoes:'All four'},
+    {id:'x_opa',st:'mo',n:'Opaline',ini:'OP',breed:'Selle Français',age:6,sex:'Mare',coat:'Dark bay',hue:['#4E2E1E','#21130B'],r:'Léo Marchand',perf:61,d:-2,lastD:7,month:2,level:'1.15 m',height:162,weight:520,shoes:'Barefoot'},
+    {id:'x_tor',st:'dl',n:'Tornado',ini:'TO',breed:'Hanoverian',age:11,sex:'Gelding',coat:'Bay',hue:['#7A4526','#3A1F10'],r:'Antoine Perrin',perf:74,d:+5,lastD:0,month:8,level:'1.45 m',height:172,weight:620,shoes:'All four'},
+    {id:'x_bon',st:'dl',n:'Bonnie Blue',ini:'BB',breed:'Zangersheide',age:8,sex:'Mare',coat:'Grey',hue:['#8F96A1','#4B5058'],r:'Clara Perrin',perf:63,d:0,lastD:4,month:4,level:'1.20 m',height:164,weight:540,shoes:'Front only'},
+    {id:'x_iro',st:'dl',n:'Iroko',ini:'IR',breed:'BWP',age:13,sex:'Gelding',coat:'Chestnut',hue:['#9A5328','#4A2410'],r:'Antoine Perrin',perf:56,d:-3,lastD:9,month:2,level:'1.30 m',height:170,weight:610,shoes:'All four'}];
+  const STB={ms:{id:'ms',ini:'É'},ht:{id:'ht',n:'Haras des Tilleuls',ini:'H',mgr:'Julien Roche',city:'Senlis'},mo:{id:'mo',n:'Écurie du Moulin',ini:'M',mgr:'Sophie Marchand',city:'Chantilly'},dl:{id:'dl',n:'Domaine des Landes',ini:'D',mgr:'Antoine Perrin',city:'Lamorlaye'}};
+  const MYST={vet:['ms','ht','mo'],farrier:['ms','ht','dl']}[plan]||['ms'];
+  /* alerts of the horses of the other stables, written like the stable's own */
+  window.SD_XALERTS=[
+    {id:'x_val',lv:'Attention',ic:'stride',a:'Right fore short on landing',b:'Stride after landing shorter on the right, 4 jumps of 12.',when:'Sun 27 Sep · show'},
+    {id:'x_cas',lv:'Watch',ic:'latbal',a:'Landings getting heavier',b:'Balance on landing down 8 points over 2 weeks.',when:'Fri 25 Sep · training'},
+    {id:'x_iro',lv:'Attention',ic:'hind',a:'Left hind under load',b:'Same pattern on the last 3 sessions. Worth a look before the next start.',when:'Mon 28 Sep · training'},
+    {id:'x_eli',lv:'Watch',ic:'swap',a:'Late lead change in turns',b:'Held the counter lead 4 strides before the change, turn 4.',when:'Tue 29 Sep · training'},
+    {id:'x_opa',lv:'Watch',ic:'tempo',a:'Rushing the last fences',b:'Tempo up 30 m/min on the final line.',when:'Wed 23 Sep · training'},
+    {id:'x_tor',lv:'Watch',ic:'tempo',a:'Tempo fading at the end',b:'Loses pace on the last line of the course, 3 sessions in a row.',when:'Yesterday · show'}].filter(a=>MYST.includes((XH.find(h=>h.id===a.id)||{}).st));
+  window.SD_XH=SD_MULTI?XH.filter(h=>MYST.includes(h.st)):[];
   /* horse names offered when adding a video */
   if(['vet','farrier','groom'].includes(plan)){ const ids=plan==='groom'?['mb','qz','bd','sa','nl']:(()=>{ let F={}; try{ F=JSON.parse(localStorage.getItem('sdStaffHorses'))||{}; }catch(e){} const ini={vet:'AK',farrier:'LB',groom:'PG'}[plan]; return F[ini]||({AK:['mb','sa']}[ini])||['mb','qz','bd','sa','nl']; })();
     const N={mb:'Midnight Bolt',qz:'Quintus Z',bd:'Bella Donna',sa:'Silver Arrow',nl:'Nova de Lys'}; window.SD_HN=ids.map(i=>N[i]); }
-  if(plan==='premium') window.SD_HN=['Quintus Z']; if(plan==='rider') window.SD_HN=['Midnight Bolt','Silver Arrow','Kalinka'];
+  if(plan==='premium') window.SD_HN=['Quintus Z']; if(plan==='rider') window.SD_HN=window.SD_AS_HOWNER?SD_HO_IDS().map(i=>({mb:'Midnight Bolt',qz:'Quintus Z',bd:'Bella Donna',sa:'Silver Arrow',nl:'Nova de Lys'})[i]).filter(Boolean):['Midnight Bolt','Silver Arrow','Kalinka'];
+  if(SD_MULTI) window.SD_HN=(window.SD_HN||[]).concat(SD_XH.map(h=>h.n));
   /* horses outside the stable, kept apart, private, never in the stable's numbers:
      a rider's own horses, a vet's or a farrier's client horses (same shape as the stable's horses) */
-  const OWNK=window.SD_AS_GROOM?'sdPersonalGroom':{rider:'sdPersonal',vet:'sdClientsVet',farrier:'sdClientsFarrier'}[plan];
+  const OWNK=window.SD_AS?{groom:'sdPersonalGroom',trainer:'sdPersonalTrainer',horseowner:'sdPersonalHowner'}[window.SD_AS]:{rider:'sdPersonal',vet:'sdClientsVet',farrier:'sdClientsFarrier'}[plan];
   const OWN0={rider:{id:'p_kal',n:'Kalinka',breed:'Selle Français',age:9,sex:'Mare',coat:'Bay',level:'1.20 m',r:'John Doe',perf:66,d:2,lastD:3,month:4,height:165},
     vet:{id:'c_orf',n:'Orfeo',breed:'KWPN',age:11,sex:'Gelding',coat:'Chestnut',level:'1.30 m',r:'Claire Dubois',perf:71,d:1,lastD:2,month:3,height:170,shoes:'All four'},
-    farrier:{id:'c_uly',n:'Ulysse',breed:'Hanoverian',age:8,sex:'Gelding',coat:'Grey',level:'1.15 m',r:'Hugo Martin',perf:63,d:-2,lastD:5,month:2,height:166,shoes:'Front only'}}[plan];
+    farrier:{id:'c_uly',n:'Ulysse',breed:'Hanoverian',age:8,sex:'Gelding',coat:'Grey',level:'1.15 m',r:'Hugo Martin',perf:63,d:-2,lastD:5,month:2,height:166,shoes:'Front only'}}[window.SD_AS_HOWNER?'':plan];
+  /* a horse owner starts with no horse of their own: their horses are the ones they own at the stable */
   window.SD_PERSONAL=()=>{ if(!OWNK) return []; let L=[]; try{ L=JSON.parse(localStorage.getItem(OWNK))||[]; }catch(e){}
-    return [{...OWN0,personal:true,client:plan!=='rider'},...L]; };
+    return [...(OWN0?[{...OWN0,personal:true,client:plan!=='rider'}]:[]),...L]; };
   window.SD_ADD_PERSONAL=H=>{ if(!OWNK) return; let L=[]; try{ L=JSON.parse(localStorage.getItem(OWNK))||[]; }catch(e){}
-    const yr=+H.year; L.push({id:'p'+Date.now(),n:H.name,breed:H.breed||'–',age:yr?2026-yr:'–',sex:H.sex,coat:H.coat||'–',level:H.level||'–',height:+H.height||null,shoes:H.shoes||null,r:plan==='rider'?'John Doe':'',perf:null,d:0,lastD:999,month:0,personal:true,client:plan!=='rider'});
+    const yr=+H.year; L.push({id:'p'+Date.now(),n:H.name,breed:H.breed||'–',age:yr?2026-yr:'–',sex:H.sex,coat:H.coat||'–',level:H.level||'–',height:+H.height||null,shoes:H.shoes||null,r:plan==='rider'?(window.SD_MYNAME||'John Doe'):'',perf:null,d:0,lastD:999,month:0,personal:true,client:plan!=='rider'});
     try{ localStorage.setItem(OWNK,JSON.stringify(L)); }catch(e){} };
   /* the second group of horses, named for each job: a groom's is the stable's horses they follow */
   window.SD_OWN_LABEL={rider:'My own',vet:'My Horses',farrier:'My Horses'}[plan]||'My own';
   window.SD_OWN_TAG={rider:'Personal',vet:'Client',farrier:'Client'}[plan]||'Personal';
-  document.documentElement.dataset.plan=plan;
+  document.documentElement.dataset.plan=plan; document.documentElement.dataset.acct=window.SD_ACCOUNT;
   window.SD_PLANS={pro:{name:'Pro',badge:'PRO',me:'Marie'},premium:{name:'Premium',badge:'PREMIUM',me:'Marie'},
     owner:{name:'Stable Owner',badge:'OWNER',me:'Marie'},rider:{name:'Rider',badge:'RIDER',me:'John'},
     vet:{name:'Vet',badge:'VET',me:'Anne',full:'Dr. Anne Keller',ini:'AK',role:'Vet',email:'anne@vet-keller.ch'},
     farrier:{name:'Farrier',badge:'FARRIER',me:'Lucas',full:'Lucas Bernard',ini:'LB',role:'Farrier',email:'lucas@bernard-farrier.ch'},
-    groom:{name:'Groom',badge:'GROOM',me:'Paul',full:'Paul Girard',ini:'PG',role:'Groom',email:'paul@stable.com'}};
-  if(window.SD_AS_GROOM) Object.assign(SD_PLANS.rider,{badge:'GROOM',me:'Paul',full:'Paul Girard',ini:'PG',role:'Groom',email:'paul@stable.com'});
+    groom:{name:'Groom',badge:'GROOM',me:'Paul',full:'Paul Girard',ini:'PG',role:'Groom',email:'paul@stable.com'},
+    trainer:{name:'Trainer',badge:'TRAINER',me:'Thomas',full:'Thomas Renaud',ini:'TR',role:'Trainer',email:'thomas.renaud@stable.com'},
+    horseowner:{name:'Horse Owner',badge:'HORSE OWNER',me:'Camille',full:'Camille Laurent',ini:'CL',role:'Horse Owner',email:'camille.laurent@gmail.com'}};
+  SD_PLANS.vet.name=SD_PLANS.vet.role='Vet / Osteo';
+  if(window.SD_AS){ const m=SD_PLANS[window.SD_AS]; Object.assign(SD_PLANS.rider,{badge:m.badge,me:m.me,full:m.full,ini:m.ini,role:m.role,email:m.email}); }
   /* professionals of the stable: vet, farrier, groom. They see only the horses they follow (chosen by them or the owner) */
   window.SD_STAFF=['vet','farrier','groom'].includes(plan);
   if(window.SD_STAFF) document.documentElement.classList.add('staff');
   window.SD_FOLLOW=()=>{ const me=SD_PLANS[plan]; let F={}; try{ F=JSON.parse(localStorage.getItem('sdStaffHorses'))||{}; }catch(e){}
-    return F[me.ini]||({AK:['mb','sa'],LB:['mb','qz','bd','sa','nl'],PG:['mb','qz','bd']}[me.ini]); };
+    return F[me.ini]||({AK:['mb','sa'],LB:['mb','qz','bd','sa','nl'],PG:['mb','qz','bd']}[me.ini])||[]; };
   window.SD_SET_FOLLOW=ids=>{ const me=SD_PLANS[plan]; let F={}; try{ F=JSON.parse(localStorage.getItem('sdStaffHorses'))||{}; }catch(e){} F[me.ini]=ids; try{ localStorage.setItem('sdStaffHorses',JSON.stringify(F)); }catch(e){} };
   window.SD_SHOES={mb:'All four',qz:'All four',bd:'Front only',sa:'All four',nl:'Barefoot',c_orf:'All four',c_uly:'Front only'};
+  XH.forEach(h=>SD_SHOES[h.id]=h.shoes);
   /* the stable and the person who manages it: one place, every text that names the owner goes through SD_OWNERIZE */
   window.SD_OWNER='Marie S.';
   window.SD_STABLE='Écurie '+SD_OWNER;
   window.SD_OWNERIZE=s=>String(s).split('Marie S.').join(SD_OWNER);
+  STB.ms.n=SD_STABLE; STB.ms.mgr=SD_OWNER; STB.ms.city='Gouvieux';
+  /* the stables of this account (one for everybody, three for a vet and a farrier), and the one picked in the stable filter ('all' or an id) */
+  window.SD_STABLES=MYST.map(k=>STB[k]);
+  window.SD_STABLE_OF=h=>STB[(h&&h.st)||'ms']||STB.ms;
+  const SELK='sdStableSel_'+plan;
+  window.SD_STABLE_SEL=()=>{ let v='all'; try{ v=localStorage.getItem(SELK)||'all'; }catch(e){} return v==='all'||MYST.includes(v)?v:'all'; };
+  window.SD_SET_STABLE_SEL=v=>{ try{ localStorage.setItem(SELK,v); }catch(e){} };
+  /* the chips of the stable filter, same look on Home, My Horses and Sessions: All stables, then one per stable with its count */
+  window.SD_STABLE_CHIPS=(box,counts,onPick)=>{ if(!box) return; const cur=SD_STABLE_SEL(), tot=Object.values(counts).reduce((a,n)=>a+n,0), TT=x=>(window.SD_T||(y=>y))(x);
+    box.innerHTML=`<button class="${cur==='all'?'on':''}" data-s="all">${TT('All stables')} <em>${tot}</em></button>`+SD_STABLES.map(s=>`<button class="${cur===s.id?'on':''}" data-s="${s.id}"><span>${s.ini}</span>${s.n} <em>${counts[s.id]||0}</em></button>`).join('');
+    box.querySelectorAll('button').forEach(b=>b.onclick=()=>{ SD_SET_STABLE_SEL(b.dataset.s); SD_STABLE_CHIPS(box,counts,onPick); onPick&&onPick(b.dataset.s); });
+    const on=box.querySelector('button.on'); if(on&&box.scrollWidth>box.clientWidth) box.scrollLeft=Math.max(0,on.offsetLeft-16); };
+  if(SD_MULTI) XH.forEach(h=>{ if(MYST.includes(h.st)) (window.SD_H0=window.SD_H0||{})[h.id]=[h.n,h.r]; });
   if(['vet','farrier'].includes(plan)) window.SD_HN=(window.SD_HN||[]).concat(SD_PERSONAL().map(h=>h.n));
   window.setPlan=p=>{ try{ localStorage.setItem('sdPlan',p); }catch(e){}
     const u=new URL(location.href); u.searchParams.delete('plan'); location.href=u.toString(); };
   /* which horses this account sees */
-  window.planHorses=list=>plan==='premium'?list.filter(h=>h.id==='qz')
-    :plan==='rider'?list.filter(h=>(h.r||h.rider)==='John Doe'):plan==='groom'?list:SD_STAFF?list.filter(h=>SD_FOLLOW().includes(h.id))
+  /* a vet and a farrier: the horses of their other stables join the list (and SD_ALLH, the list the pages pass here, so their sessions exist) */
+  window.planHorses=list=>{ if(SD_MULTI) SD_XH.forEach(x=>{ if(!list.some(h=>h.id===x.id)) list.push(Object.assign({},x)); }); return _planH(list); };
+  const _planH=list=>plan==='premium'?list.filter(h=>h.id==='qz')
+    :plan==='rider'?(window.SD_AS_HOWNER?list.filter(h=>SD_HO_IDS().includes(h.id)):list.filter(h=>(h.r||h.rider)==='John Doe')):plan==='groom'?list:SD_STAFF?list.filter(h=>(h.st&&h.st!=='ms')||SD_FOLLOW().includes(h.id))
     :(window.SD_MYIDS&&plan==='pro')?list.filter(h=>SD_MYIDS.includes(h.id)):list;
   /* keep ?plan= on internal links, so a board preview stays in its account type */
   if(new URLSearchParams(location.search).get('plan')) document.addEventListener('click',e=>{ const a=e.target.closest('a[href]'); if(!a) return;
-    const h=a.getAttribute('href'); if(!h||!/^Etape/.test(h)) return; const u=new URL(h,location.href); u.searchParams.set('plan',plan); a.href=u.toString(); },true);
+    const h=a.getAttribute('href'); if(!h||!/^Etape/.test(h)) return; const u=new URL(h,location.href); u.searchParams.set('plan',window.SD_ACCOUNT||plan); a.href=u.toString(); },true);
   /* the person who signed up: their first name everywhere, and their horse on Home */
   let ME=null; try{ ME=JSON.parse(localStorage.getItem('sdMe')); }catch(e){}
   window.SD_ME=ME;
@@ -115,7 +180,7 @@
      a video is known by its first horse and its day (every page draws the same sample sessions): "mb|2026-09-30" */
   const LS=(k,d)=>{ try{ const v=JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } };
   const LSW=(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} };
-  window.SD_H0={mb:['Midnight Bolt','John Doe'],qz:['Quintus Z','Marie S.'],bd:['Bella Donna','Lea Martin'],sa:['Silver Arrow','John Doe'],nl:['Nova de Lys','Marie S.']};
+  window.SD_H0=Object.assign({mb:['Midnight Bolt','John Doe'],qz:['Quintus Z','Marie S.'],bd:['Bella Donna','Lea Martin'],sa:['Silver Arrow','John Doe'],nl:['Nova de Lys','Marie S.']},window.SD_H0||{});
   const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
   window.SD_VKEY=(hid,date)=>hid+'|'+ymd(date);
   window.SD_VIDEO_DELETED=k=>LS('sdDeletedVideos',[]).includes(k);
@@ -230,6 +295,37 @@
   .sdxIR i{width:9px;height:9px;border-radius:50%;flex:0 0 auto;margin-top:5px}
   .sdxIR b{display:block;font-size:14px} .sdxIR span{display:block;font-size:12.5px;line-height:1.45;color:#8A94A3;margin-top:3px}
   html[data-theme="light"] .sdxInfo{background:rgba(16,24,40,.02);border-color:rgba(16,24,40,.08)} html[data-theme="light"] .sdxIR{border-color:rgba(16,24,40,.07)}
+  html[data-acct="horseowner"] .pro{white-space:nowrap;font-size:7.5px!important;letter-spacing:.5px!important;padding:2px 6px!important}
+  html[data-acct="horseowner"] .pro .ic{display:none}
+  .sdStC{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px}
+  .sdStC::-webkit-scrollbar{display:none}
+  .sdStC button{flex:0 0 auto;display:flex;align-items:center;gap:7px;font:inherit;font-size:12.5px;font-weight:700;color:#C7CFDB;background:var(--card2,#1A1F27);border:1px solid var(--line,rgba(255,255,255,.07));border-radius:999px;padding:6px 12px 6px 6px;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+  .sdStC button:first-child{padding-left:12px}
+  .sdStC button span{width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,#1E3A64,#13213A);display:grid;place-items:center;font-size:10.5px;font-weight:900;color:#CFE0FF}
+  .sdStC button em{font-style:normal;font-size:10.5px;color:var(--mut,#8A94A3)}
+  .sdStC button.on{background:rgba(59,130,246,.2);border-color:var(--blue,#3B82F6);color:#fff} .sdStC button.on em{color:#CFE0FF}
+  .sdStGH{display:flex;align-items:center;gap:10px;margin:14px 2px 2px}
+  .sdStGH:first-child{margin-top:4px}
+  .sdStGH .lg{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#1E3A64,#13213A);border:1px solid rgba(91,155,255,.3);display:grid;place-items:center;font-size:12px;font-weight:900;color:#CFE0FF;flex:0 0 auto}
+  .sdStGH b{flex:1;min-width:0;font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sdStGH em{font-style:normal;font-size:11px;font-weight:800;color:var(--mut,#8A94A3);background:rgba(255,255,255,.06);border-radius:999px;padding:2px 8px}
+  .sdStTag{display:inline-flex;align-items:center;gap:7px;margin-top:8px;font-size:12px;font-weight:700;color:#C7CFDB}
+  .sdStTag span{width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#1E3A64,#13213A);display:grid;place-items:center;font-size:9.5px;font-weight:900;color:#CFE0FF}
+  html[data-theme="light"] .sdStC button{color:var(--txt,#0F1623)} html[data-theme="light"] .sdStC button.on{background:rgba(59,130,246,.12);color:#1D4ED8} html[data-theme="light"] .sdStC button.on em{color:#2563EB}
+  html[data-theme="light"] .sdStC button span,html[data-theme="light"] .sdStGH .lg,html[data-theme="light"] .sdStTag span{background:#E3ECFB;color:#1E3A64;border-color:rgba(37,99,235,.25)}
+  html[data-theme="light"] .sdStGH em{background:rgba(16,24,40,.06)} html[data-theme="light"] .sdStTag{color:var(--mut,#4A5361)}
+  .sdxSheet .hoIco{width:46px;height:46px;border-radius:14px;background:rgba(59,130,246,.12);display:grid;place-items:center;margin:2px 0 14px}
+  .sdxSheet .hoIco svg{width:23px;height:23px;stroke:#8DB8FF;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .sdxL{display:block;font-size:10px;font-weight:800;letter-spacing:.8px;color:#8A94A3;margin:18px 2px 8px}
+  .sdxIn{display:block;width:100%;font:inherit;font-size:15px;color:#F2F5F8;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 14px;outline:none;transition:border-color .15s}
+  .sdxIn:focus{border-color:#3B82F6} .sdxIn.jsCode{font-size:18px;font-weight:800;letter-spacing:2.5px;text-align:center} .sdxIn::placeholder{color:#5A6472}
+  .hoNote{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);font-size:12.5px;line-height:1.45;color:#AEB7C4}
+  .hoNote svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:#8DB8FF;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .hoPill{display:inline-flex;align-items:center;gap:5px;font-style:normal;font-size:11px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap;flex:0 0 auto;color:#C7CFDB;background:rgba(255,255,255,.07)}
+  .hoPill.inv{color:#8DB8FF;background:rgba(59,130,246,.14)} .hoPill.inv::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+  html[data-theme="light"] .sdxIn{color:var(--txt,#0F1623);background:var(--card2,#F2F4F7);border-color:rgba(16,24,40,.1)}
+  html[data-theme="light"] .hoNote{background:rgba(16,24,40,.03);border-color:rgba(16,24,40,.08);color:var(--mut,#4A5361)} html[data-theme="light"] .hoNote svg,html[data-theme="light"] .sdxSheet .hoIco svg{stroke:#2563EB}
+  html[data-theme="light"] .hoPill{color:#4A5361;background:rgba(16,24,40,.06)} html[data-theme="light"] .hoPill.inv{color:#1D4ED8;background:rgba(59,130,246,.1)}
   @media (prefers-reduced-motion: reduce){ .sdxSheet,.sdxMenu,.sdxToast,.sdxSw>[data-vk],.sdxVeil{transition:none!important} }`;
   const addCss=()=>{ if(!document.getElementById('sdxCss')) document.head.insertAdjacentHTML('beforeend',`<style id="sdxCss">${xcss}</style>`); };
   addCss();
@@ -243,6 +339,32 @@
     xLast=document.activeElement; s.innerHTML='<div class="grab"></div>'+html; s.scrollTop=0; wire&&wire(s);
     document.getElementById('sdxVeil').classList.add('on'); void s.offsetHeight; s.classList.add('on'); };
   window.SD_SHEET_CLOSE=xClose;
+  /* a vet or a farrier joins one more stable with the code the stable gave them (mock: the request is sent) */
+  window.SD_JOIN_STABLE=()=>{ const ok=v=>v.replace(/[^A-Z0-9]/gi,'').length>=6;
+    xSheet(`<div class="hoIco"><svg viewBox="0 0 24 24"><path d="M8 21.5v-6c0-.943 0-1.414.293-1.707S9.057 13.5 10 13.5h4c.943 0 1.414 0 1.707.293S16 14.557 16 15.5v6M8.5 14l7.5 7.5m-.5-7.5L8 21.5m2.5-13h3"/><path d="M4.388 6.876L3.345 9.224c-.172.387-.258.58-.301.785c-.044.206-.044.417-.044.84V17.5c0 1.886 0 2.828.586 3.414S5.114 21.5 7 21.5h10c1.886 0 2.828 0 3.414-.586S21 19.386 21 17.5v-7.056c0-.47 0-.705-.053-.931c-.054-.227-.16-.437-.37-.857l-.95-1.9c-.31-.622-.466-.933-.71-1.17c-.245-.237-.56-.383-1.191-.674L12.954 2.71a2.28 2.28 0 0 0-1.908 0L6.367 4.869c-.676.312-1.014.468-1.27.727c-.255.26-.406.6-.709 1.28"/></svg></div>
+      <h3>${esc(TX('Join a stable'))}</h3><div class="sub">${esc(TX('Ask the stable for its invite code. Once they accept, you see the horses they share with you.'))}</div>
+      <label class="sdxL" for="jsC">${esc(TX('INVITE CODE'))}</label><input class="sdxIn jsCode" id="jsC" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="STB-482915">
+      <button class="sdxBtn" id="sdxOk" disabled>${esc(TX('Join'))}</button><button class="sdxBtn sec" id="sdxNo">${esc(TX('Cancel'))}</button>`,
+    s=>{ const c=s.querySelector('#jsC'), b=s.querySelector('#sdxOk'); c.oninput=()=>{ c.value=c.value.toUpperCase(); b.disabled=!ok(c.value); };
+      s.querySelector('#sdxNo').onclick=xClose; b.onclick=()=>{ if(!ok(c.value)) return; xClose(); setTimeout(()=>SD_TOAST(TX('Request sent. The stable will confirm.')),RMo()?0:200); };
+      setTimeout(()=>{ try{ c.focus({preventScroll:true}); }catch(_){} },380); }); };
+  /* a short message, no action */
+  window.SD_TOAST=msg=>{ let t=document.getElementById('sdxToast'); if(!t){ document.body.insertAdjacentHTML('beforeend','<div class="sdxToast" id="sdxToast" role="status" aria-live="polite"></div>'); t=document.getElementById('sdxToast'); }
+    t.innerHTML=`<span class="m" style="padding-right:12px;line-height:40px">${esc(msg)}</span>`; clearTimeout(t._t); void t.offsetHeight; t.classList.add('on'); t._t=setTimeout(()=>t.classList.remove('on'),2600); };
+  /* Stable Owner: invite the owner of a horse (or replace them). They get their own access, with this horse only */
+  window.SD_HO_INVITE=({hid,horse,current,onSent})=>{ const F={n:'',e:''}, ok=()=>F.n.trim().length>1&&/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(F.e.trim());
+    xSheet(`<div class="hoIco"><svg viewBox="0 0 24 24"><circle cx="10" cy="7.5" r="3.6"/><path d="M3.5 20c.4-3.6 3.2-6.2 6.5-6.2 1.3 0 2.5.4 3.5 1"/><path d="M18 14.5v6M15 17.5h6"/></svg></div>
+      <h3>${esc(TX(current?'Replace the owner':'Add the owner'))}</h3>
+      <div class="sub">${esc(horse)} · ${esc(TX('They get their own StrydeUp access, with this horse only.'))}</div>
+      <label class="sdxL" for="hoN">${esc(TX('FULL NAME'))}</label><input class="sdxIn" id="hoN" autocomplete="name" placeholder="${esc(TX('First and last name'))}">
+      <label class="sdxL" for="hoE">${esc(TX('EMAIL'))}</label><input class="sdxIn" id="hoE" type="email" inputmode="email" autocomplete="email" placeholder="name@email.com">
+      <div class="hoNote"><svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg><span>${esc(TX('They will see this horse, its sessions and its scores.'))}</span></div>
+      <button class="sdxBtn" id="sdxOk" disabled>${esc(TX('Send invite'))}</button><button class="sdxBtn sec" id="sdxNo">${esc(TX('Cancel'))}</button>`,
+    s=>{ const b=s.querySelector('#sdxOk'), n=s.querySelector('#hoN'), e=s.querySelector('#hoE');
+      n.oninput=()=>{ F.n=n.value; b.disabled=!ok(); }; e.oninput=()=>{ F.e=e.value; b.disabled=!ok(); };
+      s.querySelector('#sdxNo').onclick=xClose;
+      b.onclick=()=>{ if(!ok()) return; xClose(); setTimeout(()=>onSent&&onSent({n:F.n.trim().replace(/\s+/g,' '),e:F.e.trim()}),RMo()?0:180); };
+      setTimeout(()=>{ try{ n.focus({preventScroll:true}); }catch(_){} },380); }); };
   /* confirmation before anything is deleted: says plainly what goes */
   window.SD_CONFIRM_DELETE=({title,sub,ok,onConfirm})=>xSheet(`<div class="dIco">${ICO.trash}</div><h3>${esc(title||'Delete this video?')}</h3>
       <div class="sub">${esc(sub||'The video will be removed, with its analysis and all its numbers.')}</div>
@@ -344,7 +466,7 @@
     btn.onclick=e=>{ e.preventDefault(); SD_MENU(btn,[{t:'Change horse',ic:'swap',fn:()=>SD_PICK_HORSE({current:nameOf(),onSave:n=>{ const prev=SD_VIDEO_HORSE(k); SD_SET_VIDEO_HORSE(k,n); paint();
         SD_UNDO('Moved to '+shown(n),()=>{ SD_SET_VIDEO_HORSE(k,prev); paint(); }); }})},
       {t:'Delete video',ic:'trash',red:1,fn:()=>SD_CONFIRM_DELETE({onConfirm:()=>{ SD_DELETE_VIDEO(k); SD_UNDO_LATER({type:'video',key:k});
-        const u=new URL('Etape%204%20-%20Sessions.html?v=1007111803',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
+        const u=new URL('Etape%204%20-%20Sessions.html?v=1007115209',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
   /* undo after a page change: the next page shows the toast */
   window.SD_UNDO_LATER=o=>{ try{ sessionStorage.setItem('sdUndo',JSON.stringify(o)); }catch(e){} };
   document.addEventListener('DOMContentLoaded',()=>{ let o=null; try{ o=JSON.parse(sessionStorage.getItem('sdUndo')); sessionStorage.removeItem('sdUndo'); }catch(e){} if(!o) return;
@@ -367,6 +489,9 @@
   .plChips button.on{background:#3B82F6;border-color:#3B82F6;color:#fff}
   .plBtn{width:100%;margin-top:18px;font:inherit;font-size:15.5px;font-weight:800;color:#fff;background:#3B82F6;border:0;border-radius:16px;padding:15px;cursor:pointer} .plBtn:disabled{opacity:.45}
   .plBtn.sec{background:rgba(255,255,255,.06);margin-top:10px}
+  .plTr{display:inline-flex;margin-top:14px;font-size:11px;font-weight:800;color:#C7CFDB;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px}
+  .plThen{font-size:12px;line-height:1.45;color:#8A94A3;text-align:center;margin-top:9px}
+  html[data-theme="light"] .plTr{color:#4A5361;background:rgba(16,24,40,.04);border-color:rgba(16,24,40,.1)}
   .plFeat{display:flex;gap:11px;align-items:center;padding:11px 0;border-top:1px solid rgba(255,255,255,.07)} .plFeat:first-of-type{border-top:0}
   .plFeat .i{width:34px;height:34px;border-radius:11px;background:rgba(59,130,246,.12);display:grid;place-items:center;flex:0 0 auto}
   .plFeat svg{width:18px;height:18px;stroke:#5B9BFF;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -396,8 +521,9 @@
     <div style="margin-top:14px">
       <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><div><b>${T('Unlimited horses')}</b><span>${T('Every horse with its own page, trends and alerts')}</span></div></div>
       <div class="plFeat"><span class="i"><svg style="color:#5B9BFF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 8.75v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277C9.216 3 8.394 3 6.75 3s-2.466 0-3.019.454a2 2 0 0 0-.277.277C3 4.284 3 5.106 3 6.75v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277c.454-.553.454-1.375.454-3.019ZM7.75 15.5h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333C3 17.203 3 17.552 3 18.25s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334C4.703 21 5.052 21 5.75 21h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333c.086-.284.086-.633.086-1.331s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334c-.284-.086-.633-.086-1.331-.086ZM21 17.25v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277c-.553-.454-1.375-.454-3.019-.454s-2.466 0-3.019.454a2 2 0 0 0-.277.277c-.454.553-.454 1.375-.454 3.019v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277C21 19.716 21 18.894 21 17.25ZM18.25 3h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333c-.086.284-.086.633-.086 1.331s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334c.284.086.633.086 1.331.086h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333C21 6.797 21 6.448 21 5.75s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334C19.297 3 18.948 3 18.25 3Z"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
-    <button class="plBtn" id="plGo">${T('See the Pro plan')}</button><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
-    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1007111803#plans'; }; });
+    <span class="plTr">${T('30 days free')}</span>
+    <button class="plBtn" id="plGo">${T('Start 30-day free trial')}</button><div class="plThen">${T(`Then $${(window.SD_OFFERS.find(o=>o.k==='pro')||{m:149}).m}/month.`)} ${T('Cancel anytime before the trial ends.')}</div><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
+    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1007115209#plans'; }; });
 
   /* Stable Owner: invite a rider and give them horses */
   window.openAddRider=()=>{ const H=window.SD_ALLH||[{n:'Midnight Bolt'},{n:'Quintus Z'},{n:'Bella Donna'},{n:'Silver Arrow'},{n:'Nova de Lys'}];
@@ -405,7 +531,7 @@
     const draw=s=>{ s.innerHTML=`<div class="grab"></div><h3>${T('Add a user')}</h3><div class="sub">${T('They get their own access, with only the horses you give them. You keep every video and every horse.')}</div>
       <div class="k">${T('NAME')}</div><input class="plIn" id="plN" placeholder="${T('First and last name')}" value="${F.name}">
       <div class="k">${T('EMAIL')}</div><input class="plIn" id="plE" type="email" placeholder="name@stable.com" value="${F.email}">
-      <div class="k">${T('ROLE')}</div><div class="plChips" id="plR">${['Rider','Trainer','Groom','Vet'].map(r=>`<button class="${F.role===r?'on':''}" data-v="${r}">${T(r)}</button>`).join('')}</div>
+      <div class="k">${T('ROLE')}</div><div class="plChips" id="plR">${['Rider','Vet / Osteo','Farrier','Trainer','Horse Owner','Groom'].map(r=>`<button class="${F.role===r?'on':''}" data-v="${r}">${T(r)}</button>`).join('')}</div>
       <div class="k">${T('HORSES THEY CAN SEE')}</div><div class="plChips" id="plH">${H.map(h=>`<button class="${F.horses.includes(h.n)?'on':''}" data-v="${h.n}">${h.n}</button>`).join('')}</div>
       <button class="plBtn" id="plGo" ${F.name.trim()&&/\S+@\S+\.\S+/.test(F.email)?'':'disabled'}>${T('Send the invitation')}</button>`;
       s.querySelector('#plN').oninput=e=>{ F.name=e.target.value; s.querySelector('#plGo').disabled=!(F.name.trim()&&/\S+@\S+\.\S+/.test(F.email)); };
