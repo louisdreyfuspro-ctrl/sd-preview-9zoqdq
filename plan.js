@@ -136,7 +136,9 @@
     const u=new URL(location.href); u.searchParams.delete('plan'); location.href=u.toString(); };
   /* which horses this account sees */
   /* a vet and a farrier: the horses of their other stables join the list (and SD_ALLH, the list the pages pass here, so their sessions exist) */
-  window.planHorses=list=>{ if(SD_MULTI) SD_XH.forEach(x=>{ if(!list.some(h=>h.id===x.id)) list.push(Object.assign({},x)); }); return _planH(list); };
+  window.planHorses=list=>{ if(SD_MULTI) SD_XH.forEach(x=>{ if(!list.some(h=>h.id===x.id)) list.push(Object.assign({},x)); }); const L=_planH(list);
+    /* signed up with their own horses: only those (the horses of a professional's other stables stay) */
+    return window.SD_MYIDS&&plan!=='owner'&&plan!=='pro'?L.filter(h=>(h.st&&h.st!=='ms')||SD_MYIDS.includes(h.id)):L; };
   const _planH=list=>plan==='premium'?list.filter(h=>h.id==='qz')
     :plan==='rider'?(window.SD_AS_HOWNER?list.filter(h=>SD_HO_IDS().includes(h.id)):list.filter(h=>(h.r||h.rider)==='John Doe')):plan==='groom'?list:SD_STAFF?list.filter(h=>(h.st&&h.st!=='ms')||SD_FOLLOW().includes(h.id))
     :(window.SD_MYIDS&&plan==='pro')?list.filter(h=>SD_MYIDS.includes(h.id)):list;
@@ -146,25 +148,32 @@
   /* the person who signed up: their first name everywhere, and their horse on Home */
   let ME=null; try{ ME=JSON.parse(localStorage.getItem('sdMe')); }catch(e){}
   window.SD_ME=ME;
-  window.SD_MYNAME=(['pro','premium','owner'].includes(plan)&&ME&&(ME.full||ME.name))||SD_PLANS[plan].full||({rider:'John Doe'}[plan])||'Marie S.';
-  /* a new account sees ITS horses and ITS name: the sample data of the demo horses is shown under their names (test app, sample numbers) */
+  /* the name of the demo person this account stands in for (before the signed-up name replaces it) */
+  const DEMO_FULL=SD_PLANS[plan].full||({rider:'John Doe'}[plan])||'Marie S.';
+  window.SD_MYNAME=(ME&&(ME.full||ME.name))||DEMO_FULL;
+  /* a new account sees ITS horses and ITS name, whatever its role: the sample data of the demo horses is shown under their names (test app, sample numbers) */
   const MYH=ME?(ME.horses&&ME.horses.length?ME.horses:ME.horse&&ME.horse.name?[ME.horse.name]:[]).map(n=>String(n).trim()).filter(Boolean):[];
-  if(ME&&(MYH.length||ME.name)&&['pro','premium','owner'].includes(plan)){
-    const DEMO=plan==='premium'?[['qz','Quintus Z','QZ']]:[['mb','Midnight Bolt','MB'],['qz','Quintus Z','QZ'],['bd','Bella Donna','BD'],['sa','Silver Arrow','SA'],['nl','Nova de Lys','NL']];
+  const SOLO=['pro','premium','owner'].includes(plan);
+  if(ME&&(MYH.length||ME.name)){
+    const HN0={mb:'Midnight Bolt',qz:'Quintus Z',bd:'Bella Donna',sa:'Silver Arrow',nl:'Nova de Lys'};
+    /* the demo horses this account sees: the signed-up horses take their place, in this order */
+    const ids=plan==='premium'?['qz']:SOLO?['mb','qz','bd','sa','nl']:window.SD_AS_HOWNER?SD_HO_IDS():window.SD_STAFF?SD_FOLLOW():['mb','sa'];
+    const DEMO=ids.filter(i=>HN0[i]).map(i=>[i,HN0[i],i.toUpperCase()]);
     const ini=n=>n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const MAP=[], INI={};
     MYH.slice(0,DEMO.length).forEach((n,i)=>{ MAP.push([DEMO[i][1],n]); INI[DEMO[i][2]]=ini(n); });
     if(MYH.length&&plan==='premium'){ MAP.push(['Midnight Bolt',MYH[0]]); INI.MB=ini(MYH[0]); }
-    if(MYH.length&&plan==='pro') window.SD_MYIDS=DEMO.slice(0,MYH.length).map(d=>d[0]);
-    if(MYH.length&&plan!=='owner') window.SD_HN=MYH.slice(0,DEMO.length);
+    if(MYH.length&&plan!=='owner') window.SD_MYIDS=DEMO.slice(0,MYH.length).map(d=>d[0]);
+    if(MYH.length&&plan!=='owner'){ const dn=DEMO.map(d=>d[1]); window.SD_HN=MYH.slice(0,DEMO.length).concat((window.SD_HN||[]).filter(n=>!dn.includes(n))); }
     const FN=(ME.name||'').trim(), FULL=(ME.full||FN).trim();
-    if(FULL){ MAP.push(['Marie S.',FULL]); if(plan!=='owner') ['John Doe','Lea Martin'].forEach(r=>MAP.push([r,FULL])); }
-    if(FN) MAP.push(['Marie',FN]);
+    /* the solo plans stand in for Marie S.; a rider, a professional or a horse owner for their own demo person (the stable stays Marie S.'s) */
+    if(FULL){ if(SOLO){ MAP.push(['Marie S.',FULL]); if(plan!=='owner') ['John Doe','Lea Martin'].forEach(r=>MAP.push([r,FULL])); } else if(DEMO_FULL!==FULL) MAP.push([DEMO_FULL,FULL]); }
+    if(FN&&SOLO) MAP.push(['Marie',FN]);
     const fix=n=>{ let v=n.nodeValue, o=v; MAP.forEach(([a,b])=>{ if(v.includes(a)) v=v.split(a).join(b); }); const t=v.trim(); if(INI[t]) v=v.replace(t,INI[t]); if(v!==o) n.nodeValue=v; };
     const walk=r=>{ if(r.nodeType===3) return fix(r); if(r.nodeType!==1||/^(SCRIPT|STYLE)$/.test(r.nodeName)) return; const w=document.createTreeWalker(r,4); let n; while((n=w.nextNode())) fix(n); };
     new MutationObserver(L=>L.forEach(m=>{ if(m.type==='characterData') fix(m.target); else m.addedNodes.forEach(walk); })).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
     document.addEventListener('DOMContentLoaded',()=>walk(document.body)); }
-  if(ME&&ME.name&&['pro','premium','owner'].includes(plan)){ SD_PLANS[plan].me=ME.name;
+  if(ME&&ME.name){ SD_PLANS[plan].me=ME.name; if(!SOLO) Object.assign(SD_PLANS[plan],{full:(ME.full||ME.name).trim(),email:ME.email||SD_PLANS[plan].email});
     document.addEventListener('DOMContentLoaded',()=>{ const T=x=>(window.SD_T||(y=>y))(x);
       const n=document.querySelector('.hi .n'); if(n) n.textContent=ME.name;
       const av=document.querySelector('.av'); if(av&&av.firstChild&&av.firstChild.nodeType===3) av.firstChild.nodeValue=ME.name[0].toUpperCase();
@@ -466,7 +475,7 @@
     btn.onclick=e=>{ e.preventDefault(); SD_MENU(btn,[{t:'Change horse',ic:'swap',fn:()=>SD_PICK_HORSE({current:nameOf(),onSave:n=>{ const prev=SD_VIDEO_HORSE(k); SD_SET_VIDEO_HORSE(k,n); paint();
         SD_UNDO('Moved to '+shown(n),()=>{ SD_SET_VIDEO_HORSE(k,prev); paint(); }); }})},
       {t:'Delete video',ic:'trash',red:1,fn:()=>SD_CONFIRM_DELETE({onConfirm:()=>{ SD_DELETE_VIDEO(k); SD_UNDO_LATER({type:'video',key:k});
-        const u=new URL('Etape%204%20-%20Sessions.html?v=1007115209',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
+        const u=new URL('Etape%204%20-%20Sessions.html?v=1007120026',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
   /* undo after a page change: the next page shows the toast */
   window.SD_UNDO_LATER=o=>{ try{ sessionStorage.setItem('sdUndo',JSON.stringify(o)); }catch(e){} };
   document.addEventListener('DOMContentLoaded',()=>{ let o=null; try{ o=JSON.parse(sessionStorage.getItem('sdUndo')); sessionStorage.removeItem('sdUndo'); }catch(e){} if(!o) return;
@@ -523,7 +532,7 @@
       <div class="plFeat"><span class="i"><svg style="color:#5B9BFF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 8.75v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277C9.216 3 8.394 3 6.75 3s-2.466 0-3.019.454a2 2 0 0 0-.277.277C3 4.284 3 5.106 3 6.75v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277c.454-.553.454-1.375.454-3.019ZM7.75 15.5h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333C3 17.203 3 17.552 3 18.25s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334C4.703 21 5.052 21 5.75 21h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333c.086-.284.086-.633.086-1.331s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334c-.284-.086-.633-.086-1.331-.086ZM21 17.25v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277c-.553-.454-1.375-.454-3.019-.454s-2.466 0-3.019.454a2 2 0 0 0-.277.277c-.454.553-.454 1.375-.454 3.019v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277C21 19.716 21 18.894 21 17.25ZM18.25 3h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333c-.086.284-.086.633-.086 1.331s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334c.284.086.633.086 1.331.086h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333C21 6.797 21 6.448 21 5.75s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334C19.297 3 18.948 3 18.25 3Z"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
     <span class="plTr">${T('30 days free')}</span>
     <button class="plBtn" id="plGo">${T('Start 30-day free trial')}</button><div class="plThen">${T(`Then $${(window.SD_OFFERS.find(o=>o.k==='pro')||{m:149}).m}/month.`)} ${T('Cancel anytime before the trial ends.')}</div><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
-    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1007115209#plans'; }; });
+    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1007120026#plans'; }; });
 
   /* Stable Owner: invite a rider and give them horses */
   window.openAddRider=()=>{ const H=window.SD_ALLH||[{n:'Midnight Bolt'},{n:'Quintus Z'},{n:'Bella Donna'},{n:'Silver Arrow'},{n:'Nova de Lys'}];
