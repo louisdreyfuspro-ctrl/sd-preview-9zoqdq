@@ -203,6 +203,8 @@ SD_I18N_RUN({
 "Show": "Concours",
 "Shows": "Concours",
 "Training": "Entraînement",
+"shows": "concours",
+"training": "entraînement",
 "Competition": "Concours",
 "Course": "Parcours",
 "Grid work": "Gymnastique",

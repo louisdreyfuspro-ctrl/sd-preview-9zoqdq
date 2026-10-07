@@ -25,17 +25,20 @@
   let plan=null; try{ plan=new URLSearchParams(location.search).get('plan'); }catch(e){}
   /* a link with ?plan= also becomes the account type you stay in (not inside the TV boards' frames) */
   if(P.includes(plan)&&window.top===window){ try{ localStorage.setItem('sdPlan',plan); }catch(e){} }
-  try{ if(new URLSearchParams(location.search).get('demo')==='1') ['sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses','sdClientsVet','sdClientsFarrier'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
+  try{ if(new URLSearchParams(location.search).get('demo')==='1') ['sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses','sdClientsVet','sdClientsFarrier','sdPersonalGroom'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
   if(!P.includes(plan)){ try{ plan=localStorage.getItem('sdPlan'); }catch(e){} }
   if(!P.includes(plan)) plan='pro';
   window.SD_PLAN=plan;
+  /* the groom gets EXACTLY the rider's app (Louis, 7 Oct): it runs as 'rider'; only its identity stays its own
+     (name Paul Girard, GROOM badge, role Groom). SD_ACCOUNT keeps the account picked in Profile > Account type. */
+  window.SD_ACCOUNT=plan; window.SD_AS_GROOM=plan==='groom'; if(plan==='groom'){ plan='rider'; window.SD_PLAN='rider'; }
   /* horse names offered when adding a video */
   if(['vet','farrier','groom'].includes(plan)){ const ids=plan==='groom'?['mb','qz','bd','sa','nl']:(()=>{ let F={}; try{ F=JSON.parse(localStorage.getItem('sdStaffHorses'))||{}; }catch(e){} const ini={vet:'AK',farrier:'LB',groom:'PG'}[plan]; return F[ini]||({AK:['mb','sa']}[ini])||['mb','qz','bd','sa','nl']; })();
     const N={mb:'Midnight Bolt',qz:'Quintus Z',bd:'Bella Donna',sa:'Silver Arrow',nl:'Nova de Lys'}; window.SD_HN=ids.map(i=>N[i]); }
   if(plan==='premium') window.SD_HN=['Quintus Z']; if(plan==='rider') window.SD_HN=['Midnight Bolt','Silver Arrow','Kalinka'];
   /* horses outside the stable, kept apart, private, never in the stable's numbers:
      a rider's own horses, a vet's or a farrier's client horses (same shape as the stable's horses) */
-  const OWNK={rider:'sdPersonal',vet:'sdClientsVet',farrier:'sdClientsFarrier'}[plan];
+  const OWNK=window.SD_AS_GROOM?'sdPersonalGroom':{rider:'sdPersonal',vet:'sdClientsVet',farrier:'sdClientsFarrier'}[plan];
   const OWN0={rider:{id:'p_kal',n:'Kalinka',breed:'Selle Français',age:9,sex:'Mare',coat:'Bay',level:'1.20 m',r:'John Doe',perf:66,d:2,lastD:3,month:4,height:165},
     vet:{id:'c_orf',n:'Orfeo',breed:'KWPN',age:11,sex:'Gelding',coat:'Chestnut',level:'1.30 m',r:'Claire Dubois',perf:71,d:1,lastD:2,month:3,height:170,shoes:'All four'},
     farrier:{id:'c_uly',n:'Ulysse',breed:'Hanoverian',age:8,sex:'Gelding',coat:'Grey',level:'1.15 m',r:'Hugo Martin',perf:63,d:-2,lastD:5,month:2,height:166,shoes:'Front only'}}[plan];
@@ -45,14 +48,15 @@
     const yr=+H.year; L.push({id:'p'+Date.now(),n:H.name,breed:H.breed||'–',age:yr?2026-yr:'–',sex:H.sex,coat:H.coat||'–',level:H.level||'–',height:+H.height||null,shoes:H.shoes||null,r:plan==='rider'?'John Doe':'',perf:null,d:0,lastD:999,month:0,personal:true,client:plan!=='rider'});
     try{ localStorage.setItem(OWNK,JSON.stringify(L)); }catch(e){} };
   /* the second group of horses, named for each job: a groom's is the stable's horses they follow */
-  window.SD_OWN_LABEL={rider:'My own',vet:'My clients',farrier:'My clients',groom:'Followed'}[plan]||'My own';
-  window.SD_OWN_TAG={rider:'Personal',vet:'Client',farrier:'Client',groom:'Followed'}[plan]||'Personal';
+  window.SD_OWN_LABEL={rider:'My own',vet:'My Horses',farrier:'My Horses'}[plan]||'My own';
+  window.SD_OWN_TAG={rider:'Personal',vet:'Client',farrier:'Client'}[plan]||'Personal';
   document.documentElement.dataset.plan=plan;
   window.SD_PLANS={pro:{name:'Pro',badge:'PRO',me:'Marie'},premium:{name:'Premium',badge:'PREMIUM',me:'Marie'},
     owner:{name:'Stable Owner',badge:'OWNER',me:'Marie'},rider:{name:'Rider',badge:'RIDER',me:'John'},
     vet:{name:'Vet',badge:'VET',me:'Anne',full:'Dr. Anne Keller',ini:'AK',role:'Vet',email:'anne@vet-keller.ch'},
     farrier:{name:'Farrier',badge:'FARRIER',me:'Lucas',full:'Lucas Bernard',ini:'LB',role:'Farrier',email:'lucas@bernard-farrier.ch'},
     groom:{name:'Groom',badge:'GROOM',me:'Paul',full:'Paul Girard',ini:'PG',role:'Groom',email:'paul@stable.com'}};
+  if(window.SD_AS_GROOM) Object.assign(SD_PLANS.rider,{badge:'GROOM',me:'Paul',full:'Paul Girard',ini:'PG',role:'Groom',email:'paul@stable.com'});
   /* professionals of the stable: vet, farrier, groom. They see only the horses they follow (chosen by them or the owner) */
   window.SD_STAFF=['vet','farrier','groom'].includes(plan);
   if(window.SD_STAFF) document.documentElement.classList.add('staff');
@@ -340,7 +344,7 @@
     btn.onclick=e=>{ e.preventDefault(); SD_MENU(btn,[{t:'Change horse',ic:'swap',fn:()=>SD_PICK_HORSE({current:nameOf(),onSave:n=>{ const prev=SD_VIDEO_HORSE(k); SD_SET_VIDEO_HORSE(k,n); paint();
         SD_UNDO('Moved to '+shown(n),()=>{ SD_SET_VIDEO_HORSE(k,prev); paint(); }); }})},
       {t:'Delete video',ic:'trash',red:1,fn:()=>SD_CONFIRM_DELETE({onConfirm:()=>{ SD_DELETE_VIDEO(k); SD_UNDO_LATER({type:'video',key:k});
-        const u=new URL('Etape%204%20-%20Sessions.html?v=1007104549',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
+        const u=new URL('Etape%204%20-%20Sessions.html?v=1007111803',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
   /* undo after a page change: the next page shows the toast */
   window.SD_UNDO_LATER=o=>{ try{ sessionStorage.setItem('sdUndo',JSON.stringify(o)); }catch(e){} };
   document.addEventListener('DOMContentLoaded',()=>{ let o=null; try{ o=JSON.parse(sessionStorage.getItem('sdUndo')); sessionStorage.removeItem('sdUndo'); }catch(e){} if(!o) return;
@@ -391,9 +395,9 @@
   window.openUpsellHorse=()=>sheet(`<h3>${T('One horse with Premium')}</h3><div class="sub">${T('Premium follows one horse in depth. To add a second horse, switch to Pro: unlimited horses, same analysis.')}</div>
     <div style="margin-top:14px">
       <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><div><b>${T('Unlimited horses')}</b><span>${T('Every horse with its own page, trends and alerts')}</span></div></div>
-      <div class="plFeat"><span class="i"><svg viewBox="0 0 24 24"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
+      <div class="plFeat"><span class="i"><svg style="color:#5B9BFF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 8.75v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277C9.216 3 8.394 3 6.75 3s-2.466 0-3.019.454a2 2 0 0 0-.277.277C3 4.284 3 5.106 3 6.75v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277c.454-.553.454-1.375.454-3.019ZM7.75 15.5h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333C3 17.203 3 17.552 3 18.25s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334C4.703 21 5.052 21 5.75 21h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333c.086-.284.086-.633.086-1.331s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334c-.284-.086-.633-.086-1.331-.086ZM21 17.25v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277c-.553-.454-1.375-.454-3.019-.454s-2.466 0-3.019.454a2 2 0 0 0-.277.277c-.454.553-.454 1.375-.454 3.019v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277C21 19.716 21 18.894 21 17.25ZM18.25 3h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333c-.086.284-.086.633-.086 1.331s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334c.284.086.633.086 1.331.086h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333C21 6.797 21 6.448 21 5.75s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334C19.297 3 18.948 3 18.25 3Z"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
     <button class="plBtn" id="plGo">${T('See the Pro plan')}</button><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
-    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1007104549#plans'; }; });
+    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1007111803#plans'; }; });
 
   /* Stable Owner: invite a rider and give them horses */
   window.openAddRider=()=>{ const H=window.SD_ALLH||[{n:'Midnight Bolt'},{n:'Quintus Z'},{n:'Bella Donna'},{n:'Silver Arrow'},{n:'Nova de Lys'}];
@@ -436,7 +440,7 @@
     document.querySelectorAll('.addMenu').forEach(m=>{
       const horseBtn=[...m.querySelectorAll('button')].find(b=>/Add a horse/i.test(b.textContent)||b.textContent.includes(T('Add a horse')));
       if(plan==='premium'&&horseBtn) horseBtn.addEventListener('click',e=>{ e.stopImmediatePropagation(); e.preventDefault(); m.classList.remove('on'); document.querySelectorAll('.plus.open').forEach(p=>p.classList.remove('open')); openUpsellHorse(); },true);
-      if(plan==='owner'&&!m.querySelector('[data-rider]')){ m.insertAdjacentHTML('beforeend',`<button data-rider="1"><svg viewBox="0 0 24 24"><circle cx="10" cy="8.5" r="3.4"/><path d="M3.8 19.5c1.3-3.3 3.6-4.9 6.2-4.9s4.9 1.6 6.2 4.9"/><path d="M18.5 7.5v6M15.5 10.5h6"/></svg>${T('Add a user')}</button>`);
+      if(plan==='owner'&&!m.querySelector('[data-rider]')){ m.insertAdjacentHTML('beforeend',`<button data-rider="1"><svg style="color:var(--blue)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><circle cx="10" cy="7" r="4"/><path d="M19 8v6m3-3h-6m-6 3c-5 0-8 2.5-8 5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2c0-2.5-3-5-8-5"/></g></svg>${T('Add a user')}</button>`);
         m.querySelector('[data-rider]').addEventListener('click',e=>{ e.stopPropagation(); m.classList.remove('on'); document.querySelectorAll('.plus.open').forEach(p=>p.classList.remove('open')); openAddRider(); }); }
     });
     /* nav: the owner's second tab is the stable (icon: Hugeicons barns, MIT) */
