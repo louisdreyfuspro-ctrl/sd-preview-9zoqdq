@@ -2,9 +2,9 @@
 <html lang="en" data-page="profile">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1007120026"></script>
-<script src="plan.js?v=1007120026"></script>
-<script src="care.js?v=1007120026"></script>
+<script src="i18n.js?v=1007141911"></script>
+<script src="plan.js?v=1007141911"></script>
+<script src="care.js?v=1007141911"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -567,6 +567,13 @@
   .pl.cur{border-color:var(--blue);background:rgba(59,130,246,.08)}
   .pl .h{display:flex;align-items:baseline;justify-content:space-between}
   .pl .h b{font-size:17px;display:inline-flex;align-items:center;gap:7px} .pl .h b svg.plI{width:18px;height:18px;color:#8DB8FF;flex:0 0 auto} .pl .h span{font-size:13px;font-weight:700;color:#C7CFDB}
+  .jobLi{align-items:flex-start} .jobLi .ri{margin-top:2px}
+  .jobC{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap} .jobC button{font:inherit;font-size:12.5px;font-weight:800;color:#C7CFDB;background:var(--card2,#1A1F28);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+  .jobC button.on{background:rgba(59,130,246,.2);border-color:var(--blue);color:#fff}
+  html[data-theme="light"] .jobC button{color:var(--txt)} html[data-theme="light"] .jobC button.on{background:rgba(59,130,246,.12);color:#1D4ED8}
+  .pl .h span.pr{font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--txt,#F2F5F8)} .pl .h span.pr small{font-size:12px;font-weight:700;color:var(--mut)}
+  .pl .ideal{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--mut)} .pl .ideal b{color:#C7CFDB;font-weight:800}
+  html[data-theme="light"] .pl .ideal b{color:#3A4658} html[data-theme="light"] .pl .h span.pr{color:var(--txt)!important}
   .pl .who{font-size:12.5px;color:#C7CFDB;margin-top:4px}
   .pl ul{list-style:none;padding:0;margin:8px 0 0} .pl li{font-size:12.5px;color:var(--mut);padding:3px 0 3px 20px;position:relative}
   .pl li::before{content:"";position:absolute;left:2px;top:8px;width:9px;height:5px;border-left:2px solid #5B9BFF;border-bottom:2px solid #5B9BFF;transform:rotate(-45deg)}
@@ -781,7 +788,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   <div class="plan in" style="animation-delay:.04s">
     <div class="k">YOUR PLAN</div>
     <div class="t" id="plT"><b>StrydeUp Pro</b><span>Renews 30 Oct 2026</span></div>
-    <div class="d" id="plD">One rider, as many horses as you want.</div>
+    <div class="d" id="plD">One user. Unlimited horses.</div>
     <div class="use" id="plU"><div><span>HORSES</span><b>5</b></div><div><span>SESSIONS</span><b>130</b></div><div><span>MEMBER SINCE</span><b>Mar 2026</b></div></div>
     <div class="btns" id="plB"><button id="plans">Compare plans</button><button class="pri" id="manage">Manage plan</button></div>
   </div>
@@ -838,10 +845,10 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg>Add a horse</button>
 </div>
 <div class="nav">
-  <a href="Etape%202%20-%20Home%20Pro.html?v=1007120026"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
-  <a href="Etape%203%20-%20My%20Horses.html?v=1007120026"><svg class="horse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 21c-4.5-5-1.5-8-1.5-8c.924 2.463 4 2 4 2l1.774 1.36a.885.885 0 0 0 1.197-.23l1.327-1.602a1.034 1.034 0 0 0-.068-1.312l-1.282-1.367a4.37 4.37 0 0 1-1.116-2.313C18.17 8.5 17.5 7.5 16.887 6.908L16 6l1-3s-2.576.03-3.5 2C7.5 5.5 3 9.536 3 21"/></svg>My Horses</a>
+  <a href="Etape%202%20-%20Home%20Pro.html?v=1007141911"><svg viewBox="0 0 24 24"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.8V20h11.6V9.8"/></svg>Home</a>
+  <a href="Etape%203%20-%20My%20Horses.html?v=1007141911"><svg class="horse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 21c-4.5-5-1.5-8-1.5-8c.924 2.463 4 2 4 2l1.774 1.36a.885.885 0 0 0 1.197-.23l1.327-1.602a1.034 1.034 0 0 0-.068-1.312l-1.282-1.367a4.37 4.37 0 0 1-1.116-2.313C18.17 8.5 17.5 7.5 16.887 6.908L16 6l1-3s-2.576.03-3.5 2C7.5 5.5 3 9.536 3 21"/></svg>My Horses</a>
   <a href="#" class="plus" id="plusTab"><span class="plusBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></a>
-  <a href="Etape%204%20-%20Sessions.html?v=1007120026"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
+  <a href="Etape%204%20-%20Sessions.html?v=1007141911"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.6-2.7z" fill="currentColor" stroke="none"/></svg>Sessions</a>
   <a href="#" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.3" r="3.4"/><path d="M4.8 19.5c1.5-3.6 4.1-5.2 7.2-5.2s5.7 1.6 7.2 5.2"/></svg>Profile</a>
 </div>
 
@@ -871,17 +878,20 @@ function groups(){
   const TEAM=[['Marie S.','You · owner','Quintus Z, Nova de Lys'],['John Doe','Rider','Midnight Bolt, Silver Arrow'],['Lea Martin','Rider','Bella Donna'],['Paul Girard','Groom','Midnight Bolt, Quintus Z, Bella Donna'],['Dr. Anne Keller','Vet','Midnight Bolt, Silver Arrow'],['Lucas Bernard','Farrier','All horses']];
   const ini=n=>n.replace('Dr. ','').split(' ').map(x=>x[0]).join('').slice(0,2);
   const G=[
-    ...(SD_PLAN==='owner'?[['TEAM & ACCESS',[...TEAM.map(([n,r,h])=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007120026#p=${ini(n)}" style="text-decoration:none;color:inherit"><span class="ri tmI">${ini(n)}</span><div class="t"><div class="a">${n}</div><div class="b">${r} · ${h}</div></div>${CHV}</a>`),
+    ...(SD_PLAN==='owner'?[['TEAM & ACCESS',[...TEAM.map(([n,r,h])=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007141911#p=${ini(n)}" style="text-decoration:none;color:inherit"><span class="ri tmI">${ini(n)}</span><div class="t"><div class="a">${n}</div><div class="b">${r} · ${h}</div></div>${CHV}</a>`),
       li('user-plus-rounded','Add a user','Rider, trainer, groom, vet: invite them, choose their horses',null,'rider')]]]:[]),
     /* Stable Owner: the private owners of the horses (added on each horse page), their horses and where their invitation is */
     ...(SD_PLAN==='owner'&&window.SD_HOWNERS?[['OWNERS',[...(()=>{ const M=SD_HOWNERS(), by={}, N={mb:'Midnight Bolt',qz:'Quintus Z',bd:'Bella Donna',sa:'Silver Arrow',nl:'Nova de Lys'};
         Object.keys(M).forEach(k=>{ const o=M[k], key=o.e||o.n; (by[key]=by[key]||{o,hs:[]}).hs.push(k); if(o.st==='invited') by[key].o=o; });
-        return Object.values(by).map(({o,hs})=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007120026#h=${hs[0]}" style="text-decoration:none;color:inherit"><span class="ri tmI">${o.n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span><div class="t"><div class="a">${o.n}</div><div class="b">${hs.map(k=>N[k]||k).join(', ')}</div></div><em class="hoPill${o.st==='invited'?' inv':''}">${o.st==='invited'?'Invited':'Active'}</em>${CHV}</a>`); })(),
-      `<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007120026#v=horses" style="text-decoration:none;color:inherit"><span class="ri">${ic('user-plus-rounded',18)}</span><div class="t"><div class="a">Add the owner of a horse</div><div class="b">On the horse page, in About</div></div>${CHV}</a>`]]]:[]),
+        return Object.values(by).map(({o,hs})=>`<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007141911#h=${hs[0]}" style="text-decoration:none;color:inherit"><span class="ri tmI">${o.n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span><div class="t"><div class="a">${o.n}</div><div class="b">${hs.map(k=>N[k]||k).join(', ')}</div></div><em class="hoPill${o.st==='invited'?' inv':''}">${o.st==='invited'?'Invited':'Active'}</em>${CHV}</a>`); })(),
+      `<a class="li" href="Etape%203%20-%20My%20Horses.html?v=1007141911#v=horses" style="text-decoration:none;color:inherit"><span class="ri">${ic('user-plus-rounded',18)}</span><div class="t"><div class="a">Add the owner of a horse</div><div class="b">On the horse page, in About</div></div>${CHV}</a>`]]]:[]),
     /* a vet and a farrier work for several stables, and can join one more with its invite code */
-    ...(window.SD_MULTI?[['YOUR STABLES',[...SD_STABLES.map(s=>`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">${s.ini}</span><div class="t"><div class="a">${s.n}</div><div class="b">${'Managed by '+s.mgr+' · '+(SD_PLAN==='vet'?'you are its vet':'you are its farrier')}</div></div><span class="v">${(n=>n+' '+(n===1?'horse':'horses'))(s.id==='ms'?SD_FOLLOW().filter(i=>!window.SD_MYIDS||SD_MYIDS.includes(i)).length:SD_XH.filter(h=>h.st===s.id).length)}</span></div>`),
+    /* the professional profile: one small job selector, the badge and the role follow it (client, v2) */
+    ...(window.SD_JOB&&(window.SD_JOBS||[]).includes(SD_JOB)?[['YOUR JOB',[`<div class="li jobLi"><span class="ri">${ic('user-id',18)}</span><div class="t"><div class="a">Your job</div><div class="b">On your badge and for the stables you work with</div>
+      <div class="jobC" role="radiogroup">${SD_JOBS.map(j=>`<button role="radio" aria-checked="${j===SD_JOB}" class="${j===SD_JOB?'on':''}" data-job="${j}">${j}</button>`).join('')}</div></div></div>`]]]:[]),
+    ...(window.SD_MULTI?[['YOUR STABLES',[...SD_STABLES.map(s=>`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">${s.ini}</span><div class="t"><div class="a">${s.n}</div><div class="b">${'Managed by '+s.mgr+' · '+(window.SD_JOB==='Trainer'?'you train here':'you are its '+(window.SD_JOB_WORD||'vet'))}</div></div><span class="v">${(n=>n+' '+(n===1?'horse':'horses'))(s.id==='ms'?SD_FOLLOW().filter(i=>!window.SD_MYIDS||SD_MYIDS.includes(i)).length:SD_XH.filter(h=>h.st===s.id).length)}</span></div>`),
       li('users-group-rounded','Join a stable','Enter the invite code the stable gave you',null,'join')]]]:[]),
-    ...((SD_PLAN==='rider'||window.SD_STAFF)&&!window.SD_MULTI?[['YOUR STABLE',[`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">É</span><div class="t"><div class="a">${SD_STABLE}</div><div class="b">${SD_OWNERIZE(window.SD_STAFF?"Managed by Marie S. · "+(SD_PLAN==='groom'?'you are its groom':SD_PLAN==='vet'?'you are its vet':'you are its farrier'):"Managed by Marie S. · "+(({groom:'you are its groom',trainer:'you train here',horseowner:'2 of your horses live here'})[window.SD_AS]||'you ride 2 horses'))}</div></div></div>`]]]:[]),
+    ...((SD_PLAN==='rider'||window.SD_STAFF)&&!window.SD_MULTI?[['YOUR STABLE',[`<div class="li"><span class="ri tmI" style="border-radius:10px;background:linear-gradient(135deg,#1E3A64,#13213A);color:#CFE0FF">É</span><div class="t"><div class="a">${SD_STABLE}</div><div class="b">${SD_OWNERIZE(window.SD_STAFF?"Managed by Marie S. · "+(SD_PLAN==='groom'?'you are its groom':SD_PLAN==='vet'?(window.SD_JOB==='Trainer'?'you train here':'you are its '+(window.SD_JOB_WORD||'vet')):'you are its farrier'):"Managed by Marie S. · "+(({groom:'you are its groom',trainer:'you train here',horseowner:'2 of your horses live here'})[window.SD_AS]||'you ride 2 horses'))}</div></div></div>`,...(SD_PLAN==='vet'?[li('users-group-rounded','Join a stable','Enter the invite code the stable gave you',null,'join')]:[])]]]:[]),
     ['ACCOUNT',[li('user-id','Personal info',`${ME.name} ${ME.last} · ${ME.email}`,null,'edit'),
                 li('shield-keyhole','Password & security','Password, Face ID, devices',null,'sec')]],
     ['NOTIFICATIONS',[li('bell-bing','All notifications',PREF.notifReady||PREF.notifAlerts?'On':'Everything is off',tg('notifAll')),
@@ -910,6 +920,7 @@ function groups(){
     if(a==='rider') openAddRider();
     if(a==='plan') openPlanPick();
     if(a==='join'&&window.SD_JOIN_STABLE) SD_JOIN_STABLE(); });
+  document.querySelectorAll('.jobC button').forEach(b=>b.onclick=e=>{ e.stopPropagation(); if(b.dataset.job===window.SD_JOB) return; SD_SET_JOB(b.dataset.job); location.reload(); });
 }
 groups();
 /* sheets */
@@ -923,18 +934,18 @@ function openLang(){ document.getElementById('pickT').textContent='Language';
   open('pickS'); }
 function openPlanPick(){ document.getElementById('pickT').textContent='Account type';
   /* the account types, in the order of the sign-up roles (Stable Owner, Rider, Vet / Osteo, Farrier, Trainer, Horse Owner, Groom), after the two solo plans */
-  const O=[['pro','Pro','One rider, unlimited horses'],['premium','Premium','One rider, one horse'],['owner','Stable Owner','The master account of a stable'],['rider','Rider','A rider inside a stable'],['vet','Vet / Osteo','Follows horses of several stables'],['farrier','Farrier','Shoes horses of several stables'],['trainer','Trainer','Trains riders of the stable'],['horseowner','Horse Owner','Owns horses kept at the stable'],['groom','Groom','A groom who looks after the horses']];
+  const O=[['pro','Pro','One user, unlimited horses'],['premium','Premium','One user, one horse'],['owner','Stable Owner','The master account of a stable'],['rider','Rider','A rider inside a stable'],['vet','Vet / Osteo','Follows horses of several stables'],['farrier','Farrier','Shoes horses of several stables'],['trainer','Trainer','Trains in one stable or several'],['horseowner','Horse Owner','Owns horses kept at the stable'],['groom','Groom','A groom who looks after the horses']];
   document.getElementById('pickO').innerHTML=O.map(([k,n,d])=>`<div class="li" data-v="${k}" style="padding:12px 2px"><div class="t"><div class="a">${n}</div><div class="b">${d}</div></div>${k===(window.SD_ACCOUNT||SD_PLAN)?'<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#3B82F6;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</div>`).join('');
   document.querySelectorAll('#pickO .li').forEach(r=>r.onclick=()=>{ if(r.dataset.v!==(window.SD_ACCOUNT||SD_PLAN)) setPlan(r.dataset.v); else closeAll(); });
   open('pickS'); }
 /* the plan card follows the account type */
 (function(){ const p=SD_PLAN, u=(a)=>a.map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join('');
-  if(p==='premium'){ document.getElementById('plT').innerHTML='<b>StrydeUp Premium</b><span>Renews 30 Oct 2026</span>'; document.getElementById('plD').textContent='One rider, one horse.';
+  if(p==='premium'){ document.getElementById('plT').innerHTML='<b>StrydeUp Premium</b><span>Renews 30 Oct 2026</span>'; document.getElementById('plD').textContent='One user. One horse.';
     document.getElementById('plU').innerHTML=u([['HORSE','Quintus Z'],['VIDEOS','26'],['MEMBER SINCE','Mar 2026']]); }
-  if(p==='owner'){ document.getElementById('plT').innerHTML='<b>StrydeUp Stable Owner</b><span>Renews 30 Oct 2026</span>'; document.getElementById('plD').textContent='You run the stable: every rider, every horse, every video.';
+  if(p==='owner'){ document.getElementById('plT').innerHTML='<b>StrydeUp Stable Account</b><span>Renews 30 Oct 2026</span>'; document.getElementById('plD').textContent='You run the stable: every rider, every horse, every video.';
     document.getElementById('plU').innerHTML=u([['TEAM','5'],['HORSES','5'],['VIDEOS','130']]); }
   if(window.SD_STAFF){ const m=SD_PLANS[p]; document.getElementById('plT').innerHTML=`<b>${window.SD_MULTI?SD_STABLES.length+' stables':SD_STABLE}</b><span>${m.role}</span>`; document.getElementById('plD').textContent=window.SD_MULTI?'Your access is given and paid by each stable.':'Your access is given and paid by the stable.';
-    document.getElementById('plU').innerHTML=u([['HORSES',p==='groom'?5:SD_FOLLOW().length+(window.SD_XH||[]).length],['VIDEOS',{vet:52,farrier:130,groom:130}[p]],['SINCE',{vet:'Jun 2026',farrier:'Feb 2026',groom:'Apr 2026'}[p]]]); document.getElementById('plB').style.display='none';
+    document.getElementById('plU').innerHTML=u([['HORSES',p==='groom'?5:SD_FOLLOW().length+(window.SD_XH||[]).length],['VIDEOS',{vet:52,farrier:130,trainer:64,groom:130}[window.SD_ACCOUNT]||52],['SINCE',{vet:'Jun 2026',farrier:'Feb 2026',trainer:'Mar 2026',groom:'Apr 2026'}[window.SD_ACCOUNT]||'Jun 2026']]); document.getElementById('plB').style.display='none';
     document.getElementById('pN').textContent=m.full; document.getElementById('pE').textContent=m.email; const av=document.getElementById('av'); if(av.firstChild.nodeType===3) av.firstChild.nodeValue=m.me[0]; }
   if(p==='rider'){ document.getElementById('plT').innerHTML=`<b>${SD_STABLE}</b><span>${window.SD_AS?SD_PLANS.rider.role:'Rider'}</span>`; document.getElementById('plD').textContent='Your access is given and paid by the stable.';
     document.getElementById('plU').innerHTML=u([['HORSES','2'],['VIDEOS','52'],['SINCE','Apr 2026']]); document.getElementById('plB').style.display='none';
@@ -1002,7 +1013,7 @@ const HELP=[
     ['Can I change a horse’s details?','Open the horse in My Horses, then Edit in the About card.'],
     ['How do I compare two sessions?','Open a session, then the Compare tab, and pick any other session of the same horse.']]},
   {k:'plan',n:'Account & plan',d:'Billing, plans',ic:'crown-minimalistic',q:[
-    ['What is the difference between the plans?','Premium: one rider, one horse. Pro: one rider, unlimited horses. Stable Owner: an admin with several riders and horses.'],
+    ['What is the difference between the plans?','Premium: one user, one horse. Pro: one user, unlimited horses. Stable Account: one stable, multiple users, unlimited horses.'],
     ['How do I cancel?','Your plan is managed by the App Store. Go to your iPhone Settings, your name, Subscriptions, StrydeUp.'],
     ['Can I export my data?','Yes, in Profile, Export my data. You get all your sessions and scores in one file.']]},
 ];
@@ -1027,10 +1038,12 @@ const PLANS=window.SD_OFFERS;
 const PRICING='https://www.strydeup.com/pricing';
 /* plan icons (icon boards): Premium, Pro, Stable Owner */
 const PLI={premium:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m13.728 3.444l1.76 3.549c.24.494.88.968 1.42 1.058l3.189.535c2.04.343 2.52 1.835 1.05 3.307l-2.48 2.5c-.42.423-.65 1.24-.52 1.825l.71 3.095c.56 2.45-.73 3.397-2.88 2.117l-2.99-1.785c-.54-.322-1.43-.322-1.98 0L8.019 21.43c-2.14 1.28-3.44.322-2.88-2.117l.71-3.095c.13-.585-.1-1.402-.52-1.825l-2.48-2.5C1.39 10.42 1.86 8.929 3.899 8.586l3.19-.535c.53-.09 1.17-.564 1.41-1.058l1.76-3.549c.96-1.925 2.52-1.925 3.47 0"/></svg>',pro:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M5 21h14m-6.875-8.25H12m.25 0a.25.25 0 1 1-.5 0a.25.25 0 0 1 .5 0"/><path d="m14.915 7.61l-1.107-2.228C13.019 3.794 12.625 3 12 3s-1.019.794-1.808 2.382L9.085 7.61C8.58 8.625 8.329 9.132 7.88 9.246a1 1 0 0 1-.095.02c-.458.07-.886-.3-1.741-1.037C4.012 6.476 2.997 5.6 2.38 5.949a1 1 0 0 0-.114.076c-.564.43-.17 1.716.616 4.29l1.166 3.813c.423 1.384.635 2.076 1.17 2.474S6.473 17 7.91 17h8.178c1.438 0 2.158 0 2.693-.398s.747-1.09 1.17-2.474l1.166-3.813c.787-2.574 1.18-3.86.616-4.29a1 1 0 0 0-.114-.076c-.617-.349-1.632.527-3.664 2.28c-.855.738-1.283 1.107-1.741 1.036a1 1 0 0 1-.095-.019c-.45-.114-.701-.621-1.205-1.635"/></g></svg>',owner:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="currentColor"><path d="M20.9129 5.88881C21.25 6.39325 21.25 7.09549 21.25 8.49995V21.2499H21.75C22.1642 21.2499 22.5 21.5857 22.5 21.9999C22.5 22.4142 22.1642 22.7499 21.75 22.7499H1.75C1.33579 22.7499 1 22.4142 1 21.9999C1 21.5857 1.33579 21.2499 1.75 21.2499H2.25V8.49995C2.25 7.09549 2.25 6.39325 2.58706 5.88881C2.73298 5.67043 2.92048 5.48293 3.13886 5.33701C3.58008 5.04219 5.67561 5.00524 6.75702 5.00061C6.75291 5.292 6.75294 5.59649 6.75298 5.91045L6.75299 5.99995V7.24995H4.25C3.83579 7.24995 3.5 7.58573 3.5 7.99995C3.5 8.41416 3.83579 8.74995 4.25 8.74995H6.75299V10.2499H4.25C3.83579 10.2499 3.5 10.5857 3.5 10.9999C3.5 11.4142 3.83579 11.7499 4.25 11.7499H6.75299V13.2499H4.25C3.83579 13.2499 3.5 13.5857 3.5 13.9999C3.5 14.4142 3.83579 14.7499 4.25 14.7499H6.75299V21.2499H16.7529V14.7499H19.25C19.6642 14.7499 20 14.4142 20 13.9999C20 13.5857 19.6642 13.2499 19.25 13.2499H16.7529V11.7499H19.25C19.6642 11.7499 20 11.4142 20 10.9999C20 10.5857 19.6642 10.2499 19.25 10.2499H16.7529V8.74995H19.25C19.6642 8.74995 20 8.41416 20 7.99995C20 7.58573 19.6642 7.24995 19.25 7.24995H16.7529V5.99995L16.7529 5.91046V5.91043C16.753 5.59648 16.753 5.292 16.7489 5.00061C17.8303 5.00524 19.9199 5.04219 20.3611 5.33701C20.5795 5.48293 20.767 5.67043 20.9129 5.88881Z" opacity=".5"/><path fill-rule="evenodd" d="M10.75 2H12.75C14.6356 2 15.5784 2 16.1642 2.58579C16.75 3.17157 16.75 4.11438 16.75 6V21.25H18.25H21.25H21.75C22.1642 21.25 22.5 21.5858 22.5 22C22.5 22.4142 22.1642 22.75 21.75 22.75H1.75C1.33579 22.75 1 22.4142 1 22C1 21.5858 1.33579 21.25 1.75 21.25H2.25H5.25H6.75V6C6.75 4.11438 6.75 3.17157 7.33579 2.58579C7.92157 2 8.86438 2 10.75 2ZM11.75 18.25C12.1642 18.25 12.5 18.5858 12.5 19V21.25H11V19C11 18.5858 11.3358 18.25 11.75 18.25ZM9.75 14C9.33579 14 9 14.3358 9 14.75C9 15.1642 9.33579 15.5 9.75 15.5H13.75C14.1642 15.5 14.5 15.1642 14.5 14.75C14.5 14.3358 14.1642 14 13.75 14H9.75ZM9 11.75C9 11.3358 9.33579 11 9.75 11H13.75C14.1642 11 14.5 11.3358 14.5 11.75C14.5 12.1642 14.1642 12.5 13.75 12.5H9.75C9.33579 12.5 9 12.1642 9 11.75ZM9.75 8.5C9.33579 8.5 9 8.83579 9 9.25C9 9.66421 9.33579 10 9.75 10H13.75C14.1642 10 14.5 9.66421 14.5 9.25C14.5 8.83579 14.1642 8.5 13.75 8.5H9.75ZM9 6.25C9 5.83579 9.33579 5.5 9.75 5.5H13.75C14.1642 5.5 14.5 5.83579 14.5 6.25C14.5 6.66421 14.1642 7 13.75 7H9.75C9.33579 7 9 6.66421 9 6.25Z" clip-rule="evenodd"/></g></svg>'};
-function openPlans(){ const cur=PLANS.some(p=>p.k===SD_PLAN)?SD_PLAN:'pro';
-  document.getElementById('planL').innerHTML=PLANS.map(p=>`<div class="pl${p.k===cur?' cur':''}">${p.k===cur?'<span class="badge">Your plan</span>':''}
-    <div class="h"><b>${PLI[p.k]||''}${p.n}</b><span>$${p.m} / month</span></div><div class="who">${p.who}</div>${p.k!==cur?'<span class="trP">30 days free</span>':''}<ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
-    ${p.k==='owner'?`<a class="plBtn" href="${PRICING}" target="_blank" rel="noopener">Talk to us about Stable Owner<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>`:p.k===cur?`<button>Manage ${p.n}</button>`:`<button class="pri">Start 30-day free trial</button><div class="trThen"><span>Then $${p.m}/month.</span> <span>Cancel anytime before the trial ends.</span></div>`}</div>`).join('');
+function openPlans(){ const cur=PLANS.some(p=>p.k===SD_PLAN)?SD_PLAN:'pro', ICO=window.SD_PLAN_ICO||PLI;
+  /* the plans as the client wrote them (v2): icon, name and price, who it is for, 30 days free, what it gives, ideal for; every plan starts with the trial */
+  document.getElementById('planL').innerHTML=PLANS.map(p=>`<div class="pl${p.k===cur?' cur':''}">${p.k===cur?'<span class="badge">Your plan</span>':p.tag?`<span class="badge">${p.tag}</span>`:''}
+    <div class="h"><b>${ICO[p.k]||''}${p.n}</b><span class="pr">$${p.m}<small>/month</small></span></div><div class="who">${p.who}</div>${p.k!==cur?'<span class="trP">30 days free</span>':''}<ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+    ${p.ideal?`<div class="ideal"><b>Ideal for:</b> <span>${p.ideal}</span></div>`:''}
+    ${p.k===cur?`<button>Manage ${p.n}</button>`:`<button class="pri">Start 30-day free trial</button><div class="trThen"><span>Then $${p.m}/month.</span> <span>Cancel anytime before the trial ends.</span></div>`}</div>`).join('');
   open('planS'); }
 document.getElementById('plans').onclick=openPlans;
 document.getElementById('manage').onclick=openPlans;
@@ -1252,6 +1265,8 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
   function wireCal(){ const c=B.querySelector('.cal'); if(!c) return;
     c.querySelectorAll('.cn').forEach(b=>b.onclick=()=>{ if(b.disabled) return; calM=new Date(calM.getFullYear(),calM.getMonth()+ +b.dataset.c,1); render(false); });
     c.querySelectorAll('.calG button').forEach(b=>b.onclick=()=>{ if(b.disabled) return; D.pick=new Date(calM.getFullYear(),calM.getMonth(),+b.dataset.d); render(false); }); }
+  /* the course types, one list in this order for every session (client, v2) */
+  const COURSE_TYPES=['Training','Table A','Grand Prix','Jump-Off','Two-Phase','Two-Phase Special','Nations Cup / Team Competition','Accumulator / Joker','Derby','Other'];
   function step1(){
     B.innerHTML=`<h2 class="q">The basics</h2><div class="qs2">Two taps and you are done.</div>
       <div class="uLab">HORSE</div>${chips('horse',HN,false,true)}
@@ -1261,8 +1276,8 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
       <div class="uLab">SESSION</div><div class="segU" data-k="kind">${['Training','Show'].map(x=>`<button class="${D.kind===x?'on':''}" data-v="${x}">${x}</button>`).join('')}</div>
       <div class="uLab">DISCIPLINE</div>${chips('disc',['Show jumping','Flatwork'])}
       ${D.kind==='Show'?`<div class="uLab">CLASS HEIGHT</div>${chips('height',HEIGHTS,false,true)}
-        <div class="uLab">COURSE</div>${chips('course',['Table A','Table C','Jump-off','Two phases','Special two phases','Two rounds','Grand Prix','Speed and handiness','Power and skill','Accumulator','Six bars','Derby','Other'])}`
-      :`<div class="uLab">COURSE TYPE <em>optional</em></div>${chips('ttype',['Course','Jump-off','Grid work','Gymnastics','Single fences','Combinations','Flatwork','Lunging','Show round','Warm-up','Other'])}`}`;
+        <div class="uLab">COURSE TYPE</div>${chips('course',COURSE_TYPES)}`
+      :`<div class="uLab">COURSE TYPE <em>optional</em></div>${chips('ttype',COURSE_TYPES)}`}`;
   }
   /* where: your position by default, or search a city / a show ground */
   const HERE={c:'Geneva, Switzerland',v:'Your current location'};
@@ -1337,7 +1352,7 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007120026'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007141911'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;
@@ -1551,6 +1566,8 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
   const USERS=[{n:window.SD_MYNAME||'Marie S.',r:'You · account owner',ini:(window.SD_MYNAME||'Marie S.').replace('Dr. ','').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()},{n:'John Doe',r:'Rider',ini:'JD'},{n:'Lea Martin',r:'Rider',ini:'LM'},{n:'Paul Girard',r:'Groom',ini:'PG'},{n:'Dr. Anne Keller',r:'Vet',ini:'AK'}];
   /* onboarding of a Pro or Premium account: one rider, so no "who is it for" step */
   const LAST=()=>window.AH_SKIP_ASSIGN?3:4;
+  /* Pro and Premium: one user, the horse is theirs. Giving a horse to someone else is a Stable Account feature (client, v2) */
+  const SOLO_AH=()=>['pro','premium'].includes(window.SD_PLAN);
   const CAM=`<svg viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M9.77778 21H14.2222C17.3433 21 18.9038 21 20.0248 20.2646C20.51 19.9462 20.9267 19.5371 21.251 19.0607C22 17.9601 22 16.4279 22 13.3636C22 10.2994 22 8.76721 21.251 7.6666C20.9267 7.19014 20.51 6.78104 20.0248 6.46268C19.3044 5.99013 18.4027 5.82123 17.022 5.76086C16.3631 5.76086 15.7959 5.27068 15.6667 4.63636C15.4728 3.68489 14.6219 3 13.6337 3H10.3663C9.37805 3 8.52715 3.68489 8.33333 4.63636C8.20412 5.27068 7.63685 5.76086 6.978 5.76086C5.59733 5.82123 4.69555 5.99013 3.97524 6.46268C3.48995 6.78104 3.07328 7.19014 2.74902 7.6666C2 8.76721 2 10.2994 2 13.3636C2 16.4279 2 17.9601 2.74902 19.0607C3.07328 19.5371 3.48995 19.9462 3.97524 20.2646C5.09624 21 6.65675 21 9.77778 21ZM16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9C14.2091 9 16 10.7909 16 13ZM18 9.25C17.5858 9.25 17.25 9.58579 17.25 10C17.25 10.4142 17.5858 10.75 18 10.75H19C19.4142 10.75 19.75 10.4142 19.75 10C19.75 9.58579 19.4142 9.25 19 9.25H18Z" clip-rule="evenodd" opacity=".5"/><path fill-rule="evenodd" d="M12 9C14.2091 9 16 10.7909 16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9ZM12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V12.25H10C9.58579 12.25 9.25 12.5858 9.25 13C9.25 13.4142 9.58579 13.75 10 13.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15V13.75H14C14.4142 13.75 14.75 13.4142 14.75 13C14.75 12.5858 14.4142 12.25 14 12.25H12.75V11C12.75 10.5858 12.4142 10.25 12 10.25Z" clip-rule="evenodd"/><path d="M19 9.25C19.4142 9.25 19.75 9.58579 19.75 10C19.75 10.4142 19.4142 10.75 19 10.75H18C17.5858 10.75 17.25 10.4142 17.25 10C17.25 9.58579 17.5858 9.25 18 9.25H19Z"/></g></svg>`, NM=()=>H.name.trim()||'your horse';
   const SN=['NAME & PHOTO','ABOUT · SEX, AGE, BREED','BODY & FEET','SPORT · OPTIONAL','WHO IS IT FOR'];
   const HSHOE='<path d="M19 4h1V1h-4v3s2 4 2 8s-2 7-6 7s-6-3-6-7s2-8 2-8V1H4v3h1S2 8 2 14c0 5 5 9 10 9s10-4 10-9c0-6-3-10-3-10M4 13c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m2 6c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m6 3c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m6-3c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m2-6c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1"/>';   /* horseshoe: Material Design Icons (Apache 2.0) */
@@ -1581,11 +1598,11 @@ document.addEventListener('click',e=>{ if(addMenu.classList.contains('on')&&!add
       <div class="lab">COAT <em>optional</em></div>${pickF('coat',COATS,'Pick a coat','Search a coat')}
 </div>`;
     if(as===4){ const u=USERS.find(x=>x.n===H.rider)||USERS[0], age=+H.year?2026-(+H.year):null;
-      b.innerHTML=`<div class="${anim}"><h2 class="q">Who is ${NM()} for?</h2><div class="qs2">They see its sessions and get its alerts.</div>
-      <div class="lab">ASSIGN TO</div><button class="dd" id="ahDd"><span class="av3">${u.ini}</span><span class="t"><b>${u.n}</b><small>${u.r}</small></span><svg viewBox="0 0 24 24" style="transform:rotate(${ddOpen?180:0}deg)"><path d="M7 10l5 5 5-5"/></svg></button>
-      ${ddOpen?`<div class="uList">${USERS.map(x=>`<button class="uRow${x.n===u.n?' on':''}" data-n="${x.n}"><span class="av3">${x.ini}</span><span class="t"><b>${x.n}</b><small>${x.r}</small></span>${x.n===u.n?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</button>`).join('')}
+      b.innerHTML=`<div class="${anim}"><h2 class="q">Who is ${NM()} for?</h2><div class="qs2">${SOLO_AH()?'You see its sessions and get its alerts.':'They see its sessions and get its alerts.'}</div>
+      <div class="lab">ASSIGN TO</div>${SOLO_AH()?`<div class="dd ddSolo" style="cursor:default"><span class="av3">${USERS[0].ini}</span><span class="t"><b>${USERS[0].n}</b><small>${USERS[0].r}</small></span><svg viewBox="0 0 24 24" style="stroke:#5B9BFF"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`:`<button class="dd" id="ahDd"><span class="av3">${u.ini}</span><span class="t"><b>${u.n}</b><small>${u.r}</small></span><svg viewBox="0 0 24 24" style="transform:rotate(${ddOpen?180:0}deg)"><path d="M7 10l5 5 5-5"/></svg></button>`}
+      ${ddOpen&&!SOLO_AH()?`<div class="uList">${USERS.map(x=>`<button class="uRow${x.n===u.n?' on':''}" data-n="${x.n}"><span class="av3">${x.ini}</span><span class="t"><b>${x.n}</b><small>${x.r}</small></span>${x.n===u.n?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</button>`).join('')}
         <button class="uRow inv" id="ahInv"><span class="av3">+</span><span class="t"><b>Invite someone</b><small>By email</small></span></button></div>`:''}
-      ${inv?`<div class="lab">INVITE BY EMAIL</div><div class="ahF"><input id="ahEm" type="email" placeholder="name@stable.com" value="${H.email||''}" autocomplete="off"></div>`:''}
+      ${inv&&!SOLO_AH()?`<div class="lab">INVITE BY EMAIL</div><div class="ahF"><input id="ahEm" type="email" placeholder="name@stable.com" value="${H.email||''}" autocomplete="off"></div>`:''}
       <div class="recap"><span class="mini">${H.photo?`<img src="${H.photo}" alt="">`:`<span style="width:26px;height:26px;display:block">${HORSE_SVG}</span>`}</span><span><b>${H.name.trim()}</b>
         <small>${[H.sex,age?age+' years':null,H.breed||null,+H.height?H.height+' cm':null,H.shoes||null,H.level||null].filter(Boolean).join(' · ')}</small></span></div></div>`; }
     wireAH(); bar();

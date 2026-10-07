@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1007120026"></script>
+<script src="i18n.js?v=1007141911"></script>
 <script>window.SD_OFFERS_ONLY=true;   /* plan.js gives this page only the plans (one source with Profile) */</script>
-<script src="plan.js?v=1007120026"></script>
-<script src="coursemap.js?v=1007120026"></script>
+<script src="plan.js?v=1007141911"></script>
+<script src="coursemap.js?v=1007141911"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -316,6 +316,8 @@ html[data-theme="light"] .lgSheet{background:var(--card)}
   .pc .rad{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;flex:0 0 auto}
   .pc.on .rad{border-color:var(--blue);background:var(--blue)} .pc.on .rad::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
   .pc .tag{position:absolute;top:-9px;right:14px;font-size:10px;font-weight:800;color:#fff;background:var(--blue);border-radius:999px;padding:2px 9px}
+  .pc .ideal{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--mut)} .pc .ideal b{color:#C7CFDB;font-weight:800}
+  html[data-theme="light"] .pc .ideal b{color:#3A4658}
   .trial{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:12.5px;color:var(--mut);line-height:1.45}
   .trial .ic{width:18px;height:18px;color:#8DB8FF;margin-top:1px}
   .pc .trP{display:inline-flex;margin-top:9px;font-size:11px;font-weight:800;letter-spacing:.2px;color:#C7CFDB;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px}
@@ -795,7 +797,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   };
 })();
 </script>
-<script>window.SD_HL_FIXED='D';</script><script src="horse-looks.js?v=1007120026"></script>
+<script>window.SD_HL_FIXED='D';</script><script src="horse-looks.js?v=1007141911"></script>
 <style>
   /* ADD A SESSION v2: the StrydeUp form (video, core details, environment, specifications, rider feel) as 4 short steps */
   #upP{position:fixed;inset:0;max-width:420px;margin:0 auto;z-index:97;background:var(--bg);overflow-y:auto;transform:translateX(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);padding-bottom:120px;-webkit-overflow-scrolling:touch}
@@ -983,6 +985,8 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   function wireCal(){ const c=B.querySelector('.cal'); if(!c) return;
     c.querySelectorAll('.cn').forEach(b=>b.onclick=()=>{ if(b.disabled) return; calM=new Date(calM.getFullYear(),calM.getMonth()+ +b.dataset.c,1); render(false); });
     c.querySelectorAll('.calG button').forEach(b=>b.onclick=()=>{ if(b.disabled) return; D.pick=new Date(calM.getFullYear(),calM.getMonth(),+b.dataset.d); render(false); }); }
+  /* the course types, one list in this order for every session (client, v2) */
+  const COURSE_TYPES=['Training','Table A','Grand Prix','Jump-Off','Two-Phase','Two-Phase Special','Nations Cup / Team Competition','Accumulator / Joker','Derby','Other'];
   function step1(){
     B.innerHTML=`<h2 class="q">The basics</h2><div class="qs2">Two taps and you are done.</div>
       <div class="uLab">HORSE</div>${chips('horse',HN,false,true)}
@@ -992,8 +996,8 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="uLab">SESSION</div><div class="segU" data-k="kind">${['Training','Show'].map(x=>`<button class="${D.kind===x?'on':''}" data-v="${x}">${x}</button>`).join('')}</div>
       <div class="uLab">DISCIPLINE</div>${chips('disc',['Show jumping','Flatwork'])}
       ${D.kind==='Show'?`<div class="uLab">CLASS HEIGHT</div>${chips('height',HEIGHTS,false,true)}
-        <div class="uLab">COURSE</div>${chips('course',['Table A','Table C','Jump-off','Two phases','Special two phases','Two rounds','Grand Prix','Speed and handiness','Power and skill','Accumulator','Six bars','Derby','Other'])}`
-      :`<div class="uLab">COURSE TYPE <em>optional</em></div>${chips('ttype',['Course','Jump-off','Grid work','Gymnastics','Single fences','Combinations','Flatwork','Lunging','Show round','Warm-up','Other'])}`}`;
+        <div class="uLab">COURSE TYPE</div>${chips('course',COURSE_TYPES)}`
+      :`<div class="uLab">COURSE TYPE <em>optional</em></div>${chips('ttype',COURSE_TYPES)}`}`;
   }
   /* where: your position by default, or search a city / a show ground */
   const HERE={c:'Geneva, Switzerland',v:'Your current location'};
@@ -1068,7 +1072,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007120026'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007141911'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;
@@ -1282,6 +1286,8 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   const USERS=[{n:window.SD_MYNAME||'Marie S.',r:'You · account owner',ini:(window.SD_MYNAME||'Marie S.').replace('Dr. ','').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()},{n:'John Doe',r:'Rider',ini:'JD'},{n:'Lea Martin',r:'Rider',ini:'LM'},{n:'Paul Girard',r:'Groom',ini:'PG'},{n:'Dr. Anne Keller',r:'Vet',ini:'AK'}];
   /* onboarding of a Pro or Premium account: one rider, so no "who is it for" step */
   const LAST=()=>window.AH_SKIP_ASSIGN?3:4;
+  /* Pro and Premium: one user, the horse is theirs. Giving a horse to someone else is a Stable Account feature (client, v2) */
+  const SOLO_AH=()=>['pro','premium'].includes(window.SD_PLAN);
   const CAM=`<svg viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M9.77778 21H14.2222C17.3433 21 18.9038 21 20.0248 20.2646C20.51 19.9462 20.9267 19.5371 21.251 19.0607C22 17.9601 22 16.4279 22 13.3636C22 10.2994 22 8.76721 21.251 7.6666C20.9267 7.19014 20.51 6.78104 20.0248 6.46268C19.3044 5.99013 18.4027 5.82123 17.022 5.76086C16.3631 5.76086 15.7959 5.27068 15.6667 4.63636C15.4728 3.68489 14.6219 3 13.6337 3H10.3663C9.37805 3 8.52715 3.68489 8.33333 4.63636C8.20412 5.27068 7.63685 5.76086 6.978 5.76086C5.59733 5.82123 4.69555 5.99013 3.97524 6.46268C3.48995 6.78104 3.07328 7.19014 2.74902 7.6666C2 8.76721 2 10.2994 2 13.3636C2 16.4279 2 17.9601 2.74902 19.0607C3.07328 19.5371 3.48995 19.9462 3.97524 20.2646C5.09624 21 6.65675 21 9.77778 21ZM16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9C14.2091 9 16 10.7909 16 13ZM18 9.25C17.5858 9.25 17.25 9.58579 17.25 10C17.25 10.4142 17.5858 10.75 18 10.75H19C19.4142 10.75 19.75 10.4142 19.75 10C19.75 9.58579 19.4142 9.25 19 9.25H18Z" clip-rule="evenodd" opacity=".5"/><path fill-rule="evenodd" d="M12 9C14.2091 9 16 10.7909 16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9ZM12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V12.25H10C9.58579 12.25 9.25 12.5858 9.25 13C9.25 13.4142 9.58579 13.75 10 13.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15V13.75H14C14.4142 13.75 14.75 13.4142 14.75 13C14.75 12.5858 14.4142 12.25 14 12.25H12.75V11C12.75 10.5858 12.4142 10.25 12 10.25Z" clip-rule="evenodd"/><path d="M19 9.25C19.4142 9.25 19.75 9.58579 19.75 10C19.75 10.4142 19.4142 10.75 19 10.75H18C17.5858 10.75 17.25 10.4142 17.25 10C17.25 9.58579 17.5858 9.25 18 9.25H19Z"/></g></svg>`, NM=()=>H.name.trim()||'your horse';
   const SN=['NAME & PHOTO','ABOUT · SEX, AGE, BREED','BODY & FEET','SPORT · OPTIONAL','WHO IS IT FOR'];
   const HSHOE='<path d="M19 4h1V1h-4v3s2 4 2 8s-2 7-6 7s-6-3-6-7s2-8 2-8V1H4v3h1S2 8 2 14c0 5 5 9 10 9s10-4 10-9c0-6-3-10-3-10M4 13c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m2 6c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m6 3c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m6-3c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m2-6c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1"/>';   /* horseshoe: Material Design Icons (Apache 2.0) */
@@ -1312,11 +1318,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="lab">COAT <em>optional</em></div>${pickF('coat',COATS,'Pick a coat','Search a coat')}
 </div>`;
     if(as===4){ const u=USERS.find(x=>x.n===H.rider)||USERS[0], age=+H.year?2026-(+H.year):null;
-      b.innerHTML=`<div class="${anim}"><h2 class="q">Who is ${NM()} for?</h2><div class="qs2">They see its sessions and get its alerts.</div>
-      <div class="lab">ASSIGN TO</div><button class="dd" id="ahDd"><span class="av3">${u.ini}</span><span class="t"><b>${u.n}</b><small>${u.r}</small></span><svg viewBox="0 0 24 24" style="transform:rotate(${ddOpen?180:0}deg)"><path d="M7 10l5 5 5-5"/></svg></button>
-      ${ddOpen?`<div class="uList">${USERS.map(x=>`<button class="uRow${x.n===u.n?' on':''}" data-n="${x.n}"><span class="av3">${x.ini}</span><span class="t"><b>${x.n}</b><small>${x.r}</small></span>${x.n===u.n?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</button>`).join('')}
+      b.innerHTML=`<div class="${anim}"><h2 class="q">Who is ${NM()} for?</h2><div class="qs2">${SOLO_AH()?'You see its sessions and get its alerts.':'They see its sessions and get its alerts.'}</div>
+      <div class="lab">ASSIGN TO</div>${SOLO_AH()?`<div class="dd ddSolo" style="cursor:default"><span class="av3">${USERS[0].ini}</span><span class="t"><b>${USERS[0].n}</b><small>${USERS[0].r}</small></span><svg viewBox="0 0 24 24" style="stroke:#5B9BFF"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`:`<button class="dd" id="ahDd"><span class="av3">${u.ini}</span><span class="t"><b>${u.n}</b><small>${u.r}</small></span><svg viewBox="0 0 24 24" style="transform:rotate(${ddOpen?180:0}deg)"><path d="M7 10l5 5 5-5"/></svg></button>`}
+      ${ddOpen&&!SOLO_AH()?`<div class="uList">${USERS.map(x=>`<button class="uRow${x.n===u.n?' on':''}" data-n="${x.n}"><span class="av3">${x.ini}</span><span class="t"><b>${x.n}</b><small>${x.r}</small></span>${x.n===u.n?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</button>`).join('')}
         <button class="uRow inv" id="ahInv"><span class="av3">+</span><span class="t"><b>Invite someone</b><small>By email</small></span></button></div>`:''}
-      ${inv?`<div class="lab">INVITE BY EMAIL</div><div class="ahF"><input id="ahEm" type="email" placeholder="name@stable.com" value="${H.email||''}" autocomplete="off"></div>`:''}
+      ${inv&&!SOLO_AH()?`<div class="lab">INVITE BY EMAIL</div><div class="ahF"><input id="ahEm" type="email" placeholder="name@stable.com" value="${H.email||''}" autocomplete="off"></div>`:''}
       <div class="recap"><span class="mini">${H.photo?`<img src="${H.photo}" alt="">`:`<span style="width:26px;height:26px;display:block">${HORSE_SVG}</span>`}</span><span><b>${H.name.trim()}</b>
         <small>${[H.sex,age?age+' years':null,H.breed||null,+H.height?H.height+' cm':null,H.shoes||null,H.level||null].filter(Boolean).join(' · ')}</small></span></div></div>`; }
     wireAH(); bar();
@@ -1456,8 +1462,9 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   const PLI={premium:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m13.728 3.444l1.76 3.549c.24.494.88.968 1.42 1.058l3.189.535c2.04.343 2.52 1.835 1.05 3.307l-2.48 2.5c-.42.423-.65 1.24-.52 1.825l.71 3.095c.56 2.45-.73 3.397-2.88 2.117l-2.99-1.785c-.54-.322-1.43-.322-1.98 0L8.019 21.43c-2.14 1.28-3.44.322-2.88-2.117l.71-3.095c.13-.585-.1-1.402-.52-1.825l-2.48-2.5C1.39 10.42 1.86 8.929 3.899 8.586l3.19-.535c.53-.09 1.17-.564 1.41-1.058l1.76-3.549c.96-1.925 2.52-1.925 3.47 0"/></svg>',pro:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M5 21h14m-6.875-8.25H12m.25 0a.25.25 0 1 1-.5 0a.25.25 0 0 1 .5 0"/><path d="m14.915 7.61l-1.107-2.228C13.019 3.794 12.625 3 12 3s-1.019.794-1.808 2.382L9.085 7.61C8.58 8.625 8.329 9.132 7.88 9.246a1 1 0 0 1-.095.02c-.458.07-.886-.3-1.741-1.037C4.012 6.476 2.997 5.6 2.38 5.949a1 1 0 0 0-.114.076c-.564.43-.17 1.716.616 4.29l1.166 3.813c.423 1.384.635 2.076 1.17 2.474S6.473 17 7.91 17h8.178c1.438 0 2.158 0 2.693-.398s.747-1.09 1.17-2.474l1.166-3.813c.787-2.574 1.18-3.86.616-4.29a1 1 0 0 0-.114-.076c-.617-.349-1.632.527-3.664 2.28c-.855.738-1.283 1.107-1.741 1.036a1 1 0 0 1-.095-.019c-.45-.114-.701-.621-1.205-1.635"/></g></svg>',owner:'<svg class="plI" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="currentColor"><path d="M20.9129 5.88881C21.25 6.39325 21.25 7.09549 21.25 8.49995V21.2499H21.75C22.1642 21.2499 22.5 21.5857 22.5 21.9999C22.5 22.4142 22.1642 22.7499 21.75 22.7499H1.75C1.33579 22.7499 1 22.4142 1 21.9999C1 21.5857 1.33579 21.2499 1.75 21.2499H2.25V8.49995C2.25 7.09549 2.25 6.39325 2.58706 5.88881C2.73298 5.67043 2.92048 5.48293 3.13886 5.33701C3.58008 5.04219 5.67561 5.00524 6.75702 5.00061C6.75291 5.292 6.75294 5.59649 6.75298 5.91045L6.75299 5.99995V7.24995H4.25C3.83579 7.24995 3.5 7.58573 3.5 7.99995C3.5 8.41416 3.83579 8.74995 4.25 8.74995H6.75299V10.2499H4.25C3.83579 10.2499 3.5 10.5857 3.5 10.9999C3.5 11.4142 3.83579 11.7499 4.25 11.7499H6.75299V13.2499H4.25C3.83579 13.2499 3.5 13.5857 3.5 13.9999C3.5 14.4142 3.83579 14.7499 4.25 14.7499H6.75299V21.2499H16.7529V14.7499H19.25C19.6642 14.7499 20 14.4142 20 13.9999C20 13.5857 19.6642 13.2499 19.25 13.2499H16.7529V11.7499H19.25C19.6642 11.7499 20 11.4142 20 10.9999C20 10.5857 19.6642 10.2499 19.25 10.2499H16.7529V8.74995H19.25C19.6642 8.74995 20 8.41416 20 7.99995C20 7.58573 19.6642 7.24995 19.25 7.24995H16.7529V5.99995L16.7529 5.91046V5.91043C16.753 5.59648 16.753 5.292 16.7489 5.00061C17.8303 5.00524 19.9199 5.04219 20.3611 5.33701C20.5795 5.48293 20.767 5.67043 20.9129 5.88881Z" opacity=".5"/><path fill-rule="evenodd" d="M10.75 2H12.75C14.6356 2 15.5784 2 16.1642 2.58579C16.75 3.17157 16.75 4.11438 16.75 6V21.25H18.25H21.25H21.75C22.1642 21.25 22.5 21.5858 22.5 22C22.5 22.4142 22.1642 22.75 21.75 22.75H1.75C1.33579 22.75 1 22.4142 1 22C1 21.5858 1.33579 21.25 1.75 21.25H2.25H5.25H6.75V6C6.75 4.11438 6.75 3.17157 7.33579 2.58579C7.92157 2 8.86438 2 10.75 2ZM11.75 18.25C12.1642 18.25 12.5 18.5858 12.5 19V21.25H11V19C11 18.5858 11.3358 18.25 11.75 18.25ZM9.75 14C9.33579 14 9 14.3358 9 14.75C9 15.1642 9.33579 15.5 9.75 15.5H13.75C14.1642 15.5 14.5 15.1642 14.5 14.75C14.5 14.3358 14.1642 14 13.75 14H9.75ZM9 11.75C9 11.3358 9.33579 11 9.75 11H13.75C14.1642 11 14.5 11.3358 14.5 11.75C14.5 12.1642 14.1642 12.5 13.75 12.5H9.75C9.33579 12.5 9 12.1642 9 11.75ZM9.75 8.5C9.33579 8.5 9 8.83579 9 9.25C9 9.66421 9.33579 10 9.75 10H13.75C14.1642 10 14.5 9.66421 14.5 9.25C14.5 8.83579 14.1642 8.5 13.75 8.5H9.75ZM9 6.25C9 5.83579 9.33579 5.5 9.75 5.5H13.75C14.1642 5.5 14.5 5.83579 14.5 6.25C14.5 6.66421 14.1642 7 13.75 7H9.75C9.33579 7 9 6.66421 9 6.25Z" clip-rule="evenodd"/></g></svg>'};
   function drawPlans(){ document.querySelectorAll('#per button').forEach(b=>b.classList.toggle('on',b.dataset.p===per));
     document.getElementById('plans').innerHTML=PL.map(p=>`<button class="pc${p.k===plan?' on':''}" data-k="${p.k}">${p.tag?`<span class="tag">${p.tag}</span>`:''}
-      <div class="h"><span class="rad"></span>${PLI[p.k]||''}<b>${p.n}</b><span class="pr">$${per==='m'||!p.h?p.m:p.h}<small> / ${per==='m'||!p.h?'month':'6 months'}</small></span></div>
-      <div class="who">${p.who}${per==='h'&&!p.h?' <span style="color:var(--dim)">Monthly only.</span>':''}</div><span class="trP">30 days free</span><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul></button>`).join('');
+      <div class="h"><span class="rad"></span>${(window.SD_PLAN_ICO||PLI)[p.k]||''}<b>${p.n}</b><span class="pr">$${per==='m'||!p.h?p.m:p.h}<small>${per==='m'||!p.h?'/month':'/6 months'}</small></span></div>
+      <div class="who">${p.who}${per==='h'&&!p.h?' <span style="color:var(--dim)">Monthly only.</span>':''}</div><span class="trP">30 days free</span><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${p.ideal?`<div class="ideal"><b>Ideal for:</b> <span>${p.ideal}</span></div>`:''}</button>`).join('');
     document.querySelectorAll('#plans .pc').forEach(b=>b.onclick=()=>{ plan=b.dataset.k; drawPlans(); });
     /* under the button: what happens after the 30 days */
     const p=PL.find(x=>x.k===plan)||PL[0], six=per==='h'&&p.h;
@@ -1515,11 +1522,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   /* a rider who subscribes (Rider or Others) gets the plan picked at the plan step: Pro or Premium, or Stable Owner */
   function goHome(){ const R=ROLE_ACC.find(([r])=>role.has(r)), PL0={premium:'premium',pro:'pro',owner:'owner'}[plan]||'pro', P=!R||R[1]==='rider'?PL0:R[1];
     /* a new account starts clean: nothing left over from accounts tried before on this phone */
-    try{ ['sdVisits','sdPersonal','sdStaffHorses','sdGear','sdGearLast','sdLastFeel','sdHomeTrends','sdNotifRead','sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses','sdClientsVet','sdClientsFarrier','sdPersonalGroom','sdPersonalTrainer','sdPersonalHowner','sdHorseOwners','sdStableSel_vet','sdStableSel_farrier'].forEach(k=>localStorage.removeItem(k)); Object.keys(localStorage).filter(k=>/^sdHomeTrends_/.test(k)).forEach(k=>localStorage.removeItem(k)); }catch(e){}
+    try{ ['sdVisits','sdPersonal','sdStaffHorses','sdGear','sdGearLast','sdLastFeel','sdHomeTrends','sdNotifRead','sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses','sdClientsVet','sdClientsFarrier','sdPersonalGroom','sdPersonalTrainer','sdPersonalHowner','sdHorseOwners','sdStableSel_vet','sdStableSel_farrier','sdStableSel_trainer','sdJob_vet','sdJob_farrier'].forEach(k=>localStorage.removeItem(k)); Object.keys(localStorage).filter(k=>/^sdHomeTrends_/.test(k)).forEach(k=>localStorage.removeItem(k)); }catch(e){}
     try{ localStorage.setItem('sdPlan',P);
       localStorage.setItem('sdMe',JSON.stringify({name:firstName(),full:nE.value.trim(),email:eE.value.trim(),roles:[...role],
         horse:horse?{name:horse.name}:null,horses:MINE.map(h=>h.name),sent:!!sess,trial:{plan,start:Date.now(),days:30}})); }catch(e){}
-    location.href='Etape%202%20-%20Home%20Pro.html?v=1007120026&plan='+P; }
+    location.href='Etape%202%20-%20Home%20Pro.html?v=1007141911&plan='+P; }
   function done(){ document.getElementById('hiName').textContent=`You're in, ${firstName()}.`; show(4); }
   function drawCl(){
     const y=document.getElementById('yay'); y.style.animation='none'; void y.offsetWidth; y.style.animation='';
