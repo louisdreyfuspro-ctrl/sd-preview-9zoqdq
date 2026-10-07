@@ -7,29 +7,44 @@
 body{background:var(--bg);color:var(--txt);font-family:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;max-width:460px;margin:0 auto;padding:34px 18px 40px}
 .wm{font-size:15px;font-weight:900;letter-spacing:3.5px}
 h1{font-size:28px;font-weight:800;letter-spacing:-.6px;margin-top:22px} p.s{font-size:14px;color:var(--mut);margin-top:6px;line-height:1.45}
-.k{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:var(--mut);margin:26px 2px 10px}
+.k{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:var(--mut);margin:28px 2px 4px}
+.kd{font-size:12.5px;color:var(--mut);margin:0 2px 2px;line-height:1.4}
 a.ac{display:flex;align-items:center;gap:14px;padding:15px;border-radius:18px;background:linear-gradient(180deg,#1B212B,#161B23);border:1px solid var(--line);margin-top:10px;text-decoration:none;color:inherit}
-a.ac .i{width:46px;height:46px;border-radius:14px;background:rgba(59,130,246,.12);display:grid;place-items:center;flex:0 0 auto;font-weight:800;font-size:12px;color:#8DB8FF;letter-spacing:.5px}
-a.ac b{display:block;font-size:16px} a.ac span{display:block;font-size:12.5px;color:var(--mut);margin-top:2px}
-a.ac svg{margin-left:auto;width:16px;height:16px;stroke:#5A6472;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
-a.first{background:var(--blue);border-color:var(--blue)} a.first .i{background:rgba(255,255,255,.18);color:#fff} a.first span{color:rgba(255,255,255,.8)}
+.i{width:46px;height:46px;border-radius:14px;background:rgba(59,130,246,.12);display:grid;place-items:center;flex:0 0 auto;font-weight:800;font-size:12px;color:#8DB8FF;letter-spacing:.5px}
+.i svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+a b{display:block;font-size:16px} a b em{font-style:normal;font-weight:700;font-size:12.5px;color:var(--mut);margin-left:7px} a div>span{display:block;font-size:12.5px;color:var(--mut);margin-top:2px;line-height:1.35}
+svg.ch{margin-left:auto;width:16px;height:16px;stroke:#5A6472;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+a.first{background:var(--blue);border-color:var(--blue)} a.first .i{background:rgba(255,255,255,.18);color:#fff} a.first div>span{color:rgba(255,255,255,.8)}
+.grp{margin-top:10px;border:1px solid rgba(59,130,246,.28);border-radius:22px;padding:6px;background:rgba(59,130,246,.04)}
+.grp a.ac{margin-top:0;border-color:rgba(59,130,246,.35)}
+.tree{position:relative;margin:4px 0 2px 29px;padding-left:14px}
+.tree:before{content:"";position:absolute;left:0;top:0;bottom:30px;width:1.5px;background:rgba(141,184,255,.35)}
+.tl{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#8DB8FF;padding:12px 0 4px 4px;position:relative}
+a.mb{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:15px;text-decoration:none;color:inherit;position:relative;margin-top:6px;background:#12161D;border:1px solid var(--line)}
+a.mb:before{content:"";position:absolute;left:-14px;top:50%;width:14px;height:1.5px;background:rgba(141,184,255,.35)}
+a.mb .i{width:36px;height:36px;border-radius:11px;font-size:13px} a.mb b{font-size:15px}
 .foot{font-size:11.5px;color:#5A6472;margin-top:26px;line-height:1.5}
 </style></head><body>
 <div class="wm">STRYDEUP</div>
 <h1>App redesign preview</h1>
 <p class="s">Pick an account to try the app as that person. Best on a phone. Every link opens the app in that account.</p>
 <div class="k">START</div>
-<a class="ac first" href="Etape%206%20-%20Onboarding.html?v=1007143858&plan=pro"><span class="i">NEW</span><div><b>Sign up</b><span>The welcome screens and account creation</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<div class="k">ACCOUNTS</div>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=pro&demo=1"><span class="i">PRO</span><div><b>Pro</b><span>One rider, unlimited horses</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=premium&demo=1"><span class="i">PREM</span><div><b>Premium</b><span>One rider, one horse</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=owner&demo=1"><span class="i">OWNER</span><div><b>Stable Owner</b><span>The master account: team, horses, riders</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=rider&demo=1"><span class="i">RIDER</span><div><b>Rider</b><span>A rider of the stable, with their own horses too</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=vet&demo=1"><span class="i">VET</span><div><b>Vet / Osteo</b><span>Works for 3 stables: their horses, visits and health</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=farrier&demo=1"><span class="i">FARR</span><div><b>Farrier</b><span>Shoes horses of 3 stables</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=trainer&demo=1"><span class="i">TRAIN</span><div><b>Trainer</b><span>The rider's app, as a trainer of the stable</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=horseowner&demo=1"><span class="i">OWNS</span><div><b>Horse Owner</b><span>Owns 2 horses kept at the stable: their sessions and scores</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-<a class="ac" href="Etape%202%20-%20Home%20Pro.html?v=1007143858&plan=groom&demo=1"><span class="i">GROOM</span><div><b>Groom</b><span>Looks after the horses: care to plan and log</span></div><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
-
+<a class="ac first" href="Etape%206%20-%20Onboarding.html?v=1007151218&plan=pro"><span class="i">NEW</span><div><b>Sign up</b><span>The welcome screens and account creation</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<div class="k">INDIVIDUAL PLANS</div>
+<p class="kd">One user, their own subscription.</p>
+<a class="ac " href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=premium&demo=1"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.6l-5.1 2.7 1-5.7-4.1-4 5.7-.8z" fill="currentColor" stroke="none"/></svg></span><div><b>Premium<em>$49/month</em></b><span>One user. One horse.</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<a class="ac " href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=pro&demo=1"><span class="i"><svg viewBox="0 0 24 24"><path d="M4 8l4 4 4-6 4 6 4-4-1.6 10H5.6z" fill="currentColor" stroke="none"/><path d="M6 20.5h12"/></svg></span><div><b>Pro<em>$149/month</em></b><span>One user. Unlimited horses.</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<div class="k">STABLE ACCOUNT</div>
+<p class="kd">One subscription paid by the stable. Every account below is invited by the Stable Owner and belongs to the Stable Account.</p>
+<div class="grp">
+<a class="ac " href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=owner&demo=1"><span class="i"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5V20H3z" fill="currentColor" stroke="none" opacity=".35"/><path d="M3 10.5 12 4l9 6.5M3 20h18M9 20v-6h6v6M3 10.5V20M21 10.5V20"/></svg></span><div><b>Stable Owner<em>$218/month</em></b><span>The master account: team, horses and access</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<div class="tree"><div class="tl">INVITED BY THE STABLE</div>
+<a class="mb" href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=rider&demo=1"><span class="i">R</span><div><b>Rider</b><span>A rider of the stable, with their own horses too</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<a class="mb" href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=vet&demo=1"><span class="i">V</span><div><b>Vet / Osteo</b><span>Vet, osteo or dentist, in one stable or several</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<a class="mb" href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=farrier&demo=1"><span class="i">F</span><div><b>Farrier</b><span>Same set-up as the vet</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<a class="mb" href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=trainer&demo=1"><span class="i">T</span><div><b>Trainer</b><span>Trains in one stable or several</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<a class="mb" href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=horseowner&demo=1"><span class="i">H</span><div><b>Horse Owner</b><span>Sees the horses they own: sessions and scores</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+<a class="mb" href="Etape%202%20-%20Home%20Pro.html?v=1007151218&plan=groom&demo=1"><span class="i">G</span><div><b>Groom</b><span>Looks after the horses of the stable</span></div><svg class="ch" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></a>
+</div></div>
 <p class="foot">Interactive prototype with sample data. Language and appearance are in Profile. Private preview, please do not share.</p>
 </body></html>
