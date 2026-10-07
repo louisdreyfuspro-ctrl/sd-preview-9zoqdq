@@ -17,13 +17,13 @@
     qz:[['farrier','2026-03-04','',''],['vet','2026-05-12','',''],['osteo','2026-07-08','',''],['farrier','2026-09-02','',''],['saddle','2026-09-21','','']],
     bd:[['vet','2026-03-24','',''],['farrier','2026-06-03','',''],['physio','2026-08-12','',''],['farrier','2026-09-23','','']],
     sa:[['farrier','2026-02-18','',''],['osteo','2026-05-27','',''],['vet','2026-08-19','',''],['farrier','2026-09-09','',''],['vet','2026-10-02','','']],
-    nl:[['dentist','2026-04-07','',''],['farrier','2026-07-01','',''],['osteo','2026-09-15','','']]};
+    nl:[['dentist','2026-04-07','',''],['farrier','2026-07-01','',''],['osteo','2026-09-15','','']],
+    /* client horses of the vet and of the farrier (outside the stable) */
+    c_orf:[['vet','2026-04-14','Dr. Anne Keller','Vaccination'],['farrier','2026-08-05','',''],['vet','2026-09-22','Dr. Anne Keller','Check-up'],['vet','2026-10-09','Dr. Anne Keller','Follow-up']],
+    c_uly:[['farrier','2026-06-24','Lucas Bernard',''],['vet','2026-07-15','',''],['farrier','2026-08-12','Lucas Bernard','']]};
   let store={}; try{ store=JSON.parse(localStorage.getItem('sdVisits'))||{}; }catch(e){}
-  const save=()=>{ try{ localStorage.setItem('sdVisits',JSON.stringify(store)); }catch(e){} };
   function list(hid){ if(!store[hid]) store[hid]=(SAMPLE[hid]||[]).map(([type,date,who,note],i)=>({id:hid+i,type,date,who,note}));
     return store[hid].map(v=>({...v,d:day(v.date)})).sort((a,b)=>a.d-b.d); }
-  function add(hid,v){ list(hid); store[hid].push({id:hid+Date.now(),...v}); save(); }
-  function del(hid,id){ list(hid); store[hid]=store[hid].filter(v=>v.id!==id); save(); }
 
   /* ---------- on the Trends chart ---------- */
   /* P: the points of the chart [{s:{date}, v}], X(k): x of point k */
@@ -64,7 +64,7 @@
     const re=()=>card(el,h,onChange,sess);
     /* rhythm: the four regular cares, how long since, when next */
     const rh=Object.entries(RHY).map(([k,days])=>{ const last=past.find(v=>v.type===k), plan=up.find(v=>v.type===k);
-      if(!last) return `<button class="cvRy none" data-new="${k}"><div class="h">${ico(k,18)}<b>${PN[k]}</b></div><div class="v">Not logged yet</div><div class="c">Add the last one</div></button>`;
+      if(!last) return `<div class="cvRy none"><div class="h">${ico(k,18)}<b>${PN[k]}</b></div><div class="v">Not logged yet</div><div class="c">No visit on record</div></div>`;
       /* no guess about the next visit: only what happened, and a visit only if it is really planned */
       const st=plan?`Planned ${fmt(plan.d)}`:`Last ${fmt(last.d)}`;
       return `<button class="cvRy${plan?' planned':''}" data-v="${last.id}"><div class="h">${ico(k,18)}<b>${PN[k]}</b></div><div class="v">${ago(last.d)}</div>
@@ -76,7 +76,7 @@
     let tl=''; if(up.length) tl+=`<div class="cvMo">UPCOMING</div>`+up.map(v=>item(v,true)).join('');
     const show=el.dataset.all?past:past.slice(0,4); let lm='';
     show.forEach(v=>{ const m=MONL[v.d.getMonth()].toUpperCase()+' '+v.d.getFullYear(); if(m!==lm){ lm=m; tl+=`<div class="cvMo">${m}</div>`; } tl+=item(v,false); });
-    if(!L.length) tl=`<div class="cvEmpty">No visit yet. Add the first one, it takes ten seconds.</div>`;
+    if(!L.length) tl=`<div class="cvEmpty">No visit on record yet.</div>`;
     if(!el.dataset.all&&past.length>4) tl+=`<button class="cvMore" id="cvMore">See all ${past.length} visits</button>`;
     /* calendar */
     if(!calM) calM=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
@@ -88,10 +88,10 @@
     const dayL=pickDay?L.filter(v=>v.date===pickDay):[];
     const cal=`<div class="cvCal"><div class="cvCalH"><button data-c="-1" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg></button><b>${MONL[mo]} ${y}</b><button data-c="1" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></button></div>
         <div class="cvW">${Array.from({length:7},(_,i)=>new Date(2026,0,5+i).toLocaleDateString(window.SD_LANG||'en',{weekday:'narrow'})).map(x=>`<span>${x}</span>`).join('')}</div><div class="cvG">${cells}</div></div>
-      ${pickDay?`<div class="cvDay">${fmt(day(pickDay))}</div>${dayL.length?dayL.map(v=>item(v,v.d>TODAY)).join(''):`<div class="cvEmpty">No visit this day. <button class="cvLink" id="cvAddDay">Add one</button></div>`}`:'<div class="cvHint">Tap a day to see or add a visit</div>'}`;
+      ${pickDay?`<div class="cvDay">${fmt(day(pickDay))}</div>${dayL.length?dayL.map(v=>item(v,v.d>TODAY)).join(''):`<div class="cvEmpty">No visit this day.</div>`}`:'<div class="cvHint">Tap a day to see its visits</div>'}`;
     const lastAny=past[0];
     el.innerHTML=`<div class="lhead"><div><h2>Care &amp; visits</h2><div class="cvSub">${lastAny?`Last visit ${ago(lastAny.d).toLowerCase()} · ${L.length} logged`:'Vet, osteopath, farrier and more'}</div></div>
-        <button class="cvAddR" id="cvAdd" aria-label="Add a visit"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+</div>
       <div class="cvRail">${rh}</div>
       <div class="cvSeg"><button class="${view==='cal'?'on':''}" data-w="cal">Calendar</button><button class="${view==='time'?'on':''}" data-w="time">Timeline</button></div>
       <div class="cvBody">${view==='time'?`<div class="cvTl">${tl}</div>`:cal}</div>
@@ -101,9 +101,7 @@
     el.querySelectorAll('.cvG button').forEach(b=>b.onclick=()=>{ const k=iso(new Date(y,mo,+b.dataset.d)); pickDay=pickDay===k?null:k; re(); });
     const more=el.querySelector('#cvMore'); if(more) more.onclick=()=>{ el.dataset.all='1'; re(); };
     const done=()=>{ re(); onChange&&onChange(); };
-    el.querySelector('#cvAdd').onclick=()=>openAdd(h,{},done);
-    const ad=el.querySelector('#cvAddDay'); if(ad) ad.onclick=()=>openAdd(h,{date:pickDay},done);
-    el.querySelectorAll('.cvRy').forEach(b=>b.onclick=()=>{ if(b.dataset.new) openAdd(h,{type:b.dataset.new},done); else openDetail(h,b.dataset.v,sess,done); });
+    el.querySelectorAll('.cvRy[data-v]').forEach(b=>b.onclick=()=>openDetail(h,b.dataset.v,sess,done));
     el.querySelectorAll('.cvIt').forEach(b=>b.onclick=()=>openDetail(h,b.dataset.v,sess,done));
   }
 
@@ -116,54 +114,17 @@
     document.getElementById('cvBody').innerHTML=`<div class="cvDH"><span class="cvDI">${ico(v.type,30)}</span><div><div class="cvDT">${PN[v.type]||'Other'}</div><div class="cvDS">${fmt(v.d)} · ${ago(v.d)}</div></div></div>
       ${v.who||v.note?`<div class="cvDR">${v.who?`<div><span>WHO</span><b>${v.who}</b></div>`:''}${v.note?`<div><span>NOTE</span><b>${v.note}</b></div>`:''}</div>`:''}
       <div class="cvDE ${!e?'':Math.abs(d)<2?'flat':d>0?'up':'down'}">${e?`<div class="nums"><div><span>BEFORE</span><b>${e.b}%</b></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div><span>AFTER</span><b>${e.a}%</b></div></div>`:''}<p>${verdict}</p></div>
-      <div class="cvDA"><button class="cvDel" id="cvDel">Delete</button><button class="cvEd" id="cvEd">Edit</button></div>`;
-    document.querySelector('#cvSheet .cvTop h3').textContent='Visit'; document.getElementById('cvSave').style.display='none';
-    document.getElementById('cvDel').onclick=()=>{ del(h.id,id); sheet._close(); done&&done(); };
-    document.getElementById('cvEd').onclick=()=>{ openAdd(h,{...v,edit:id},done); };
+`;
     openSheet();
   }
 
-  /* ---------- the sheet to add or edit a visit ---------- */
+  /* ---------- the sheet that shows one visit (read-only) ---------- */
   let sheet=null, F=null;
-  function ensure(){ if(sheet) return; document.body.insertAdjacentHTML('beforeend',`<div class="cvVeil" id="cvVeil"></div><div class="cvSheet" id="cvSheet" role="dialog" aria-label="Add a visit"><div class="grab"></div>
-      <div class="cvTop"><h3>Add a visit</h3><button class="cvClose" id="cvClose" aria-label="Close">×</button></div><div id="cvBody"></div>
-      <button class="cvSave" id="cvSave">Save the visit</button></div>`); sheet=document.getElementById('cvSheet');
+  function ensure(){ if(sheet) return; document.body.insertAdjacentHTML('beforeend',`<div class="cvVeil" id="cvVeil"></div><div class="cvSheet" id="cvSheet" role="dialog" aria-label="Visit"><div class="grab"></div>
+      <div class="cvTop"><h3>Visit</h3><button class="cvClose" id="cvClose" aria-label="Close">×</button></div><div id="cvBody"></div></div>`); sheet=document.getElementById('cvSheet');
     const close=()=>{ sheet.classList.remove('on'); document.getElementById('cvVeil').classList.remove('on'); };
     document.getElementById('cvVeil').onclick=close; document.getElementById('cvClose').onclick=close; sheet._close=close; }
   function openSheet(){ sheet.scrollTop=0; document.getElementById('cvVeil').classList.add('on'); sheet.classList.add('on'); }
-  function openAdd(h,pre,done){
-    ensure(); pre=pre||{};
-    F={type:pre.type||null,date:pre.date||iso(TODAY),who:pre.who||'',note:pre.note||'',rep:0,edit:pre.edit||null};
-    let m=day(F.date); m=new Date(m.getFullYear(),m.getMonth(),1); let showCal=!!pre.date&&pre.date!==iso(TODAY);
-    document.querySelector('#cvSheet .cvTop h3').textContent=F.edit?'Edit the visit':'Add a visit'; document.getElementById('cvSave').style.display='';
-    const REP=[[0,'Once'],[42,'Every 6 weeks'],[90,'Every 3 months'],[365,'Every year']];
-    const draw=()=>{ const y=m.getFullYear(), mo=m.getMonth(), first=(new Date(y,mo,1).getDay()+6)%7, n=new Date(y,mo+1,0).getDate();
-      let cells=''; for(let i=0;i<first;i++) cells+='<span></span>';
-      for(let d=1;d<=n;d++){ const k=iso(new Date(y,mo,d)); cells+=`<button class="${F.date===k?'on':''}${k===iso(TODAY)?' td':''}" data-d="${k}">${d}</button>`; }
-      const dd=day(F.date), fut=dd>TODAY, tdy=iso(TODAY), yst=iso(addD(TODAY,-1));
-      document.getElementById('cvBody').innerHTML=`<div class="sub">For ${h.n}. A past visit or one that is planned.</div>
-        <div class="k">WHO CAME</div><div class="cvPros">${PROS.map(([k,l])=>`<button class="${F.type===k?'on':''}" data-t="${k}">${ico(k,22,F.type===k?'#fff':'#8DB8FF')}<span>${l}</span></button>`).join('')}</div>
-        <div class="k">WHEN ${fut?'<em>planned</em>':''}</div>
-        <div class="cvQ"><button class="${F.date===tdy?'on':''}" data-q="${tdy}">Today</button><button class="${F.date===yst?'on':''}" data-q="${yst}">Yesterday</button><button class="${showCal||(F.date!==tdy&&F.date!==yst)?'on':''}" data-q="pick">${F.date!==tdy&&F.date!==yst?fmt(dd):'Pick a date'}</button></div>
-        ${showCal?`<div class="cvCal"><div class="cvCalH"><button data-c="-1" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg></button><b>${MONL[mo]} ${y}</b><button data-c="1" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></button></div>
-          <div class="cvW">${Array.from({length:7},(_,i)=>new Date(2026,0,5+i).toLocaleDateString(window.SD_LANG||'en',{weekday:'narrow'})).map(x=>`<span>${x}</span>`).join('')}</div><div class="cvG pick">${cells}</div></div>`:''}
-        ${F.edit?'':`<div class="k">REPEAT</div><div class="cvQ">${REP.map(([d,l])=>`<button class="${F.rep===d?'on':''}" data-r="${d}">${l}</button>`).join('')}</div>${F.rep?`<div class="cvRp">The next one is planned for ${fmt(addD(dd,F.rep))}.</div>`:''}`}
-        <div class="k">NAME <em>optional</em></div><input class="cvIn" id="cvWho" placeholder="e.g. Dr. Anne Keller" value="${F.who.replace(/"/g,'&quot;')}" autocomplete="off">
-        <div class="k">NOTE <em>optional</em></div><input class="cvIn" id="cvNote" placeholder="e.g. Vaccination, new shoes" value="${F.note.replace(/"/g,'&quot;')}" autocomplete="off">`;
-      const b=document.getElementById('cvBody');
-      b.querySelectorAll('.cvPros button').forEach(x=>x.onclick=()=>{ F.type=x.dataset.t; if(!F.edit&&!F.rep&&RHY[F.type]&&F.type!=='vet') F.rep=0; draw(); });
-      b.querySelectorAll('.cvQ button[data-q]').forEach(x=>x.onclick=()=>{ if(x.dataset.q==='pick'){ showCal=!showCal; } else { F.date=x.dataset.q; showCal=false; } draw(); });
-      b.querySelectorAll('.cvQ button[data-r]').forEach(x=>x.onclick=()=>{ F.rep=+x.dataset.r; draw(); });
-      b.querySelectorAll('.cvCalH button').forEach(x=>x.onclick=()=>{ m=new Date(y,mo+ +x.dataset.c,1); draw(); });
-      b.querySelectorAll('.cvG button').forEach(x=>x.onclick=()=>{ F.date=x.dataset.d; draw(); });
-      document.getElementById('cvWho').oninput=e=>F.who=e.target.value; document.getElementById('cvNote').oninput=e=>F.note=e.target.value;
-      const sv=document.getElementById('cvSave'); sv.disabled=!F.type; sv.textContent=F.type?(F.edit?'Save the changes':'Save the visit'):'Pick who came'; };
-    document.getElementById('cvSave').onclick=()=>{ if(!F.type) return; const rec={type:F.type,date:F.date,who:F.who.trim(),note:F.note.trim()};
-      if(F.edit){ list(h.id); const x=store[h.id].find(v=>v.id===F.edit); Object.assign(x,rec); save(); }
-      else { add(h.id,rec); if(F.rep) add(h.id,{type:F.type,date:iso(addD(day(F.date),F.rep)),who:rec.who,note:''}); }
-      sheet._close(); done&&done(); };
-    draw(); openSheet();
-  }
 
   const css=`
   .cvAdd{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12.5px;font-weight:800;color:#fff;background:var(--blue);border:0;border-radius:999px;padding:7px 12px 7px 10px;cursor:pointer}
@@ -261,5 +222,5 @@
   html[data-theme="light"] .cvSheet{background:var(--card)} html[data-theme="light"] .cvG button{color:var(--txt)} html[data-theme="light"] .cvG button.on{color:#fff}
   html[data-theme="light"] .cvCalH svg{stroke:var(--txt)} html[data-theme="light"] .cvPros button{color:var(--txt)} html[data-theme="light"] .cvPros button.on{color:#fff}`;
   document.head.insertAdjacentHTML('beforeend',`<style id="careCss">${css}</style>`);
-  window.CARE={list,add,del,markers,rows,card,openAdd,openDetail,ico};
+  window.CARE={list,markers,rows,card,openDetail,ico};
 })();

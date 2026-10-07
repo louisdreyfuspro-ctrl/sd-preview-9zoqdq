@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta name="robots" content="noindex,nofollow">
-<script src="i18n.js?v=1007100844"></script>
-<script src="coursemap.js?v=1007100844"></script>
+<script src="i18n.js?v=1007104549"></script>
+<script>window.SD_OFFERS_ONLY=true;   /* plan.js gives this page only the plans (one source with Profile) */</script>
+<script src="plan.js?v=1007104549"></script>
+<script src="coursemap.js?v=1007104549"></script>
 <script>/* theme: chosen in Profile > Appearance, shared by every page */
 (function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
   const r=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;
@@ -528,7 +530,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
     <div class="fl">EMAIL</div><div class="fi" id="fMail"><span class="ic"><svg viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.2 3H9.8C5.65164 3 3.57746 3 2.28873 4.31802C1 5.63604 1 7.75736 1 12C1 16.2426 1 18.364 2.28873 19.682C3.57746 21 5.65164 21 9.8 21H14.2C18.3484 21 20.4225 21 21.7113 19.682C23 18.364 23 16.2426 23 12C23 7.75736 23 5.63604 21.7113 4.31802C20.4225 3 18.3484 3 14.2 3Z" opacity=".5"/><path d="M19.1284 8.03302C19.4784 7.74133 19.5257 7.22112 19.234 6.87109C18.9423 6.52106 18.4221 6.47377 18.0721 6.76546L15.6973 8.74444C14.671 9.59966 13.9585 10.1915 13.357 10.5784C12.7747 10.9529 12.3798 11.0786 12.0002 11.0786C11.6206 11.0786 11.2258 10.9529 10.6435 10.5784C10.0419 10.1915 9.32941 9.59966 8.30315 8.74444L5.92837 6.76546C5.57834 6.47377 5.05812 6.52106 4.76643 6.87109C4.47474 7.22112 4.52204 7.74133 4.87206 8.03302L7.28821 10.0465C8.2632 10.859 9.05344 11.5176 9.75091 11.9661C10.4775 12.4334 11.185 12.7286 12.0002 12.7286C12.8154 12.7286 13.523 12.4334 14.2495 11.9661C14.947 11.5176 15.7372 10.859 16.7122 10.0465L19.1284 8.03302Z"/></g></svg></span><input id="aE" type="email" inputmode="email" placeholder="you@stable.com" autocomplete="email"></div><div class="err" id="eMail"></div>
     <div class="fl">PASSWORD</div><div class="fi"><span class="ic"><svg viewBox="0 0 24 24"><g fill="currentColor"><path d="M2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.75736 10 5.17157 10 8 10H16C18.8284 10 20.2426 10 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16Z" opacity=".5"/><path d="M8 15C8.55228 15 9 15.4477 9 16C9 16.5523 8.55228 17 8 17C7.44772 17 7 16.5523 7 16C7 15.4477 7.44772 15 8 15Z"/><path d="M12 15C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16C11 15.4477 11.4477 15 12 15Z"/><path d="M16 15C16.5523 15 17 15.4477 17 16C17 16.5523 16.5523 17 16 17C15.4477 17 15 16.5523 15 16C15 15.4477 15.4477 15 16 15Z"/><path d="M12 1.25C15.7279 1.25 18.75 4.27208 18.75 8V10.0547C18.3135 10.0221 17.8174 10.0092 17.25 10.0039V8C17.25 5.10051 14.8995 2.75 12 2.75C9.10051 2.75 6.75 5.10051 6.75 8V10.0039C6.18264 10.0092 5.68651 10.0221 5.25 10.0547V8C5.25 4.27208 8.27208 1.25 12 1.25Z"/></g></svg></span><input id="aP" type="password" placeholder="8 characters or more" autocomplete="new-password"><button id="aShow">Show</button></div>
     <div class="pw" id="pw"><i></i><i></i><i></i><i></i></div><div class="pwT" id="pwT">Use 8 characters, with a number.</div>
-    <div class="fl">YOUR ROLES <span class="flH">Pick all that apply</span></div><div class="roles" id="roles"><button data-r="Rider">Rider</button><button data-r="Trainer">Trainer</button><button data-r="Owner">Owner</button><button data-r="Vet">Vet</button></div><div class="roleSum" id="roleSum"></div>
+    <div class="fl">YOUR ROLES <span class="flH">Pick all that apply</span></div><div class="roles" id="roles"><button data-r="Rider">Rider</button><button data-r="Owner">Stable owner</button><button data-r="Trainer">Coach / Trainer</button><button data-r="Manager">Stable manager</button><button data-r="Groom">Groom</button><button data-r="Vet">Vet</button><button data-r="Farrier">Farrier</button><button data-r="Dentist">Dentist</button><button data-r="Breeder">Breeder</button><button data-r="HorseOwner">Horse owner</button><button data-r="Parent">Parent of a rider</button><button data-r="Other">Other</button></div><div class="roleSum" id="roleSum"></div>
     <div class="ck" id="ckT"><i></i><span>I am 18 or older and I agree to the <a href="#">Terms</a> and the <a href="#">Privacy policy</a>.</span></div>
     <div class="ck" id="ckM"><i></i><span>Send me tips and news from StrydeUp. <span style="color:var(--dim)">Optional</span></span></div></div>
   <div class="obBar"><button class="obBtn" id="accGo" disabled>Continue</button></div>
@@ -788,7 +790,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   };
 })();
 </script>
-<script>window.SD_HL_FIXED='D';</script><script src="horse-looks.js?v=1007100844"></script>
+<script>window.SD_HL_FIXED='D';</script><script src="horse-looks.js?v=1007104549"></script>
 <style>
   /* ADD A SESSION v2: the StrydeUp form (video, core details, environment, specifications, rider feel) as 4 short steps */
   #upP{position:fixed;inset:0;max-width:420px;margin:0 auto;z-index:97;background:var(--bg);overflow-y:auto;transform:translateX(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);padding-bottom:120px;-webkit-overflow-scrolling:touch}
@@ -985,7 +987,8 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="uLab">SESSION</div><div class="segU" data-k="kind">${['Training','Show'].map(x=>`<button class="${D.kind===x?'on':''}" data-v="${x}">${x}</button>`).join('')}</div>
       <div class="uLab">DISCIPLINE</div>${chips('disc',['Show jumping','Flatwork'])}
       ${D.kind==='Show'?`<div class="uLab">CLASS HEIGHT</div>${chips('height',HEIGHTS,false,true)}
-        <div class="uLab">COURSE</div>${chips('course',['Table A','Table C','Jump-off','Two phases','Grand Prix'])}`:''}`;
+        <div class="uLab">COURSE</div>${chips('course',['Table A','Table C','Jump-off','Two phases','Special two phases','Two rounds','Grand Prix','Speed and handiness','Power and skill','Accumulator','Six bars','Derby','Other'])}`
+      :`<div class="uLab">COURSE TYPE <em>optional</em></div>${chips('ttype',['Course','Jump-off','Grid work','Gymnastics','Single fences','Combinations','Flatwork','Lunging','Show round','Warm-up','Other'])}`}`;
   }
   /* where: your position by default, or search a city / a show ground */
   const HERE={c:'Geneva, Switzerland',v:'Your current location'};
@@ -1056,11 +1059,11 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   function sent(){
     document.getElementById('upSteps').style.display='none'; document.getElementById('upStepName').textContent=''; document.getElementById('upBar').style.display='none';
     B.innerHTML=`<div class="sent"><div class="ok">${u('check-circle',38)}</div><h2>Uploading ${D.horse}'s round</h2>${D.rider?`<p style="margin-top:-4px">Ridden by ${D.rider}</p>`:''}
-      <p>${D.kind==='Show'?`${D.height} · ${D.course}`:D.disc} · ${D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date}.<br>You can leave this screen, we'll tell you when the analysis is ready.</p>
+      <p>${D.kind==='Show'?`${D.height} · ${D.course}`:(D.ttype||D.disc)} · ${D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date}.<br>You can leave this screen, we'll tell you when the analysis is ready.</p>
       <div class="barU"><b id="upProg"></b></div><p id="upPct" style="font-size:12px;margin-top:8px">0%</p></div>`;
     let p=0; const t=setInterval(()=>{ p=Math.min(100,p+4+Math.random()*9); document.getElementById('upProg').style.width=p+'%'; document.getElementById('upPct').textContent=p<100?Math.round(p)+'%':'Sent · analysing the round';
       if(p>=100){ clearInterval(t); try{ localStorage.setItem('sdGearLast',JSON.stringify(D.gear)); localStorage.setItem('sdLastFeel',JSON.stringify({horse:D.horse,when:D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date,kind:D.kind,height:D.height,course:D.course,feel:D.feel,tags:D.tags,gear:D.gear,notes:D.notes,place:D.place,loc:D.loc,ground:D.ground,quality:D.quality,weather:D.place==='Outdoor'?D.weather:null})); }catch(e){}
-        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007100844'; },1100); } },160);
+        setTimeout(()=>{ if(typeof window.UP_DONE==='function') window.UP_DONE(D); else location.href='Etape%204%20-%20Sessions.html?v=1007104549'; },1100); } },160);
   }
   const close=()=>{ P.classList.remove('on'); };
   document.getElementById('upClose').onclick=close;
@@ -1189,6 +1192,14 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   #ahP .uRow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--txt,#F2F5F8);background:none;border:0;border-top:1px solid var(--line);padding:11px 14px;cursor:pointer}
   #ahP .uRow:first-child{border-top:0} #ahP .uRow.on{background:rgba(59,130,246,.1)}
   #ahP .uRow svg{width:18px;height:18px;stroke:#3B82F6;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  #ahP .pkPh{color:var(--mut);font-weight:600!important}
+  #ahP .pkL{display:flex;flex-direction:column}
+  #ahP .pkS{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  #ahP .pkS svg{width:17px;height:17px;stroke:var(--mut);fill:none;stroke-width:2;stroke-linecap:round;flex:0 0 auto}
+  #ahP .pkS input{flex:1;min-width:0;font:inherit;font-size:15px;color:var(--txt,#F2F5F8);background:none;border:0;outline:0}
+  #ahP .pkR{max-height:264px;overflow-y:auto;overscroll-behavior:contain}
+  #ahP .pkR .uRow b{font-size:14.5px;font-weight:700}
+  #ahP .pkE{padding:14px;font-size:13px;color:var(--mut)}
   #ahP .uRow.inv .av3{background:rgba(255,255,255,.06);color:var(--mut);font-size:18px}
   #ahP .recap{display:flex;align-items:center;gap:12px;margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px}
   #ahP .recap .mini{width:52px;height:52px;border-radius:50%;overflow:hidden;flex:0 0 auto;display:grid;place-items:center;background:rgba(255,255,255,.05);color:#C7CFDB}
@@ -1251,8 +1262,19 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   document.getElementById('recTips').onclick=()=>{ R.classList.remove('on'); setTimeout(()=>openUpload('tips'),250); };
   /* ---------- add a horse: 5 short steps ---------- */
   const A=document.getElementById('ahP'); let H, as=0, ddOpen=false, inv=false;
-  const BREEDS=['KWPN','Holsteiner','Selle Français','BWP','Zangersheide','Hanoverian','Oldenburg','Westphalian','Irish Sport Horse','Swiss Warmblood','Other'];
-  const USERS=[{n:'Marie S.',r:'You · account owner',ini:'M'},{n:'John Doe',r:'Rider',ini:'JD'},{n:'Lea Martin',r:'Rider',ini:'LM'},{n:'Paul Girard',r:'Groom',ini:'PG'},{n:'Dr. Anne Keller',r:'Vet',ini:'AK'}];
+  const BREEDS=['KWPN','Holsteiner','Hanoverian','Oldenburg','Westphalian','Trakehner','Selle Français','BWP','SBS','Zangersheide','Irish Sport Horse','Irish Draught','Swedish Warmblood','Danish Warmblood','Dutch Harness Horse','Thoroughbred','Anglo-Arab','Arabian','AES','CH (Swiss Warmblood)','Polish Warmblood','Czech Warmblood','Rheinlander','Mecklenburg','Brandenburg','Württemberger','Bavarian Warmblood','Hessian Warmblood','Austrian Warmblood','Belgian Warmblood (other)','Anglo-Norman','Lusitano','PRE (Pura Raza Española)','Connemara','Welsh pony','German Riding Pony','New Forest pony','Other pony','Other'];
+  const COATS=['Bay','Dark bay','Chestnut','Liver chestnut','Grey','Dapple grey','Flea-bitten grey','Black','Brown','Palomino','Buckskin','Dun','Roan','Bay roan','Strawberry roan','Pinto / Skewbald','Piebald','Appaloosa','Cremello','Perlino','Champagne','Other'];
+  /* a searchable list (like the place picker): the field shows the choice, tapping it opens the list with a search */
+  let pk=null, pkQ='';
+  const pkNorm=x=>x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const pkRows=(k,L)=>{ const q=pkNorm(pkQ.trim()), R=L.filter(x=>!q||pkNorm(x).includes(q)||pkNorm(SD_T(x)).includes(q));
+    return R.length?R.map(x=>`<button class="uRow${H[k]===x?' on':''}" data-pv="${x}"><span class="t"><b>${x}</b></span>${H[k]===x?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':''}</button>`).join(''):`<div class="pkE">No match. Pick Other.</div>`; };
+  const pickF=(k,L,ph,sph)=>`<button class="dd" data-pk="${k}"><span class="t"><b class="${H[k]?'':'pkPh'}">${H[k]||ph}</b></span><svg viewBox="0 0 24 24" style="transform:rotate(${pk===k?180:0}deg)"><path d="M7 10l5 5 5-5"/></svg></button>`
+    +(pk===k?`<div class="uList pkL"><div class="pkS"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="pkQ" placeholder="${sph}" value="${pkQ}" autocomplete="off"></div><div class="pkR" id="pkR" data-pl="${k}">${pkRows(k,L)}</div></div>`:'');
+  const wirePick=()=>{ document.querySelectorAll('#ahBody .dd[data-pk]').forEach(b=>b.onclick=()=>{ pk=pk===b.dataset.pk?null:b.dataset.pk; pkQ=''; steps(); if(pk) setTimeout(()=>{ const i=document.getElementById('pkQ'); if(i) i.focus(); },60); });
+    const L=()=>pk==='coat'?COATS:BREEDS, rw=()=>document.querySelectorAll('#pkR .uRow').forEach(b=>b.onclick=()=>{ H[pk]=H[pk]===b.dataset.pv?(pk==='breed'?'':null):b.dataset.pv; pk=null; pkQ=''; steps(); });
+    const qi=document.getElementById('pkQ'); if(qi) qi.oninput=()=>{ pkQ=qi.value; document.getElementById('pkR').innerHTML=pkRows(pk,L()); rw(); }; rw(); };
+  const USERS=[{n:window.SD_MYNAME||'Marie S.',r:'You · account owner',ini:(window.SD_MYNAME||'Marie S.').replace('Dr. ','').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()},{n:'John Doe',r:'Rider',ini:'JD'},{n:'Lea Martin',r:'Rider',ini:'LM'},{n:'Paul Girard',r:'Groom',ini:'PG'},{n:'Dr. Anne Keller',r:'Vet',ini:'AK'}];
   /* onboarding of a Pro or Premium account: one rider, so no "who is it for" step */
   const LAST=()=>window.AH_SKIP_ASSIGN?3:4;
   const CAM=`<svg viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M9.77778 21H14.2222C17.3433 21 18.9038 21 20.0248 20.2646C20.51 19.9462 20.9267 19.5371 21.251 19.0607C22 17.9601 22 16.4279 22 13.3636C22 10.2994 22 8.76721 21.251 7.6666C20.9267 7.19014 20.51 6.78104 20.0248 6.46268C19.3044 5.99013 18.4027 5.82123 17.022 5.76086C16.3631 5.76086 15.7959 5.27068 15.6667 4.63636C15.4728 3.68489 14.6219 3 13.6337 3H10.3663C9.37805 3 8.52715 3.68489 8.33333 4.63636C8.20412 5.27068 7.63685 5.76086 6.978 5.76086C5.59733 5.82123 4.69555 5.99013 3.97524 6.46268C3.48995 6.78104 3.07328 7.19014 2.74902 7.6666C2 8.76721 2 10.2994 2 13.3636C2 16.4279 2 17.9601 2.74902 19.0607C3.07328 19.5371 3.48995 19.9462 3.97524 20.2646C5.09624 21 6.65675 21 9.77778 21ZM16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9C14.2091 9 16 10.7909 16 13ZM18 9.25C17.5858 9.25 17.25 9.58579 17.25 10C17.25 10.4142 17.5858 10.75 18 10.75H19C19.4142 10.75 19.75 10.4142 19.75 10C19.75 9.58579 19.4142 9.25 19 9.25H18Z" clip-rule="evenodd" opacity=".5"/><path fill-rule="evenodd" d="M12 9C14.2091 9 16 10.7909 16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9ZM12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V12.25H10C9.58579 12.25 9.25 12.5858 9.25 13C9.25 13.4142 9.58579 13.75 10 13.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15V13.75H14C14.4142 13.75 14.75 13.4142 14.75 13C14.75 12.5858 14.4142 12.25 14 12.25H12.75V11C12.75 10.5858 12.4142 10.25 12 10.25Z" clip-rule="evenodd"/><path d="M19 9.25C19.4142 9.25 19.75 9.58579 19.75 10C19.75 10.4142 19.4142 10.75 19 10.75H18C17.5858 10.75 17.25 10.4142 17.25 10C17.25 9.58579 17.5858 9.25 18 9.25H19Z"/></g></svg>`, NM=()=>H.name.trim()||'your horse';
@@ -1274,8 +1296,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="lab">SEX</div><div class="sexG" data-k="sex">${[['Mare','Female'],['Gelding','Castrated male'],['Stallion','Entire male']].map(([v,s])=>`<button class="${H.sex===v?'on':''}" data-v="${v}"><b>${v}</b><span>${s}</span></button>`).join('')}</div>
       <div class="lab">BORN IN <em>optional</em></div><div class="yr"><button data-y="-1" aria-label="Earlier">−</button><div class="ahF"><input id="ahYear" inputmode="numeric" maxlength="4" placeholder="2016" value="${H.year}"></div><button data-y="1" aria-label="Later">+</button></div>
       <div class="yr" style="display:block"><div class="age" id="ahAge">${age?age+' years old':'Tap − or + or type the year'}</div></div>
-      <div class="lab">BREED <em>optional</em></div><div class="ahF"><input id="ahBreed" placeholder="Studbook, e.g. KWPN" value="${H.breed}" autocomplete="off"></div>
-      <div class="sug" id="ahSug">${sug.map(x=>`<button data-b="${x}">${x}</button>`).join('')}</div></div>`; }
+      <div class="lab">BREED <em>optional</em></div>${pickF('breed',BREEDS,'Pick a breed or studbook','Search a breed or studbook')}</div>`; }
     if(as===2) b.innerHTML=`<div class="${anim}"><h2 class="q">Body & feet</h2><div class="qs2">We use them to read stride length and jump height for ${NM()}.</div>
       <div class="two"><div><div class="lab">HEIGHT</div><div class="ahF"><input id="ahH" inputmode="numeric" maxlength="3" placeholder="168" value="${H.height}"><span class="u">cm</span></div></div>
         <div><div class="lab">WEIGHT <em>optional</em></div><div class="ahF"><input id="ahW" inputmode="numeric" maxlength="4" placeholder="580" value="${H.weight}"><span class="u">kg</span></div></div></div>
@@ -1283,7 +1304,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
       <div class="lab">SHOES <em>optional</em></div><div class="shoeG" data-k="shoes">${['All four','Front only','Hind only','Barefoot'].map(v=>`<button class="${H.shoes===v?'on':''}" data-v="${v}">${shoeSvg(v)}<b>${v}</b></button>`).join('')}</div></div>`;
     if(as===3) b.innerHTML=`<div class="${anim}"><h2 class="q">${NM()} in sport</h2><div class="qs2">Skip it if ${NM()} does not compete yet.</div>
       <div class="lab">COMPETING AT <em>optional</em></div><div class="chips" data-k="level">${['Young horse','1.10 m','1.20 m','1.30 m','1.40 m','1.50 m','1.60 m'].map(v=>`<button class="${H.level===v?'on':''}" data-v="${v}">${v}</button>`).join('')}</div>
-      <div class="lab">COAT <em>optional</em></div><div class="chips" data-k="coat">${['Bay','Dark bay','Chestnut','Grey','Black','Palomino'].map(v=>`<button class="${H.coat===v?'on':''}" data-v="${v}">${v}</button>`).join('')}</div>
+      <div class="lab">COAT <em>optional</em></div>${pickF('coat',COATS,'Pick a coat','Search a coat')}
 </div>`;
     if(as===4){ const u=USERS.find(x=>x.n===H.rider)||USERS[0], age=+H.year?2026-(+H.year):null;
       b.innerHTML=`<div class="${anim}"><h2 class="q">Who is ${NM()} for?</h2><div class="qs2">They see its sessions and get its alerts.</div>
@@ -1303,7 +1324,7 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
     const ph=document.getElementById('ahPh'); if(ph) ph.onclick=()=>document.getElementById('ahPhoto').click();
     document.querySelectorAll('#ahBody [data-k]').forEach(c=>c.querySelectorAll('button[data-v]').forEach(b=>b.onclick=()=>{ const k=c.dataset.k; H[k]=H[k]===b.dataset.v&&k!=='sex'?null:b.dataset.v; steps(); }));
     document.querySelectorAll('#ahBody .yr > button').forEach(b=>b.onclick=()=>{ const y=(+H.year||2016)+ +b.dataset.y; if(y>=1996&&y<=2025){ H.year=String(y); document.getElementById('ahYear').value=H.year; document.getElementById('ahAge').textContent=(2026-y)+' years old'; bar(); } });
-    wireSug();
+    wireSug(); wirePick();
     const dd=document.getElementById('ahDd'); if(dd) dd.onclick=()=>{ ddOpen=!ddOpen; steps(); };
     document.querySelectorAll('.uRow[data-n]').forEach(b=>b.onclick=()=>{ H.rider=b.dataset.n; ddOpen=false; inv=false; steps(); });
     const iv=document.getElementById('ahInv'); if(iv) iv.onclick=()=>{ inv=true; ddOpen=false; steps(); setTimeout(()=>document.getElementById('ahEm').focus(),50); };
@@ -1321,9 +1342,9 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
     nx.disabled=!ok; nx.textContent=as===LAST()?`Add ${H.name.trim()}`:'Continue'; document.getElementById('ahHint').textContent=h;
     document.querySelectorAll('#ahSteps i').forEach((x,i)=>x.style.display=i>LAST()?'none':'');
   }
-  const go=d=>{ as=Math.max(0,Math.min(LAST(),as+d)); ddOpen=false; A.scrollTop=0; steps(); if(as===0) setTimeout(()=>{ const n=document.getElementById('ahName'); if(n&&!H.name) n.focus(); },50); };
+  const go=d=>{ as=Math.max(0,Math.min(LAST(),as+d)); ddOpen=false; pk=null; pkQ=''; A.scrollTop=0; steps(); if(as===0) setTimeout(()=>{ const n=document.getElementById('ahName'); if(n&&!H.name) n.focus(); },50); };
   document.getElementById('ahPhoto').onchange=e=>{ const f=e.target.files[0]; if(!f) return; H.photo=URL.createObjectURL(f); steps(); };
-  window.openAddHorse=()=>{ closeMenu(); as=0; lastAs=-1; ddOpen=false; inv=false; H={name:'',breed:'',year:'',sex:null,coat:null,level:null,fei:'',photo:null,height:'',weight:'',shoes:null,rider:USERS[0].n,email:''};
+  window.openAddHorse=()=>{ closeMenu(); as=0; lastAs=-1; ddOpen=false; inv=false; pk=null; pkQ=''; H={name:'',breed:'',year:'',sex:null,coat:null,level:null,fei:'',photo:null,height:'',weight:'',shoes:null,rider:USERS[0].n,email:''};
     steps(); A.scrollTop=0; A.classList.add('on'); setTimeout(()=>document.getElementById('ahName').focus(),400); };
   document.getElementById('ahX').onclick=()=>A.classList.remove('on');
   document.getElementById('ahBk').onclick=()=>go(-1);
@@ -1424,10 +1445,8 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
     document.getElementById('wHero').addEventListener('click',e=>{ if(e.target.closest('#hero3d')) return; go(k+1); });
     go(0);
   })();
-  /* plan: the three StrydeUp plans, as sold today */
-  const PL=[{k:'premium',n:'Premium',m:49,h:250,who:'For amateur riders who want to improve.',f:['One rider, one horse','Unlimited video analysis','Trends and compare']},
-    {k:'pro',n:'Pro',m:149,h:759,who:'For professional riders, at the highest level.',f:['One rider, unlimited horses','Unlimited video analysis','Stable view across your horses'],tag:'Most chosen'},
-    {k:'stable',n:'Stable Owner',m:218,h:null,who:'For owners, stables and academies. 2 users included.',f:['Up to 25 users, $109 per extra user','Unlimited horses','One admin, central billing']}];
+  /* plan: the three StrydeUp plans, from plan.js (SD_OFFERS), the same list as Profile */
+  const PL=window.SD_OFFERS;
   function drawPlans(){ document.querySelectorAll('#per button').forEach(b=>b.classList.toggle('on',b.dataset.p===per));
     document.getElementById('plans').innerHTML=PL.map(p=>`<button class="pc${p.k===plan?' on':''}" data-k="${p.k}">${p.tag?`<span class="tag">${p.tag}</span>`:''}
       <div class="h"><span class="rad"></span><b>${p.n}</b><span class="pr">$${per==='m'||!p.h?p.m:p.h}<small> / ${per==='m'||!p.h?'month':'6 months'}</small></span></div>
@@ -1481,13 +1500,13 @@ html[data-theme="light"] .video,html[data-theme="light"] .video *{color:#fff}
   /* first steps: add the horse, then its first session */
   let horse=null, sess=null; const MINE=[];
   /* the account you just created is the one you land in: its plan, your name, your horse */
-  function goHome(){ const P={premium:'premium',pro:'pro',stable:'owner'}[plan]||'pro';
+  function goHome(){ const P={premium:'premium',pro:'pro',owner:'owner'}[plan]||'pro';
     /* a new account starts clean: nothing left over from accounts tried before on this phone */
     try{ ['sdVisits','sdPersonal','sdStaffHorses','sdGear','sdGearLast','sdLastFeel','sdHomeTrends','sdNotifRead','sdMe','sdDeletedVideos','sdVideoHorse','sdHorseEdits','sdDeletedHorses'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
     try{ localStorage.setItem('sdPlan',P);
       localStorage.setItem('sdMe',JSON.stringify({name:firstName(),full:nE.value.trim(),email:eE.value.trim(),roles:[...role],
         horse:horse?{name:horse.name}:null,horses:MINE.map(h=>h.name),sent:!!sess})); }catch(e){}
-    location.href='Etape%202%20-%20Home%20Pro.html?v=1007100844&plan='+P; }
+    location.href='Etape%202%20-%20Home%20Pro.html?v=1007104549&plan='+P; }
   function done(){ document.getElementById('hiName').textContent=`You're in, ${firstName()}.`; show(4); }
   function drawCl(){
     const y=document.getElementById('yay'); y.style.animation='none'; void y.offsetWidth; y.style.animation='';
