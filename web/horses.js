@@ -354,7 +354,7 @@
         <div class="mut avS">${esc(trSentence(X,ovP))}</div><div class="hzCh" id="hzOvCh"></div><div class="hzTrTip" id="hzOvTip"></div></div>
       <div class="cardF"><span>${esc(T(`${X.n} sessions`))}</span><span style="display:flex;gap:18px"><a class="btn link" href="#" id="hzGoCmp">${ic(IK.compare,14)}<span>Compare sessions</span></a><a class="btn link" href="#" id="hzGoTr"><span>Open trends</span>${ic(I.chevR,14)}</a></span></div>`;
     const sel={k:X.n-1};
-    trChart(document.getElementById('hzOvCh'),{X,height:200,sel:X.n-1,anim:true,care:false,onPick:k=>{ const p=X.P[k]; document.getElementById('hzOvTip').innerHTML=`<b>${esc(p.s.now?T('Latest session'):fmtD(p.s.date))}</b> · <span>${esc(p.s.kind==='Competition'?'Show':'Training')}</span> · <span>${esc(p.s.what)}</span> · <b>${X.f(p.v)}%</b>`; }});
+    trChart(document.getElementById('hzOvCh'),{X,height:200,sel:X.n-1,anim:true,care:false,onPick:k=>{ const p=X.P[k], tp=document.getElementById('hzOvTip'); if(tp) tp.innerHTML=`<b>${esc(p.s.now?T('Latest session'):fmtD(p.s.date))}</b> · <span>${esc(p.s.kind==='Competition'?'Show':'Training')}</span> · <span>${esc(p.s.what)}</span> · <b>${X.f(p.v)}%</b>`; }});
     el.querySelectorAll('#hzOvP button').forEach(b=>b.onclick=()=>{ ovP=+b.dataset.p; perfCard(); });
     document.getElementById('hzGoTr').onclick=e=>{ e.preventDefault(); trM='s_perf'; trP=ovP; trSel=null; tab='trends'; history.replaceState(null,'','#h='+H.id+'&v=trends'); drawTabs(); drawTab(true); window.scrollTo({top:0,behavior:RM()?'auto':'smooth'}); };
     document.getElementById('hzGoCmp').onclick=e=>{ e.preventDefault(); tab='compare'; history.replaceState(null,'','#h='+H.id+'&v=compare'); drawTabs(); drawTab(true); window.scrollTo({top:0,behavior:RM()?'auto':'smooth'}); }; }
@@ -421,7 +421,7 @@
     const RHY=['farrier','osteo','vet','dentist'];
     const tiles=RHY.map(k=>{ const v=past.find(x=>x.type===k), pl=up.find(x=>x.type===k);
       return `<button class="hcvT${v?'':' none'}" ${v?`data-v="${v.id}"`:'disabled'} style="text-align:left"><span class="h">${CARE.ico(k,18)}<span>${esc(T(PNAME[k]))}</span></span><b>${v?esc(ago(v.d)):esc(T('Not logged yet'))}</b><small>${v?(pl&&!VF?`<span>Planned</span> <span>${esc(fmt(pl.d))}</span>`:`<span>Last</span> <span>${esc(fmt(v.d))}</span>`):esc(T('No visit on record'))}</small></button>`; }).join('')
-      +(VF?'':`<div class="hcvT plan"><span class="h"><span>Planned</span></span>${up.length?up.slice(0,2).map(v=>`<b>${esc(T(PNAME[v.type]||'Other'))}</b><small>${esc(fmt(v.d))}</small>`).join(''):`<b class="mut" style="font-weight:600">${esc(T('Nothing planned'))}</b><small>${esc(T('Visits show on the Trends, with the performance before and after.'))}</small>`}</div>`);
+      +(VF?'':`<div class="hcvT plan"><span class="h"><span>Planned</span></span>${up.length?up.slice(0,2).map(v=>`<b>${esc(T(PNAME[v.type]||'Other'))}</b><small>${esc(fmt(v.d))}</small>`).join(''):`<b class="mut" style="font-weight:600">${esc(T('Nothing planned'))}</b>`}</div>`);
     if(!careM) careM=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
     const y=careM.getFullYear(), mo=careM.getMonth(), first=(new Date(y,mo,1).getDay()+6)%7, nd=new Date(y,mo+1,0).getDate(), iso=d=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
     let cells=''; for(let i=0;i<first;i++) cells+='<span></span>';
@@ -489,7 +489,7 @@
       <div class="hzRow"><section class="card c7"><div class="cardH"><h2>Sessions <em class="num">${X.n}</em></h2><span class="mut" style="font-size:12.5px">${esc(T('Click one to read it on the chart.'))}</span></div><div class="tbl hzSes trl" id="hzTrL" style="margin-top:8px"></div></section>
         <section class="card c5"><div class="cardH"><h2>Care visits on this chart</h2></div><div class="cardB" style="padding-top:6px" id="hzTrCare"></div></section></div>
       <section class="card"><div class="cardH"><h2>Every metric</h2><span class="mut" style="font-size:12.5px">${esc(T(`Over ${trP===1?'the last month':'the last '+trP+' months'}. Click one to open it above.`))}</span></div><div class="cardB" style="padding-top:4px" id="hzMG"></div></section>`;
-    const pick=k=>{ const p=X.P[k]; trSel=p.i; document.getElementById('hzTrTip').innerHTML=`<b>${esc(p.s.now?T('Latest session'):fmtD(p.s.date))}</b> · <span>${esc(p.s.kind==='Competition'?'Show':'Training')}</span> · <span>${esc(p.s.what)}</span> · <b>${X.f(p.v)}${esc(sp(U))}</b>`;
+    const pick=k=>{ const p=X.P[k], tp=document.getElementById('hzTrTip'); trSel=p.i; if(tp) tp.innerHTML=`<b>${esc(p.s.now?T('Latest session'):fmtD(p.s.date))}</b> · <span>${esc(p.s.kind==='Competition'?'Show':'Training')}</span> · <span>${esc(p.s.what)}</span> · <b>${X.f(p.v)}${esc(sp(U))}</b>`;
       document.querySelectorAll('#hzTrL .tr').forEach(r=>r.classList.toggle('sel',+r.dataset.i===trSel)); };
     const ch=trChart(document.getElementById('hzTrCh'),{X,height:300,sel:X.P.findIndex(p=>p.i===trSel),anim,care:true,visit:trVisit,onPick:pick,onVisit:id=>{ trVisit=trVisit===id?null:id; drawCare(); ch.redraw({visit:trVisit}); }});
     document.getElementById('hzTrL').innerHTML=[...X.P].reverse().map(p=>`<a class="tr click${p.i===trSel?' sel':''}" href="#" data-i="${p.i}"><span class="cellH">${kic(p.s.kind==='Competition')}<span class="cell2"><b>${esc(p.s.now?T('Latest session'):fmtD(p.s.date))}</b><span>${esc(p.s.kind==='Competition'?'Show':'Training')} · ${esc(p.s.what)}</span></span></span><span class="mut">${esc(D.when(p.s.date))}</span><b class="num" style="text-align:right">${X.f(p.v)}<small class="mut" style="font-weight:600">${esc(sp(U))}</small></b></a>`).join('');
@@ -520,7 +520,7 @@
 
   /* the trend chart: points (shows filled, training hollow), the average, care visits, a crosshair that follows the mouse */
   function trChart(el,o){
-    const draw=anim=>{ const X=o.X, P=X.P, n=P.length, Wd=Math.max(300,el.clientWidth), Ht=o.height, PL=46, PR=14, PT=o.care?34:14, PB=26;
+    const draw=anim=>{ const X=o.X, P=X.P, n=P.length, Wd=Math.max(300,el.clientWidth), Ht=o.height, PL=46, PR=84, PT=o.care?34:14, PB=26;
       const vs=P.map(p=>p.v), lo0=Math.min(...vs), hi0=Math.max(...vs), pad=(hi0-lo0)*.25||X.m.sd, lo=lo0-pad, hi=hi0+pad;
       const Xk=k=>n>1?PL+k/(n-1)*(Wd-PL-PR):(PL+Wd-PR)/2, Y=v=>PT+(1-(v-lo)/(hi-lo))*(Ht-PT-PB), col=`var(--${X.tone})`;
       const raw=(hi-lo)/4, p10=Math.pow(10,Math.floor(Math.log10(raw||1))), step=[1,2,2.5,5,10].map(x=>x*p10).find(x=>raw/x<=1)||10*p10, dec=Math.max(0,-Math.floor(Math.log10(step)+1e-9));
@@ -542,7 +542,7 @@
         <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${col}" stop-opacity=".2"/><stop offset="1" style="stop-color:${col}" stop-opacity="0"/></linearGradient></defs>
         ${ticks.map(t=>`<line x1="${PL}" x2="${Wd-PR}" y1="${Y(t).toFixed(1)}" y2="${Y(t).toFixed(1)}" style="stroke:var(--grid)"/><text x="${PL-10}" y="${(Y(t)+3.5).toFixed(1)}" text-anchor="end" style="fill:var(--axis)" font-size="11">${(+t).toFixed(dec)}</text>`).join('')}
         <line x1="${PL}" x2="${Wd-PR}" y1="${ay.toFixed(1)}" y2="${ay.toFixed(1)}" style="stroke:var(--line3)" stroke-dasharray="4 4"/>
-        <text x="${PL+6}" y="${(ay-6).toFixed(1)}" style="fill:var(--mut);stroke:var(--card);stroke-width:4px;paint-order:stroke;stroke-linejoin:round" font-size="11" font-weight="600">${esc(T('Average'))} ${X.f(X.my)}</text>
+        <text x="${Wd-PR+8}" y="${(ay+4).toFixed(1)}" style="fill:var(--mut)" font-size="11" font-weight="650">${esc(T('Average'))} ${X.f(X.my)}</text>
         ${care}
         <g class="cv"><path d="${path} L${Xk(n-1).toFixed(1)} ${Ht-PB} L${Xk(0).toFixed(1)} ${Ht-PB}Z" fill="url(#${gid})"/><path d="${path}" fill="none" style="stroke:${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
           ${P.map((p,k)=>p.s.kind==='Competition'?`<circle cx="${Xk(k).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="4" style="fill:${col};stroke:var(--card)" stroke-width="1.5"/>`:`<circle cx="${Xk(k).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="3" style="fill:var(--card);stroke:${col}" stroke-width="1.6"/>`).join('')}</g>
@@ -556,7 +556,7 @@
       svg.querySelectorAll('.cvM').forEach(g=>g.onclick=()=>o.onVisit&&o.onVisit(g.dataset.v));
       if(anim&&window.SD_WIPE) SD_WIPE(svg.querySelector('.cv')); };
     draw(o.anim);
-    if(window.ResizeObserver){ if(el._ro) el._ro.disconnect(); let w=el.clientWidth; el._ro=new ResizeObserver(()=>{ if(Math.abs(el.clientWidth-w)>2){ w=el.clientWidth; draw(false); } }); el._ro.observe(el); }
+    if(window.ResizeObserver){ if(el._ro) el._ro.disconnect(); let w=el.clientWidth; el._ro=new ResizeObserver(()=>{ if(!el.isConnected){ el._ro.disconnect(); return; } if(Math.abs(el.clientWidth-w)>2){ w=el.clientWidth; draw(false); } }); el._ro.observe(el); }
     return {redraw:x=>{ Object.assign(o,x||{}); draw(false); },select:k=>{ o.sel=k; draw(false); }}; }
 
   /* ---------------- Compare ---------------- */

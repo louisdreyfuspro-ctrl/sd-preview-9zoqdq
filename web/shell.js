@@ -19,17 +19,17 @@
 
   /* ---------- pages: the desktop file, and the mobile page that does the same job (used until the desktop one exists) ---------- */
   W.PAGES={
-    home:    {f:'index.html',    ready:true,  m:'Etape%202%20-%20Home%20Pro.html?v=1026123817',        t:'Home'},
-    horses:  {f:'horses.html',   ready:false, m:'Etape%203%20-%20My%20Horses.html?v=1026123817',       t:'My Horses'},
-    sessions:{f:'sessions.html', ready:false, m:'Etape%204%20-%20Sessions.html?v=1026123817',          t:'Sessions'},
-    session: {f:'session.html',  ready:true,  m:'Etape%201%20-%20Session%20Overview.html?v=1026123817',t:'Session analysis'},
-    team:    {f:'team.html',     ready:false, m:'Etape%203%20-%20My%20Horses.html?v=1026123817',       t:'Team'},
-    profile: {f:'profile.html',  ready:false, m:'Etape%205%20-%20Profile.html?v=1026123817',           t:'Profile'},
-    settings:{f:'profile.html',  ready:false, m:'Etape%205%20-%20Profile.html?v=1026123817',           t:'Settings'},
-    signup:  {f:'signup.html',   ready:false, m:'Etape%206%20-%20Onboarding.html?v=1026123817',        t:'Sign up'}};
+    home:    {f:'index.html',    ready:true,  m:'Etape%202%20-%20Home%20Pro.html?v=1026124412',        t:'Home'},
+    horses:  {f:'horses.html',   ready:false, m:'Etape%203%20-%20My%20Horses.html?v=1026124412',       t:'My Horses'},
+    sessions:{f:'sessions.html', ready:false, m:'Etape%204%20-%20Sessions.html?v=1026124412',          t:'Sessions'},
+    session: {f:'session.html',  ready:true,  m:'Etape%201%20-%20Session%20Overview.html?v=1026124412',t:'Session analysis'},
+    team:    {f:'team.html',     ready:false, m:'Etape%203%20-%20My%20Horses.html?v=1026124412',       t:'Team'},
+    profile: {f:'profile.html',  ready:false, m:'Etape%205%20-%20Profile.html?v=1026124412',           t:'Profile'},
+    settings:{f:'profile.html',  ready:false, m:'Etape%205%20-%20Profile.html?v=1026124412',           t:'Settings'},
+    signup:  {f:'signup.html',   ready:false, m:'Etape%206%20-%20Onboarding.html?v=1026124412',        t:'Sign up'}};
   /* a board link (?plan=) keeps its account on every link, like the mobile pages */
   /* the publication sets W.V (publish.py), so a browser never shows a page of an older publication */
-  W.V='1026123817';
+  W.V='1026124412';
   const urlPlan=new URLSearchParams(location.search).get('plan');
   const qs=q=>{ const p=new URLSearchParams(); if(W.V) p.set('v',W.V); Object.keys(q||{}).forEach(k=>{ if(q[k]!=null&&q[k]!=='') p.set(k,q[k]); }); if(urlPlan&&!p.has('plan')) p.set('plan',ACC); const s=p.toString(); return s?'?'+s:''; };
   W.href=(page,q,hash)=>{ const P=W.PAGES[page]||W.PAGES.home; hash=hash||'';

@@ -25,6 +25,13 @@
   let WATCH=null; { const m=location.hash.match(/^#watch=(.+)$/); if(m){ try{ WATCH=JSON.parse(decodeURIComponent(m[1])); }catch(e){} } }
   const ALLS=D.sessions(D.ALL.concat(D.personal()));
   let SES=ALLS.find(s=>s.key===KEY)||null;
+  /* a key that is not in this list (the Sessions page draws its dates with its own generator): read it as the phone does,
+     horse id | date, the session of that horse on that day; kind and work from its closest session */
+  if(!SES&&hasV){ const [hid,ds]=KEY.split('|'), p=(ds||'').split('-').map(Number), pool=D.ALL.concat(D.personal());
+    const moved=window.SD_VIDEO_HORSE&&SD_VIDEO_HORSE(KEY), h=(moved&&pool.find(x=>(x.n0||x.n)===moved))||pool.find(x=>x.id===hid);
+    if(h&&p.length===3&&!(window.SD_VIDEO_DELETED&&SD_VIDEO_DELETED(KEY))){ const date=new Date(p[0],p[1]-1,p[2]), mine=ALLS.filter(x=>x.h.id===h.id);
+      const near=mine.reduce((a,x)=>!a||Math.abs(x.date-date)<Math.abs(a.date-date)?x:a,null)||{};
+      SES={h,h0:pool.find(x=>x.id===hid)||h,date,key:KEY,show:!!near.show,what:near.what||'Course',ht:near.ht,ven:near.ven,sc:near.sc}; } }
   if(!SES&&WATCH) SES=ALLS.find(s=>s.h.n===WATCH.h)||null;      /* an alert: the horse's latest session */
   if(!SES&&!hasV) SES=ALLS.find(s=>s.key===KEY)||ALLS[0]||null;
   if(!SES) SES=ALLS[0]||null;

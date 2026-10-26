@@ -108,5 +108,5 @@
     document.addEventListener('DOMContentLoaded',function(){ walk(document.body); });
   };
   /* a page in a sub-folder (the desktop web app, web/) sets SD_I18N_BASE='../' before loading this file */
-  document.write('<script src="'+(window.SD_I18N_BASE||'')+'i18n-'+lang+'.js?v=1026123817"><\/script>');
+  document.write('<script src="'+(window.SD_I18N_BASE||'')+'i18n-'+lang+'.js?v=1026124412"><\/script>');
 })();

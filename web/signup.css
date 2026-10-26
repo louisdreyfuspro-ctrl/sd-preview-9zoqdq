@@ -362,3 +362,5 @@ body{transition:opacity .2s ease-out}
 /* web.css hides the language button of the app bar on small screens: here it stays, it is the only way to change language before signing in */
 .suTop .wLangB{display:flex!important}
 @media (max-width:560px){ .role .kn{display:none} }
+/* a long label (AÑO DE NACIMIENTO) wraps: the fields stay on one line */
+.hfRow{align-items:end}
