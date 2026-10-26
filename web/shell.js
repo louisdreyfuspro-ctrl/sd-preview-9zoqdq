@@ -7,7 +7,7 @@
 
    A page:   <body><script>SDW.mount({page:'home', title:'Home'})</script> ... fill document.getElementById('wPage')
    Links:    SDW.href('horses',{},'#h=mb') gives the desktop page when it exists, else the "Coming next" page.
-   When a phase delivers a page, set ready:true for it in SDW.PAGES below, nothing else changes. */
+   Every page of the desktop app is built (ready:true); soon.html stays for a page that would not exist yet. */
 (function(){
   const W=window.SDW={};
   const T=x=>(window.SD_T||(y=>y))(x);
@@ -19,17 +19,17 @@
 
   /* ---------- pages: the desktop file, and the mobile page that does the same job (used until the desktop one exists) ---------- */
   W.PAGES={
-    home:    {f:'index.html',    ready:true,  m:'Etape%202%20-%20Home%20Pro.html?v=1026124412',        t:'Home'},
-    horses:  {f:'horses.html',   ready:false, m:'Etape%203%20-%20My%20Horses.html?v=1026124412',       t:'My Horses'},
-    sessions:{f:'sessions.html', ready:false, m:'Etape%204%20-%20Sessions.html?v=1026124412',          t:'Sessions'},
-    session: {f:'session.html',  ready:true,  m:'Etape%201%20-%20Session%20Overview.html?v=1026124412',t:'Session analysis'},
-    team:    {f:'team.html',     ready:false, m:'Etape%203%20-%20My%20Horses.html?v=1026124412',       t:'Team'},
-    profile: {f:'profile.html',  ready:false, m:'Etape%205%20-%20Profile.html?v=1026124412',           t:'Profile'},
-    settings:{f:'profile.html',  ready:false, m:'Etape%205%20-%20Profile.html?v=1026124412',           t:'Settings'},
-    signup:  {f:'signup.html',   ready:false, m:'Etape%206%20-%20Onboarding.html?v=1026124412',        t:'Sign up'}};
+    home:    {f:'index.html',    ready:true,  m:'Etape%202%20-%20Home%20Pro.html?v=1026135841',        t:'Home'},
+    horses:  {f:'horses.html',   ready:true,  m:'Etape%203%20-%20My%20Horses.html?v=1026135841',       t:'My Horses'},
+    sessions:{f:'sessions.html', ready:true,  m:'Etape%204%20-%20Sessions.html?v=1026135841',          t:'Sessions'},
+    session: {f:'session.html',  ready:true,  m:'Etape%201%20-%20Session%20Overview.html?v=1026135841',t:'Session analysis'},
+    team:    {f:'team.html',     ready:true,  m:'Etape%203%20-%20My%20Horses.html?v=1026135841',       t:'Team'},
+    profile: {f:'profile.html',  ready:true,  m:'Etape%205%20-%20Profile.html?v=1026135841',           t:'Profile'},
+    settings:{f:'profile.html',  ready:true,  m:'Etape%205%20-%20Profile.html?v=1026135841',           t:'Settings'},
+    signup:  {f:'signup.html',   ready:true,  m:'Etape%206%20-%20Onboarding.html?v=1026135841',        t:'Sign up'}};
   /* a board link (?plan=) keeps its account on every link, like the mobile pages */
   /* the publication sets W.V (publish.py), so a browser never shows a page of an older publication */
-  W.V='1026124412';
+  W.V='1026135841';
   const urlPlan=new URLSearchParams(location.search).get('plan');
   const qs=q=>{ const p=new URLSearchParams(); if(W.V) p.set('v',W.V); Object.keys(q||{}).forEach(k=>{ if(q[k]!=null&&q[k]!=='') p.set(k,q[k]); }); if(urlPlan&&!p.has('plan')) p.set('plan',ACC); const s=p.toString(); return s?'?'+s:''; };
   W.href=(page,q,hash)=>{ const P=W.PAGES[page]||W.PAGES.home; hash=hash||'';
@@ -57,6 +57,7 @@
     phone:L('<rect x="6.5" y="2.8" width="11" height="18.4" rx="2.6"/><path d="M10.5 18h3"/>',1.6),
     arrowR:L('<path d="M5 12h14M13.5 6.5 19 12l-5.5 5.5"/>',1.8),
     dots:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5.5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18.5" cy="12" r="1.6"/></svg>',
+    logout:L('<path d="M14 4.5h3.5A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2H14"/><path d="M10 8l-4 4 4 4M6 12h9.5"/>',1.7),
     record:L('<rect x="3" y="6.5" width="13" height="11" rx="3"/><path d="m16 10.5 5-3v9l-5-3"/>',1.6),
     sliders:L('<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',1.6)};
   W.ic=(svg,px,cls)=>`<span class="ico${cls?' '+cls:''}" style="${px?`width:${px}px;height:${px}px`:''}">${svg||''}</span>`;
@@ -101,7 +102,7 @@
         <nav class="wNav">${navA('profile','Profile',W.I.profile,W.page)}${navA('settings','Settings',W.I.settings,W.page,'#settings')}</nav>
         <div class="wSideFoot">
           <button class="wAcct" id="wAcct" data-tip="Switch account" data-tipr="1" aria-haspopup="menu">${W.ic(W.I.swap)}<span class="l"><span>Demo</span> · <b>${esc(T(accName(ACC)))}</b></span><span class="ico chev" style="width:14px;height:14px">${W.I.updown}</span></button>
-          <a class="wMe" id="wMe" href="${W.href('profile')}" data-tip="${esc(W.me.full)}" data-tipr="1"><span class="wAv">${esc(W.me.ini)}</span><span class="t"><b>${esc(W.me.full)}</b><small><span class="wBadge" translate="no">${badgeIco}${esc(T(W.me.badge))}</span><span>${esc(W.roleLine())}</span></small></span></a>
+          <button class="wMe" id="wMe" data-tip="${esc(W.me.full)}" data-tipr="1" aria-haspopup="menu"><span class="wAv">${esc(W.me.ini)}</span><span class="t"><b>${esc(W.me.full)}</b><small><span class="wBadge" translate="no">${badgeIco}${esc(T(W.me.badge))}</span><span>${esc(W.roleLine())}</span></small></span><span class="ico chev">${W.I.updown}</span></button>
         </div>
       </aside>
       <div class="wMain">
@@ -205,8 +206,11 @@
         m.querySelector('#wErrNew').onclick=()=>{ W.closeModal(); setTimeout(()=>W.openUpload(),RM()?0:200); };
         m.querySelector('#wErrRetry').onclick=()=>{ W.closeModal(); W.onErrRetry&&W.onErrRetry(); window.SD_TOAST&&SD_TOAST(T('Analysing the round again')); }; } }); };
 
-  /* ---------- Upload video: the first step of the phone's flow, the rest comes with the next phase ---------- */
-  W.openUpload=(horse)=>{ const HN=window.SD_HN||(D().HORSES||[]).map(h=>h.n); const ER=window.SDW_ERRIC||{};
+  /* ---------- Upload video: the whole flow of the phone (upload.js, loaded by every page). o: {kind, onDone} ---------- */
+  W.openUpload=(horse,o)=>{ if(typeof window.SDW_UPLOAD_FULL==='function') return SDW_UPLOAD_FULL(Object.assign({horse:typeof horse==='string'?horse:undefined,onDone:W.uploadDone},o||{}));
+    return uploadStep1(horse); };
+  /* fallback when upload.js is missing: the first step only */
+  const uploadStep1=(horse)=>{ const HN=window.SD_HN||(D().HORSES||[]).map(h=>h.n); const ER=window.SDW_ERRIC||{};
     const REQ=[['Frame rate','27 fps min','Best 60 fps'],['Resolution','832 × 464 min','Best 1920 × 1080'],['Length','7 s to 3 min',''],['File size','Up to 500 MB','']];
     let pick=horse||null, file=null;
     const body=()=>`<label class="wDrop" id="wDrop" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:190px;border-radius:14px;border:1.5px dashed var(--line3);background:var(--card2);cursor:pointer;text-align:center;padding:24px;transition:border-color .2s,background .2s">
@@ -253,7 +257,7 @@
   function drawSearch(){ const box=document.getElementById('wSearch'), inp=document.getElementById('wQ'), q=inp.value, R=runSearch(q), d=D();
     const row=(href,ava,a,b,em)=>`<a class="mi" href="${href}">${ava}<span class="t"><b style="font-weight:620">${esc(a)}</b><small>${esc(b)}</small></span>${em?`<em>${esc(em)}</em>`:''}</a>`;
     const hRow=h=>row(W.href('horses',{},h.personal?'#v=own':'#h='+h.id),`<span class="hAv sm">${esc(h.ini||h.n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</span>`,h.n,h.r||"",h.perf!=null?h.perf+'%':'');
-    const sRow=s=>row(W.href('session',{v:s.key}),`<span class="hAv sm" style="border-radius:8px;padding:6px;color:var(--mut)">${W.kindIcon(s.show)}</span>`,s.h.n+' · '+T(s.show?'Show':'Training'),d.when(s.date)+' · '+s.what,s.sc+'%');
+    const sRow=s=>row(W.href('session',{v:s.key,sc:s.sc}),`<span class="hAv sm" style="border-radius:8px;padding:6px;color:var(--mut)">${W.kindIcon(s.show)}</span>`,s.h.n+' · '+T(s.show?'Show':'Training'),d.when(s.date)+' · '+s.what,s.sc+'%');
     const vRow=v=>`<a class="mi" href="${W.href('sessions',{q:v.ven})}"><span class="hAv sm" style="border-radius:8px;padding:6px;color:var(--mut)">${W.kindIcon(true)}</span><span class="t"><b style="font-weight:620">${esc(v.ven)}</b><small><span>${v.n} ${v.n>1?'shows':'show'}</span> · <span>${esc(d.when(v.last.date))}</span></small></span></a>`;
     const sec=(t,L,f)=>L.length?`<div class="gl">${t}</div>`+L.map(f).join(''):'';
     const html=sec(T('Horses'),R.H,hRow)+sec(T(q.trim()?'Sessions':'Latest sessions'),R.S,sRow)+sec(T('Shows'),R.V,vRow)||`<div class="gd" style="padding:16px 10px">${esc(T('Nothing found for'))} “${esc(q)}”</div>`;
@@ -280,6 +284,10 @@
     $('wTheme').onclick=()=>{ const light=document.documentElement.dataset.theme!=='light'; try{ localStorage.setItem('sdTheme',light?'light':'dark'); }catch(e){}
       document.documentElement.dataset.theme=light?'light':'dark'; const b=$('wTheme'); b.innerHTML=W.ic(light?W.I.moon:W.I.sun); b.dataset.tip=light?'Dark mode':'Light mode'; tipHide(); W.onTheme&&W.onTheme(); };
     $('wBell').onclick=()=>openBell($('wBell')); ntBadge();
+    /* who is signed in: profile, settings, log out (back to the Log in of the sign-up page) */
+    $('wMe').onclick=()=>{ const b=$('wMe'); const p=W.pop(b,`<div class="gl" translate="no">${esc(W.me.full)}</div>${PL.email||(window.SD_ME&&SD_ME.email)?`<div class="gd" translate="no">${esc((window.SD_ME&&SD_ME.email)||PL.email)}</div>`:''}
+        <a class="mi" href="${W.href('profile')}">${W.ic(W.I.profile)}<span class="t">Profile</span></a><a class="mi" href="${W.href('settings',{},'#settings')}">${W.ic(W.I.settings)}<span class="t">Settings</span></a>
+        <div class="sep"></div><a class="mi red" id="wOut" href="${W.href('signup',{login:1})}">${W.ic(W.I.logout)}<span class="t">Log out</span></a>`,{w:224,align:'left'}); };
     $('wUpload').onclick=()=>W.openUpload();
     wireSearch();
   }

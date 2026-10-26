@@ -82,7 +82,7 @@
         <span class="t"><b translate="no">${esc(h.n)}</b><span>${esc(h.r||'')}</span></span>
         <span class="tags"><span class="pill ${t}">${h.d>1?'Improving':h.d<-1?'Dropping':'Steady'}</span>${al.length?`<span class="pill ${att?'bad':'watch'}">${al.length} ${al.length>1?'alerts':'alert'}</span>`:''}</span>
         <span class="ico chv">${I.chevR}</span></a>`; };
-    const vRow=s=>`<a class="pdR" href="${W.href('session',{v:s.key})}"><span class="kic${s.show?' show':''}">${W.kindIcon(s.show)}</span>
+    const vRow=s=>`<a class="pdR" href="${W.href('session',{v:s.key,sc:s.sc})}"><span class="kic${s.show?' show':''}">${W.kindIcon(s.show)}</span>
         <span class="t"><b><span translate="no">${esc(s.h.n)}</span> · <span>${s.show?'Show':'Training'}</span></b><span><span>${esc(D.when(s.date))}</span><span>·</span><span>${esc(s.what)}</span></span></span>
         <span class="sc num ${D.scoreTone(s.sc)}">${s.sc}<small>%</small></span><span class="ico chv">${I.chevR}</span></a>`;
     const can=p.me?'Everything':own?'See sessions and scores':p.role==='Groom'?'Add videos':'Add videos';

@@ -7,7 +7,8 @@
    The sessions come from the SAME generator and seed as the mobile Sessions page, so every count and average is the phone's. */
 (function(){
   const W=window.SDW, D=window.SD_DATA, C=window.SDC, T=W.T, esc=W.esc, I=W.I;
-  const PLAN=W.PLAN, ACC=W.ACC, MULTI=!!window.SD_MULTI, OWNER=PLAN==='owner', GROOM=ACC==='groom';
+  const PLAN=W.PLAN, ACC=W.ACC, MULTI=!!window.SD_MULTI, OWNER=PLAN==='owner';
+  const GROOM=false;   /* the groom has exactly the rider's screens (client decision): scores and key metric shown */
   const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
   const page=document.getElementById('wPage');
   const TODAY=D.TODAY, DAY=864e5, MON=D.MON;
@@ -150,7 +151,7 @@
     default: return '<span></span>'; } };
   const acts=s=>`<span class="sActs" role="group" aria-label="Actions"><button type="button" class="sA" data-a="open" data-tip="Open the analysis" aria-label="Open the analysis">${IX.open}</button>
     <button type="button" class="sA" data-a="move" data-tip="Change horse" aria-label="Change horse">${W.I.swap}</button><button type="button" class="sA del" data-a="del" data-tip="Delete video" aria-label="Delete video">${IX.trash}</button></span>`;
-  const row=s=>`<a class="tr sR" href="${W.href('session',{v:s.key})}" data-vk="${esc(s.key||'')}" data-vh="${esc(s.h0?(s.h0.n0||s.h0.n):s.h.n)}">${cols.map(c=>cellOf(c,s)).join('')}${acts(s)}</a>`;
+  const row=s=>`<a class="tr sR" href="${W.href('session',{v:s.key,sc:s.sc})}" data-vk="${esc(s.key||'')}" data-vh="${esc(s.h0?(s.h0.n0||s.h0.n):s.h.n)}">${cols.map(c=>cellOf(c,s)).join('')}${acts(s)}</a>`;
   /* a row of a video not analysed yet: being analysed, or failed */
   const pendRow=(p)=>{ const h=p.h, iW=cols.findIndex(c=>c.k==='what'), iS=cols.findIndex(c=>c.k==='status'), span=iS-iW;
     const cells=cols.map((c,i)=>{ if(p.fail&&i>iW&&i<iS) return '';
@@ -280,9 +281,7 @@
       items:[{v:'all',ini:String(SD_STABLES.length),label:T('All stables'),count:HORSES.length,on:cur==='all'}].concat(SD_STABLES.map(s=>({v:s.id,ini:s.ini,label:s.n,sub:s.city,count:counts[s.id]||0,on:cur===s.id}))),
       onPick:v=>{ SD_SET_STABLE_SEL(v); stab=v; if(horse!=='all'&&!inSt(HORSES.find(h=>h.id===horse))) horse='all'; shown=25; renderKpis(false); renderBar(); renderTable(); switcher(); }}); }
 
-  /* ---------- upload: the full flow (upload.js); the new session joins the list as Analysing ---------- */
-  
-  if(window.SDW_UPLOAD_FULL){ W.openUpload=h=>SDW_UPLOAD_FULL({horse:typeof h==='string'?h:undefined}); const ub=document.getElementById('wUpload'); if(ub) ub.onclick=()=>W.openUpload(); }
+  /* ---------- upload: the full flow (upload.js, opened by SDW.openUpload); the new session joins the list as Analysing ---------- */
   window.SDW_ON_UPLOAD=rec=>{ freshId=rec.id; kind='all'; sort={k:'date',dir:-1}; renderTable({flash:true}); window.SD_TOAST&&SD_TOAST(T('Sent · analysing the round'));
     const r=document.querySelector('#sTbl .sR.fresh'); if(r) r.scrollIntoView({behavior:RM()?'auto':'smooth',block:'center'}); };
   W.onErrRetry=retry;

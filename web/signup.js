@@ -102,7 +102,7 @@
     ['Everything, on the big screen.','Every horse, every session and every alert, with room to read them.']];
   const DUR=6;
   const theme=()=>document.documentElement.dataset.theme==='light'?'light':'dark';
-  const shotSrc=()=>`../_captures%20web%20app/home-1440-${theme()}-pro.png`;
+  const shotSrc=()=>`img/home-${theme()}.png`;
   function drawStories(){
     const sp=[31.5,525,3.85], sd=[1,0,2];
     $('suStories').innerHTML=`

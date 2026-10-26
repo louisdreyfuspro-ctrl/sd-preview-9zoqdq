@@ -12,6 +12,7 @@
   --good:#5CC48C; --watch:#E9A23B; --bad:#EC5F57;
   --good-ink:#7BD6A4; --watch-ink:#F2BC64; --bad-ink:#F2817A;
   --good-bg:rgba(92,196,140,.13); --watch-bg:rgba(233,162,59,.14); --bad-bg:rgba(236,95,87,.14);
+  --comp:#F5B544; --comp-ink:#FFD27A; --comp-bg:rgba(245,181,68,.15); --comp-line:rgba(245,181,68,.36);   /* a show (competition): the phone's gold */
   --ring-track:rgba(255,255,255,.07); --grid:rgba(255,255,255,.055); --axis:#5A6472;
   --shadow-pop:0 18px 48px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.3);
   --veil:rgba(4,6,9,.62);
@@ -28,6 +29,7 @@ html[data-theme="light"]{
   --blue-ink:#2563EB; --blue-bg:rgba(59,130,246,.09); --blue-line:rgba(59,130,246,.3);
   --good-ink:#1F8A55; --watch-ink:#A86A0C; --bad-ink:#C9362F;
   --good-bg:rgba(92,196,140,.15); --watch-bg:rgba(233,162,59,.15); --bad-bg:rgba(236,95,87,.12);
+  --comp:#E2A22F; --comp-ink:#946000; --comp-bg:rgba(245,181,68,.18); --comp-line:rgba(226,162,47,.4);
   --ring-track:rgba(16,24,40,.07); --grid:rgba(16,24,40,.07); --axis:#8D98A8;
   --shadow-pop:0 18px 48px rgba(16,24,40,.16),0 2px 6px rgba(16,24,40,.06);
   --veil:rgba(15,22,35,.32);
@@ -189,6 +191,7 @@ html[data-theme="light"] .seg button.on{box-shadow:0 1px 2px rgba(16,24,40,.1),i
 .wPop.on{opacity:1;transform:none;pointer-events:auto}
 .wPop .mi{display:flex;align-items:center;gap:11px;width:100%;min-height:38px;padding:6px 10px;border-radius:8px;font-size:13.5px;font-weight:560;color:var(--txt);text-align:left}
 .wPop .mi:hover,.wPop .mi.kb{background:var(--hover)}
+.wPop .mi.red,.wPop .mi.red .ico{color:var(--bad-ink)}
 .wPop .mi .ico{width:18px;height:18px;color:var(--mut)}
 .wPop .mi .ck{margin-left:auto;width:16px;height:16px;color:var(--blue-ink);opacity:0} .wPop .mi.on .ck{opacity:1}
 .wPop .mi small{display:block;font-size:11.5px;font-weight:500;color:var(--mut)}
@@ -338,7 +341,7 @@ a.kpi:hover,button.kpi:hover{border-color:var(--line2)}
 .hSesT .tr{grid-template-columns:minmax(0,1.3fr) minmax(0,1.2fr) 92px 48px 112px 32px;gap:14px}
 .cellH{display:flex;align-items:center;gap:12px;min-width:0}
 .kic{width:34px;height:34px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;background:var(--card2);border:1px solid var(--line);color:var(--mut)}
-.kic svg{width:19px;height:19px} .kic.show{color:var(--blue-ink);background:var(--blue-bg);border-color:var(--blue-line)}
+.kic svg{width:19px;height:19px} .kic.show{color:var(--comp-ink);background:var(--comp-bg);border-color:var(--comp-line)}
 .scB{display:flex;align-items:center;gap:10px}
 .scB .bar{flex:1;height:5px;border-radius:3px;background:var(--ring-track);overflow:hidden} .scB .bar i{display:block;height:100%;border-radius:3px}
 .scB b{width:40px;text-align:right;font-size:14px;font-weight:680} .scB small{font-size:11px;color:var(--mut);font-weight:600}

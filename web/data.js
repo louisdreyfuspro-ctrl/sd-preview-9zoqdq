@@ -50,7 +50,7 @@
   D.ALL_ALERTS=ALERTS.slice();
   D.alerts=(visible)=>{ const V=visible||HORSES; return D.ALL_ALERTS.filter(a=>V.some(h=>h.n===a.h)).sort((a,b)=>(a.lv==='Attention'?0:1)-(b.lv==='Attention'?0:1)); };
   /* the alert opens its session on Things to watch, the alert highlighted (same hash as mobile) */
-  D.alertHash=x=>'#watch='+encodeURIComponent(JSON.stringify({h:x.h,r:(D.ALL.find(h=>h.n===x.h)||{}).r,lv:x.lv,a:x.a,b:x.b,ic:x.ic}));
+  D.alertHash=x=>{ const h=D.ALL.find(y=>y.n===x.h)||{}; return '#watch='+encodeURIComponent(JSON.stringify({h:x.h,r:h.r,lv:x.lv,a:x.a,b:x.b,ic:x.ic,sc:h.perf})); };   /* sc: the score of its latest session */
   /* ---------- the failed upload ---------- */
   D.ERR={horse:'Nova de Lys', when:'Today, 09:12', dur:'2:45', kind:'Training',
     reason:'The horse leaves the frame too often',

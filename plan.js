@@ -539,6 +539,23 @@
   document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('#sdxNo')) document.querySelectorAll('.sdxSw.open').forEach(s=>{ s.classList.remove('open'); const r=s.querySelector('[data-vk]'); if(r) r.style.transform=''; }); });
   /* the page of one video: which one (?v=), its horse in the title, and its ⋯ menu */
   window.SD_THIS_VIDEO=()=>{ let k=null; try{ k=new URLSearchParams(location.search).get('v'); }catch(e){} return k||'mb|2026-09-30'; };
+  /* the score of the video opened: the list shows it and its link carries it (?sc=, or "sc" in an alert's #watch).
+     The session page, on the phone and on the computer, moves its demo numbers by the same delta: the header ring and
+     the verdict, the 3 session scores and their parts, the end of their trends. No score in the link: the demo as it is. */
+  window.SD_SES_SC=()=>{ let v=null; try{ const q=new URLSearchParams(location.search).get('sc'); if(q) v=+q;
+      if(v==null){ const m=location.hash.match(/^#watch=(.+)$/); if(m){ const x=JSON.parse(decodeURIComponent(m[1])); if(x&&x.sc!=null) v=+x.sc; } } }catch(e){}
+    return v!=null&&isFinite(v)&&v>=0&&v<=100?Math.round(v):null; };
+  /* o: {perf, scores, trends}; dl: the delta already found (a page that defines its scores after the header) */
+  window.SD_SES_SHIFT=(o,dl)=>{ o=o||{}; if(dl==null){ const sc=SD_SES_SC(); if(sc==null||!o.perf) return 0; dl=sc-o.perf.v; }
+    if(!dl) return 0;
+    const cl=v=>Math.max(0,Math.min(100,Math.round(v+dl)));
+    if(o.perf) o.perf.v=cl(o.perf.v);
+    (o.scores||[]).forEach(x=>{ x.v=cl(x.v); (x.parts||[]).forEach(p=>{ p[1]=cl(p[1]); }); });
+    (o.trends||[]).forEach(m=>{ if(['s_head','s_perf','s_cons'].includes(m.id)) m.v=cl(m.v); });
+    return dl; };
+  /* the verdict of a session score, the same words on the phone and the computer */
+  window.SD_SES_WORD=v=>v>=80?'Very good session':v>=65?'Good session':v>=50?'Session to work on':'Difficult session';
+  window.SD_SES_TONE=v=>v>=70?'good':v>=55?'watch':'bad';
   window.SD_VIDEO_PAGE=btn=>{ const k=SD_THIS_VIDEO(), id=k.split('|')[0], hasV=new URLSearchParams(location.search).has('v'), ident=document.querySelector('.ident');
     const nameOf=()=>SD_VIDEO_HORSE(k)||(SD_H0[id]||[])[0]||'Midnight Bolt';
     const paint=()=>{ if(!ident) return; const n=nameOf(), hid=Object.keys(SD_H0).find(i=>SD_H0[i][0]===n); ident.textContent=shown(n)+(hid?' · '+SD_H0[hid][1]:''); };
@@ -548,7 +565,7 @@
     btn.onclick=e=>{ e.preventDefault(); SD_MENU(btn,[{t:'Change horse',ic:'swap',fn:()=>SD_PICK_HORSE({current:nameOf(),onSave:n=>{ const prev=SD_VIDEO_HORSE(k); SD_SET_VIDEO_HORSE(k,n); paint();
         SD_UNDO('Moved to '+shown(n),()=>{ SD_SET_VIDEO_HORSE(k,prev); paint(); }); }})},
       {t:'Delete video',ic:'trash',red:1,fn:()=>SD_CONFIRM_DELETE({onConfirm:()=>{ SD_DELETE_VIDEO(k); SD_UNDO_LATER({type:'video',key:k});
-        const u=new URL('Etape%204%20-%20Sessions.html?v=1026124412',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
+        const u=new URL('Etape%204%20-%20Sessions.html?v=1026135841',location.href), pl=new URLSearchParams(location.search).get('plan'); if(pl) u.searchParams.set('plan',pl); location.href=u.toString(); }})}]); }; };
   /* undo after a page change: the next page shows the toast */
   window.SD_UNDO_LATER=o=>{ try{ sessionStorage.setItem('sdUndo',JSON.stringify(o)); }catch(e){} };
   document.addEventListener('DOMContentLoaded',()=>{ let o=null; try{ o=JSON.parse(sessionStorage.getItem('sdUndo')); sessionStorage.removeItem('sdUndo'); }catch(e){} if(!o) return;
@@ -605,7 +622,7 @@
       <div class="plFeat"><span class="i"><svg style="color:#5B9BFF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 8.75v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277C9.216 3 8.394 3 6.75 3s-2.466 0-3.019.454a2 2 0 0 0-.277.277C3 4.284 3 5.106 3 6.75v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277c.454-.553.454-1.375.454-3.019ZM7.75 15.5h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333C3 17.203 3 17.552 3 18.25s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334C4.703 21 5.052 21 5.75 21h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333c.086-.284.086-.633.086-1.331s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334c-.284-.086-.633-.086-1.331-.086ZM21 17.25v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277c-.553-.454-1.375-.454-3.019-.454s-2.466 0-3.019.454a2 2 0 0 0-.277.277c-.454.553-.454 1.375-.454 3.019v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277C21 19.716 21 18.894 21 17.25ZM18.25 3h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333c-.086.284-.086.633-.086 1.331s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334c.284.086.633.086 1.331.086h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333C21 6.797 21 6.448 21 5.75s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334C19.297 3 18.948 3 18.25 3Z"/></svg></span><div><b>${T('Stable view')}</b><span>${T('Top performers and alerts across your horses')}</span></div></div></div>
     <span class="plTr">${T('30 days free')}</span>
     <button class="plBtn" id="plGo">${T('Start 30-day free trial')}</button><div class="plThen">${T(`Then $${(window.SD_OFFERS.find(o=>o.k==='pro')||{m:149}).m}/month.`)} ${T('Cancel anytime before the trial ends.')}</div><button class="plBtn sec" onclick="plClose()">${T('Not now')}</button>`,
-    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1026124412#plans'; }; });
+    s=>{ s.querySelector('#plGo').onclick=()=>{ location.href='Etape%205%20-%20Profile.html?v=1026135841#plans'; }; });
 
   /* Stable Owner: invite a rider and give them horses */
   window.openAddRider=()=>{ const H=window.SD_ALLH||[{n:'Midnight Bolt'},{n:'Quintus Z'},{n:'Bella Donna'},{n:'Silver Arrow'},{n:'Nova de Lys'}];

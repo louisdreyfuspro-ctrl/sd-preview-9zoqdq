@@ -310,7 +310,7 @@
     stepper(); M.querySelector('.upSteps').classList.add('sent');
     const when=D.date==='Other day'&&D.pick?fmtDay(D.pick):D.date, what=D.kind==='Show'?`${D.height} · ${D.course}`:(D.ttype&&D.ttype!=='Training'?D.ttype:D.disc);
     B.innerHTML=`<div class="upSent"><span class="ok">${u('upload-minimalistic',30)}</span>
-      <h2 id="upSH">${esc(`Uploading ${D.horse}'s round`)}</h2>${D.rider?`<p class="mut">${esc(`Ridden by ${D.rider}`)}</p>`:''}
+      <h2 id="upSH">${esc(D.horse?`Uploading ${D.horse}'s round`:'Uploading your round')}</h2>${D.rider?`<p class="mut">${esc(`Ridden by ${D.rider}`)}</p>`:''}
       <div class="upRecap"><div><span class="lbl">HORSE</span><b>${esc(D.horse)}</b></div><div><span class="lbl">WHEN</span><b>${esc(when)}</b></div>
         <div><span class="lbl">SESSION</span><b>${esc(D.kind)}</b><small>${esc(what)}</small></div><div><span class="lbl">WHERE</span><b>${esc(D.loc.split(',')[0])}</b><small>${esc(D.place)}</small></div></div>
       <div class="upBar"><i id="upProg"></i></div><p class="upPct num" id="upPct">0%</p>

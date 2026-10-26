@@ -11,8 +11,10 @@
   const OWNER=PLAN==='owner', PREM=PLAN==='premium', SOLO=PLAN==='pro'||PREM;
   const TABS=PLAN==='rider'||PLAN==='vet';                 /* the stable's horses and My Horses, two tabs */
   const MULTI=!!window.SD_MULTI, STAFF=!!window.SD_STAFF;   /* vet, farrier, trainer */
-  const GROOM=ACC==='groom', NOSC=GROOM;                    /* a groom does not see the scores */
-  const FARR=ACC==='farrier', VF=ACC==='vet'||ACC==='farrier';
+  /* the client's rules: the groom has exactly the rider's screens (scores, trends, compare, strengths, anomalies),
+     the farrier exactly the vet's (plan.js runs them as 'rider' and 'vet'); nothing is hidden for them here */
+  const GROOM=false, NOSC=false;
+  const FARR=false, VF=ACC==='vet'||ACC==='farrier';
   const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
   const page=document.getElementById('wPage');
   const TODAY=D.TODAY, DAY=864e5;
@@ -68,7 +70,7 @@
   (window.SD_XALERTS||[]).forEach(x=>AL0.push({h:x.id,lv:x.lv,ic:x.ic,a:x.a,b:x.b,when:x.when.split(' · ')[0]}));
   const ALERTS=AL0.filter(a=>ALLH.some(h=>h.id===a.h));
   const alertsOf=id=>ALERTS.filter(a=>a.h===id).sort((a,b)=>(a.lv==='Attention'?0:1)-(b.lv==='Attention'?0:1));
-  const alHref=(a,h)=>W.href('session',{},'#watch='+encodeURIComponent(JSON.stringify({h:h.n,r:h.r,lv:a.lv,a:a.a,b:a.b,ic:a.ic})));
+  const alHref=(a,h)=>W.href('session',{},'#watch='+encodeURIComponent(JSON.stringify({h:h.n,r:h.r,lv:a.lv,a:a.a,b:a.b,ic:a.ic,sc:h.perf})));
 
   /* sessions of a horse as the user left them (deleted videos out, moved ones on their right horse), newest first */
   const SC=new Map();
@@ -324,13 +326,13 @@
     let kpis;
     if(newH) kpis='';
     else if(NOSC) kpis=kp('Sessions',I.sessions,`<span class="num">${S.length}</span><small>videos</small>`,`<span>${h.month||0} this month</span>`,'#sessions')
-      +kp('Last session',W.kindIcon(last&&last.show),`<span style="font-size:24px">${last?esc(D.when(last.date)):'–'}</span>`,last?`<span>${esc(last.show?'Show':'Training')} · ${esc(last.what)}</span>`:'',last?W.href('session',{v:last.key}):null)
+      +kp('Last session',W.kindIcon(last&&last.show),`<span style="font-size:24px">${last?esc(D.when(last.date)):'–'}</span>`,last?`<span>${esc(last.show?'Show':'Training')} · ${esc(last.what)}</span>`:'',last?W.href('session',{v:last.key,sc:last.sc}):null)
       +kp('Last care visit',window.CARE?CARE.ico('vet',16,'currentColor'):'',`<span style="font-size:24px">${past[0]?esc(T(PNAME[past[0].type]||'Other')):'–'}</span>`,past[0]?`<span>${esc(ago(past[0].d))}</span>`:`<span>${esc(T('No visit on record'))}</span>`,'#care')
       +kp('Heatmap',ICS['danger-triangle'],`<span class="num">${Object.values(kpStates(h)).filter(x=>x!=='normal').length}</span><small>points to watch</small>`,`<span>last 3 sessions</span>`,'#heat');
     else kpis=kp('Performance score',WI.Performance,`<span class="num">${h.perf}</span><small>%</small><span class="pill ${w0[0]}" style="margin-left:8px;align-self:center;letter-spacing:0">${w0[1]}</span>`,`<span class="pill ${h.d<0?'bad':h.d>0?'good':''}"><span>${dArrow(h.d)}</span> <span>${dTxt(h.d)}</span></span>`)
       +kp('Sessions',I.sessions,`<span class="num">${S.length}</span><small>videos</small>`,`<span>${h.month||0} this month</span>`,'#sessions')
       +`<div class="card kpi"><div class="k">${ic(ICS['graph-up'],16)}<span>Average and best</span></div><div class="kv2"><div><b class="num">${avgS}<small style="font-size:15px;color:var(--mut);font-weight:650">%</small></b><span>average</span></div><div><b class="num">${best?best.sc:0}<small style="font-size:15px;color:var(--mut);font-weight:650">%</small></b><span>best</span></div></div><div class="s"><span>${esc(T('Best on'))} ${best?esc(fmt(best.date)):''}</span></div></div>`
-      +(FARR?kp('Last session',W.kindIcon(last&&last.show),`<span style="font-size:24px">${last?esc(D.when(last.date)):'–'}</span>`,last?`<span>${esc(last.show?'Show':'Training')} · ${esc(last.what)}</span>`:'',last?W.href('session',{v:last.key}):null)
+      +(FARR?kp('Last session',W.kindIcon(last&&last.show),`<span style="font-size:24px">${last?esc(D.when(last.date)):'–'}</span>`,last?`<span>${esc(last.show?'Show':'Training')} · ${esc(last.what)}</span>`:'',last?W.href('session',{v:last.key,sc:last.sc}):null)
         :kp('Open alerts',ICS['danger-triangle'],`<span class="num">${al.length}</span>`,al.length?`<span class="lg"><i class="dot bad"></i><b class="num">${att}</b> <span>Attention</span></span><span class="lg"><i class="dot watch"></i><b class="num">${al.length-att}</b> <span>Watch</span></span>`:'<span>No open alert.</span>','#alerts'));
     const showSW=!STAFF&&!NOSC&&!newH, showAA=!FARR&&!NOSC&&!newH;
     box.innerHTML=(newH?`<section class="card" style="margin-bottom:20px"><div class="cardB hUp" style="padding:28px"><span class="ico" style="width:44px;height:44px;border-radius:12px;background:var(--blue-bg);color:var(--blue-ink);padding:10px">${I.upload}</span><b style="font-size:17px;margin-top:8px">${esc(T('No session yet'))}</b><p class="mut">${esc(T('Add its first video to get the analysis: scores, heatmap, trends and alerts.'))}</p><button class="btn pri" id="hzFirst">${ic(I.upload)}<span>Add a session</span></button></div></section>`:'')
@@ -362,7 +364,7 @@
     return X.flat?`About the same over ${period}, ${X.n} sessions.`:`${X.up?'Up':'Down'} ${X.f(Math.abs(X.change))} ${uw} over ${period}, ${X.n} sessions.`; };
   function lastSessCard(){ const el=document.getElementById('hzLastS'); if(!el) return; const S=sessFor(H).slice(0,NOSC?6:5);
     el.innerHTML=`<div class="cardH"><h2>Latest sessions</h2><div class="r"><a class="btn link" href="#" id="hzAllS">See all</a></div></div>
-      <div class="tbl hzSes mini${NOSC?' wide':''}" style="margin-top:8px">${S.map(s=>`<a class="tr" href="${W.href('session',{v:s.key})}"><span class="cellH">${kic(s.show)}<span class="cell2"><b>${esc(D.when(s.date))}${s.latest?`<span class="new">${esc(T('Latest'))}</span>`:''}</b><span>${esc((s.show?'Show':'Training')+' · '+s.what)}</span></span></span>${NOSC?`<span class="mut num">${D.durOf(s)}</span>`:`<span class="scB"><span class="bar"><i style="width:${s.sc}%;background:var(--${C.toneOfScore(s.sc)})"></i></span><b class="num">${s.sc}<small>%</small></b></span>`}</a>`).join('')||`<div class="hEmpty">${esc(T('No session yet.'))}</div>`}</div>`;
+      <div class="tbl hzSes mini${NOSC?' wide':''}" style="margin-top:8px">${S.map(s=>`<a class="tr" href="${W.href('session',{v:s.key,sc:s.sc})}"><span class="cellH">${kic(s.show)}<span class="cell2"><b>${esc(D.when(s.date))}${s.latest?`<span class="new">${esc(T('Latest'))}</span>`:''}</b><span>${esc((s.show?'Show':'Training')+' · '+s.what)}</span></span></span>${NOSC?`<span class="mut num">${D.durOf(s)}</span>`:`<span class="scB"><span class="bar"><i style="width:${s.sc}%;background:var(--${C.toneOfScore(s.sc)})"></i></span><b class="num">${s.sc}<small>%</small></b></span>`}</a>`).join('')||`<div class="hEmpty">${esc(T('No session yet.'))}</div>`}</div>`;
     document.getElementById('hzAllS').onclick=e=>{ e.preventDefault(); tab='sessions'; history.replaceState(null,'','#h='+H.id+'&v=sessions'); drawTabs(); drawTab(true); }; }
 
   /* heatmap: the 3D horse and the points in plain words, kept in sync */
@@ -395,7 +397,7 @@
   const swL=(h,k,n)=>{ const {ST,WK}=swData(h); return (k?WK:ST).slice(0,n).map(([i,a,b])=>swRow(i,k?'watch':'good',a,esc(T(b)))).join(''); };
   const aaL=(h,k,n)=>{ const {AN}=swData(h), S=sessFor(h), al=alertsOf(h.id);
     if(k) return al.length?al.slice(0,n).map(x=>swRow(x.ic||'latbal',x.lv==='Attention'?'bad':'watch',x.a,`<span>${esc(T(x.b))}</span> · <span>${esc(T(x.when))}</span>`,alHref(x,h))).join(''):`<div class="hEmpty">${esc(T('No open alert.'))}</div>`;
-    return AN.slice(0,n).map(([i,a,b],j)=>swRow(i,'watch',a,`<span>${esc(T(b))}</span> · <span>${esc(S[j]?fmt(S[j].date):'')}</span>`,S[j]?W.href('session',{v:S[j].key}):null)).join(''); };
+    return AN.slice(0,n).map(([i,a,b],j)=>swRow(i,'watch',a,`<span>${esc(T(b))}</span> · <span>${esc(S[j]?fmt(S[j].date):'')}</span>`,S[j]?W.href('session',{v:S[j].key,sc:S[j].sc}):null)).join(''); };
   function segCard(id,title,tabs,list,info){ const el=document.getElementById(id); if(!el) return; let k=0;
     const draw=()=>{ el.innerHTML=`<div class="cardH"><h2>${title}</h2><div class="r">${info?`<button class="wIconB" data-i="1" data-tip="What is an active alert?" aria-label="What is an active alert?">${ic(I.info,18)}</button>`:''}<button class="btn link" data-all="1">See all</button></div></div>
         <div style="padding:12px 20px 0"><div class="seg" style="width:100%">${tabs.map((t,i)=>`<button data-k="${i}" class="${i===k?'on':''}" style="flex:1;justify-content:center">${t}</button>`).join('')}</div></div>
@@ -466,7 +468,7 @@
     box.innerHTML=`${NOSC?'':`<div class="hzStats3" style="margin-bottom:20px"><div class="hzStat"><span class="lbl">Sessions</span><b class="num">${S.length}</b><small>${h.month||0} this month</small></div><div class="hzStat"><span class="lbl">Average</span><b class="num ${C.toneOfScore(avg)}">${avg}%</b><small>every session</small></div><div class="hzStat"><span class="lbl">Best</span><b class="num ${C.toneOfScore(best.sc)}">${best.sc}%</b><small>${best.date?esc(fmt(best.date)):''}</small></div></div>`}
       <section class="card"><div class="cardH"><h2>Sessions <em class="num">${Ls.length}</em></h2><div class="r"><div class="seg" id="hzSK">${[['all','All'],['show','Shows'],['train','Training']].map(([k,l])=>`<button data-k="${k}" class="${sesK===k?'on':''}">${l}</button>`).join('')}</div><button class="btn sm" id="hzSUp">${ic(I.upload,15)}<span>Add a session</span></button></div></div>
       <div class="tbl hzSes${NOSC?' nosc':''}" id="hzSL" style="margin-top:10px"><div class="tr th"><span>Session</span><span>Date</span><span>Length</span>${NOSC?'':'<span>Score</span>'}<span></span></div>
-      ${Ls.map(s=>`<a class="tr" href="${W.href('session',{v:s.key})}" data-vk="${esc(s.key||'')}" data-vh="${esc(s.h0?(s.h0.n0||s.h0.n):(h.n0||h.n))}"><span class="cellH">${kic(s.show)}<span class="cell2"><b>${esc(s.show?'Show':'Training')}${s.latest?`<span class="new">${esc(T('Latest'))}</span>`:''}${s.moved?`<span class="new">${esc(T('Moved here'))}</span>`:''}</b><span>${esc(s.what)}</span></span></span>
+      ${Ls.map(s=>`<a class="tr" href="${W.href('session',{v:s.key,sc:s.sc})}" data-vk="${esc(s.key||'')}" data-vh="${esc(s.h0?(s.h0.n0||s.h0.n):(h.n0||h.n))}"><span class="cellH">${kic(s.show)}<span class="cell2"><b>${esc(s.show?'Show':'Training')}${s.latest?`<span class="new">${esc(T('Latest'))}</span>`:''}${s.moved?`<span class="new">${esc(T('Moved here'))}</span>`:''}</b><span>${esc(s.what)}</span></span></span>
         <span class="mut">${esc(D.when(s.date))}</span><span class="mut num">${D.durOf(s)}</span>${NOSC?'':`<span class="scB"><span class="bar"><i style="width:${s.sc}%;background:var(--${C.toneOfScore(s.sc)})"></i></span><b class="num">${s.sc}<small>%</small></b></span>`}
         <button class="wIconB more" aria-label="More" data-tip="More">${ic(I.dots,18)}</button></a>`).join('')||`<div class="hEmpty">${esc(T('No session yet.'))}</div>`}</div></section>`;
     box.querySelectorAll('#hzSK button').forEach(b=>b.onclick=()=>{ sesK=b.dataset.k; sessionsTab(box); });
@@ -545,7 +547,7 @@
         <text x="${Wd-PR+8}" y="${(ay+4).toFixed(1)}" style="fill:var(--mut)" font-size="11" font-weight="650">${esc(T('Average'))} ${X.f(X.my)}</text>
         ${care}
         <g class="cv"><path d="${path} L${Xk(n-1).toFixed(1)} ${Ht-PB} L${Xk(0).toFixed(1)} ${Ht-PB}Z" fill="url(#${gid})"/><path d="${path}" fill="none" style="stroke:${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          ${P.map((p,k)=>p.s.kind==='Competition'?`<circle cx="${Xk(k).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="4" style="fill:${col};stroke:var(--card)" stroke-width="1.5"/>`:`<circle cx="${Xk(k).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="3" style="fill:var(--card);stroke:${col}" stroke-width="1.6"/>`).join('')}</g>
+          ${P.map((p,k)=>p.s.kind==='Competition'?`<circle cx="${Xk(k).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="4" style="fill:var(--comp);stroke:var(--card)" stroke-width="1.5"/>`:`<circle cx="${Xk(k).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="3" style="fill:var(--card);stroke:${col}" stroke-width="1.6"/>`).join('')}</g>
         <g class="xh" style="pointer-events:none"><line class="xl" y1="${PT}" y2="${Ht-PB}" style="stroke:var(--line3)" stroke-dasharray="3 3"/><circle class="xg" r="10" style="fill:${col}" opacity=".18"/><circle class="xd" r="5.5" style="fill:var(--card);stroke:${col}" stroke-width="2.5"/></g>
         <rect class="hit" x="${PL}" y="${PT}" width="${Wd-PL-PR}" height="${Ht-PT-PB}" fill="transparent" style="cursor:crosshair"/></svg>`;
       const svg=el.firstChild, xl=svg.querySelector('.xl'), xg=svg.querySelector('.xg'), xd=svg.querySelector('.xd');
@@ -660,13 +662,13 @@
   /* add a horse: the phone's steps, as a dialog. Premium: one horse, so the step up to Pro.
      Pro: the horse is yours (Assign to shows you only). Stable Owner: assign it to a person of the team, or invite one.
      Rider, vet, farrier, trainer, horse owner: first, for the stable or for My Horses; a groom adds for the stable. */
-  function openAddHorse(){
+  function openAddHorse(pre){
     if(PREM){ window.openUpsellHorse&&openUpsellHorse(); return; }
     const ASSIGN=!TABS, LAST=ASSIGN?4:3;
     const ME=window.SD_MYNAME||'Marie S.', USERS=[{n:ME,r:'You · account owner',ini:ME.replace('Dr. ','').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()},{n:'John Doe',r:'Rider',ini:'JD'},{n:'Lea Martin',r:'Rider',ini:'LM'},{n:'Paul Girard',r:'Groom',ini:'PG'},{n:'Dr. Anne Keller',r:'Vet',ini:'AK'}];
     const SN=['Name & photo','About · sex, age, breed','Body & feet','Sport · optional','Who is it for'];
     const F={name:'',breed:'',year:'',sex:null,coat:null,level:null,photo:null,height:'',weight:'',shoes:null,rider:USERS[0].n,email:''};
-    let st=0, mode=TABS?(GROOM?'stable':null):'stable', pk=null, ddOpen=false, inv=false, lastSt=-1;
+    let st=0, mode=TABS?(['own','stable'].includes(pre)?pre:null):'stable', pk=null, ddOpen=false, inv=false, lastSt=-1;
     const NM=()=>F.name.trim()||T('your horse');
     const draw=m=>{ const B=m.querySelector('.mB'), anim=st!==lastSt?' hzStepIn':''; lastSt=st;
       if(!mode){ B.innerHTML=`<div class="hzStepIn"><div class="hzQ">${esc(T('Where does this horse go?'))}</div><div class="hzQs">${esc(T('You can follow horses of the stable and horses of your own. They are never mixed.'))}</div>
@@ -739,9 +741,11 @@
     if(h){ if(force) H=null; horsePage(h,q0.get('v')||'overview',q0.get('m')); if(!force&&!q0.get('v')) window.scrollTo(0,0); return; }
     if(h3){ try{ h3.destroy(); }catch(e){} h3=null; } H=null;
     if(TABS) view=q0.get('v')==='own'?'own':'stable';
-    listPage(); window.scrollTo(0,0); }
+    listPage(); window.scrollTo(0,0);
+    /* #add=1 (or add=own / add=stable): the Add a horse dialog opens over the list (Home > Add a horse) */
+    const ad=q0.get('add'); if(ad){ q0.delete('add'); history.replaceState(null,'',location.pathname+location.search+(q0.toString()?'#'+q0.toString():'')); setTimeout(()=>openAddHorse(ad),RM()?0:120); } }
   /* for the parity check with the phone (web/check-parity.py style): the generators of this page */
-  W.HZ={findH,sessFor,horseSess,trSeries,trInfo,kpStates,alertsOf,TR_ALL,swData};
+  W.HZ={openAddHorse,findH,sessFor,horseSess,trSeries,trInfo,kpStates,alertsOf,TR_ALL,swData};
   addEventListener('hashchange',()=>route(false));
   W.onTheme=()=>{ if(H&&document.getElementById('hzTab')) drawTab(false); };
   route(false);

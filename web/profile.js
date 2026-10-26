@@ -108,13 +108,13 @@
         <div style="padding:0 20px 18px"><div class="seg" role="radiogroup" aria-label="Your job">${SD_JOBS.map(j=>`<button role="radio" aria-checked="${j===SD_JOB}" class="${j===SD_JOB?'on':''}" data-job="${j}">${j}</button>`).join('')}</div></div></section>`:''}
       <div class="setL">DEMO</div>
       <section class="set"><button class="row" id="acT"><span class="ri">${W.ic(I.swap)}</span><span class="t"><b>Account type</b><span>To preview each plan</span></span><span class="v">${esc(T((SD_PLANS[ACC]||{}).name||''))}</span>${chev}</button></section>
-      <section class="set" style="margin-top:18px"><button class="row" id="sgO"><span class="ri">${W.ic(IC.out)}</span><span class="t"><b>Sign out</b><span>On this computer</span></span></button>
+      <section class="set" style="margin-top:18px"><button class="row" id="sgO"><span class="ri">${W.ic(IC.out)}</span><span class="t"><b>Log out</b><span>On this computer</span></span></button>
         <button class="row red" id="dlA"><span class="ri">${W.ic(IC.trash)}</span><span class="t"><b>Delete my account</b><span>Your horses, sessions and scores are deleted for good.</span></span></button></section>
       <div class="foot"><span>StrydeUp 3.0 · build 412</span></div>`;
     $('edP').onclick=$('edP2').onclick=openEdit;
     wire('.seg [data-job]',b=>b.onclick=()=>{ if(b.dataset.job===SD_JOB) return; SD_SET_JOB(b.dataset.job); location.reload(); });
     $('acT').onclick=openAccount;
-    $('sgO').onclick=()=>confirm('Sign out of StrydeUp?','You can sign in again with your email and password.','Sign out',false,()=>toast('Demo: you stay signed in.'));
+    $('sgO').onclick=()=>confirm('Log out of StrydeUp?','You can log in again with your email.','Log out',false,()=>{ location.href=W.href('signup',{login:1}); });   /* as the menu of the sidebar */
     $('dlA').onclick=()=>confirm('Delete your account?','Your horses, sessions and scores are deleted for good. This cannot be undone.','Delete my account',true,()=>toast('Demo: nothing was deleted.')); };
   function confirm(title,sub,ok,red,fn){ W.modal({title:T(title),sub:esc(T(sub)),
     icon:red?`<span class="ico" style="width:40px;height:40px;border-radius:11px;background:var(--bad-bg);color:var(--bad-ink);padding:9px">${IC.trash}</span>`:'',

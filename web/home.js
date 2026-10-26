@@ -130,7 +130,7 @@
   function renderSessions(){ const box=document.getElementById('sesT'); if(!box) return; const S=D.sessions(vis()).slice(0,7);
     box.innerHTML=`<div class="tr th"><span>HORSE</span><span>SESSION</span><span>DATE</span><span>LENGTH</span><span>SCORE</span><span></span></div>`
       +(S.length?S.map(x=>{ const t=C.toneOfScore(x.sc);
-        return `<a class="tr" href="${W.href('session',{v:x.key})}" data-vk="${esc(x.key||'')}" data-vh="${esc(x.h0?(x.h0.n0||x.h0.n):x.h.n)}">
+        return `<a class="tr" href="${W.href('session',{v:x.key,sc:x.sc})}" data-vk="${esc(x.key||'')}" data-vh="${esc(x.h0?(x.h0.n0||x.h0.n):x.h.n)}">
           <span class="cellH"><span class="hAv sm">${esc(ini(x.h))}</span><span class="cell2"><b>${esc(x.h.n)}</b><span>${esc(x.h.r||'')}</span></span></span>
           <span class="cellH"><span class="kic ${x.show?'show':''}">${W.kindIcon(x.show)}</span><span class="cell2"><b>${x.show?'Show':'Training'}</b><span>${esc(x.what)}</span></span></span>
           <span class="mut">${esc(D.when(x.date))}</span><span class="mut num">${D.durOf(x)}</span>
@@ -242,14 +242,16 @@
   function wire(){ const $=id=>document.getElementById(id);
     if($('hErr')) $('hErr').onclick=W.openErr;
     W.onErrRetry=()=>{ errHidden=true; const b=$('hErr'); if(b) b.remove(); };
-    [$('hAddUser'),$('hAddUser2')].forEach(b=>{ if(b) b.onclick=()=>window.openAddRider?openAddRider():null; });
+    [$('hAddUser'),$('hAddUser2')].forEach(b=>{ if(b) b.onclick=()=>W.go('team',{},'#invite'); });
+    /* a video sent from Home: Sessions opens with it on top, Analysing (as on the phone) */
+    W.uploadDone=rec=>W.go('sessions',{},'#new='+rec.id);
     if($('avgF')) $('avgF').onclick=()=>openAvgFilter($('avgF'));
     $('avgP').querySelectorAll('button').forEach(b=>b.onclick=()=>{ fP=+b.dataset.p; $('avgP').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); renderAvg(true); });
     $('twPer').querySelectorAll('button').forEach(b=>b.onclick=()=>{ twP=+b.dataset.p; $('twPer').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); renderTrend(true); });
     $('trEdit').onclick=openCustomize;
     if($('alAll')) $('alAll').onclick=openAlerts; $('alInfo').onclick=alInfo;
     if($('yTabs')) $('yTabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{ yTab=b.dataset.t; const s=$('hSide'); s.outerHTML=side(); wire(); });
-    if($('hAddOwn')) $('hAddOwn').onclick=()=>W.soonModal('Add a horse',T('Adding a horse on the computer comes with My Horses, in the next phase. On the phone it works today.'),W.mobileHref('horses'));
+    if($('hAddOwn')) $('hAddOwn').onclick=()=>W.go('horses',{},'#v=own&add=own');
     if($('hSeePro')) $('hSeePro').onclick=()=>window.openUpsellHorse?openUpsellHorse():null;
     if(MULTI&&$('stChips')){ const counts={}; D.ALL.forEach(h=>{ const k=h.st||'ms'; counts[k]=(counts[k]||0)+1; }); SD_STABLE_CHIPS($('stChips'),counts,()=>{ render(false); switcher(); }); }
   }

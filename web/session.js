@@ -4,12 +4,12 @@
    (plan.js SD_THIS_VIDEO); its horse, rider, date, kind and venue come from the account's sessions (data.js), so a link
    from Home opens the right session. #watch=... (an alert from Home) opens Overview on Things to watch, the alert lit.
    Tabs: Overview, Heatmap, Jumps, Metrics, Trends, Compare; the URL hash keeps the tab (#jumps:5A keeps the jump too).
-   Account rules (plan.js): a groom does not see the scores; every account sees the horses it is given, nothing else. */
+   Account rules (plan.js): every account sees the horses it is given, nothing else; the groom sees what the rider sees. */
 (function(){
   const W=window.SDW, D=window.SD_DATA, C=window.SDC, S=window.SDS, T=W.T, esc=W.esc, I=W.I;
   const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
   const page=document.getElementById('wPage');
-  const NOSC=W.ACC==='groom';                       /* a groom does not see the scores (My Horses > Team: Scores hidden) */
+  const NOSC=false;   /* every account sees the scores: the groom has exactly the rider's screens (client decision) */
   const $=id=>document.getElementById(id);
   const PCT=u=>window.SD_PCT?SD_PCT(u):/^%/.test(u||'');
   const MON=D.MON, DAY=D.DAY;
@@ -24,7 +24,7 @@
   const hasV=new URLSearchParams(location.search).has('v');
   let WATCH=null; { const m=location.hash.match(/^#watch=(.+)$/); if(m){ try{ WATCH=JSON.parse(decodeURIComponent(m[1])); }catch(e){} } }
   const ALLS=D.sessions(D.ALL.concat(D.personal()));
-  let SES=ALLS.find(s=>s.key===KEY)||null;
+  let SES=hasV||!WATCH?ALLS.find(s=>s.key===KEY)||null:null;   /* an alert without ?v= opens its horse's latest session, below */
   /* a key that is not in this list (the Sessions page draws its dates with its own generator): read it as the phone does,
      horse id | date, the session of that horse on that day; kind and work from its closest session */
   if(!SES&&hasV){ const [hid,ds]=KEY.split('|'), p=(ds||'').split('-').map(Number), pool=D.ALL.concat(D.personal());
@@ -39,6 +39,11 @@
 
   /* ---------- the mobile numbers ---------- */
   const PERF=S.PERF, TD=S.TD, JDATA=S.JDATA, FIDS=TD.fences.map(f=>f.id), MICONS=S.MICONS;
+  /* the score of the session opened (the score of its row, carried by the link): the ring, the verdict, the 3 session scores
+     and the end of their trends move by the same delta, as on the phone (plan.js SD_SES_SHIFT) */
+  { const want=SES&&SES.key===KEY?(window.SD_SES_SC?SD_SES_SC():null):(SES?SES.sc:null);   /* not the session of the link (an alert, a fallback): its own score */
+    if(window.SD_SES_SHIFT&&want!=null) SD_SES_SHIFT({perf:PERF,scores:S.SCORES,trends:S.TR_ALL},want-PERF.v); }
+  const VWORD=v=>window.SD_SES_WORD?SD_SES_WORD(v):'Good session';
   const TR_ALL=S.TR_ALL.filter(m=>!NOSC||(m.g!=='Session scores'&&m.id!=='j_score'));
   const trCache={}; const ser=id=>trCache[id]||(trCache[id]=S.trSeries(S.TR_ALL.find(x=>x.id===id)));
   const TRS=()=>S.TR_SESS;
@@ -77,7 +82,7 @@
   function header(){
     const show=SES&&SES.show;
     const ring=NOSC?'':`<div class="sScore" id="sScore" data-tip="Performance score of the session">${C.ring(PERF.v,{size:68,stroke:6})}
-        <div class="t"><span class="lbl">Performance</span><b>Good session</b><span class="pill good">▲ ${esc(PERF.d)} session</span></div></div><span class="sVr"></span>`;
+        <div class="t"><span class="lbl">Performance</span><b>${esc(VWORD(PERF.v))}</b><span class="pill good">▲ ${esc(PERF.d)} session</span></div></div><span class="sVr"></span>`;
     return `<section class="sHd in" id="sHd">
       <div class="sHdL"><span class="sHAv">${esc(ini(H.n))}</span>
         <div class="t"><div class="sCr"><a href="${W.href('sessions')}">Sessions</a><span class="ico" style="width:12px;height:12px">${I.chevR}</span><span>Session analysis</span></div>
@@ -108,7 +113,7 @@
     SD_UNDO&&SD_UNDO(T('Moved to')+' '+n,()=>{ SD_SET_VIDEO_HORSE(SES.key,prev); paintName(); }); }});
   $('sMore').onclick=()=>{ const b=$('sMore'); const p=W.pop(b,`<button class="mi" id="sMvM">${W.ic(I.swap)}<span class="t">Change horse</span></button><div class="sep"></div><button class="mi sRed" id="sDel">${W.ic(TRASH)}<span class="t">Delete video</span></button>`,{w:220});
     if(!p) return; p.querySelector('#sMvM').onclick=()=>{ W.closePop(); $('sMove').click(); };
-    p.querySelector('#sDel').onclick=()=>{ W.closePop(); SD_CONFIRM_DELETE({onConfirm:()=>{ SD_DELETE_VIDEO(SES.key); SD_UNDO_LATER({type:'video',key:SES.key}); W.go('home'); }}); }; };
+    p.querySelector('#sDel').onclick=()=>{ W.closePop(); SD_CONFIRM_DELETE({onConfirm:()=>{ SD_DELETE_VIDEO(SES.key); SD_UNDO_LATER({type:'video',key:SES.key}); W.go('sessions'); }}); }; };
 
   /* ======================================================================
      THE VIDEO PLAYER: the round's timeline, fences and things to watch on it
@@ -209,7 +214,7 @@
       <p class="vs">Regular rhythm and good jumps. The landings and the tight turns are where points were lost.</p>
       <div class="vf"><div><span class="lbl">BEST</span><b>Rhythm</b></div><div><span class="lbl">TO WORK ON</span><b>Landings</b></div><div><span class="lbl">FENCES</span><b class="num">${FIDS.length}</b></div></div></div></section>`;
     return `<section class="card sVd in" id="sVd"><div class="cardB"><div class="vt">${C.ring(PERF.v,{size:104,stroke:9,fs:30})}
-        <div><div class="lbl">SESSION VERDICT</div><div class="vw">Good session</div><span class="pill good">▲ ${esc(PERF.d)} session</span></div>
+        <div><div class="lbl">SESSION VERDICT</div><div class="vw">${esc(VWORD(PERF.v))}</div><span class="pill good">▲ ${esc(PERF.d)} session</span></div>
         <button class="wIconB vgo" id="vGo" data-tip="What it is made of" aria-label="What it is made of">${W.ic(I.chevR,16)}</button></div>
       <p class="vs">Regular rhythm and good jumps. The landings and the tight turns are where points were lost.</p>
       <div class="vf"><div><span class="lbl">BEST</span><b>Rhythm</b></div><div><span class="lbl">TO WORK ON</span><b>Landings</b></div><div><span class="lbl">FENCES</span><b class="num">${FIDS.length}</b></div></div></div></section>`; }
