@@ -1,0 +1,266 @@
+{
+ "Last month": {
+  "fr": "Mois dernier",
+  "it": "Mese scorso",
+  "es": "Mes pasado",
+  "de": "Letzter Monat"
+ },
+ "{#}% shows": {
+  "fr": "{#} % de concours",
+  "it": "{#}% concorsi",
+  "es": "{#} % concursos",
+  "de": "{#} % Turniere"
+ },
+ "CLASS OR WORK": {
+  "fr": "ÉPREUVE OU TRAVAIL",
+  "it": "CATEGORIA O LAVORO",
+  "es": "PRUEBA O TRABAJO",
+  "de": "PRÜFUNG ODER ARBEIT"
+ },
+ "KEY METRIC": {
+  "fr": "MESURE CLÉ",
+  "it": "METRICA CHIAVE",
+  "es": "MÉTRICA CLAVE",
+  "de": "KENNZAHL"
+ },
+ "STATUS": {
+  "fr": "STATUT",
+  "it": "STATO",
+  "es": "ESTADO",
+  "de": "STATUS"
+ },
+ "DATE": {
+  "fr": "DATE",
+  "it": "DATA",
+  "es": "FECHA",
+  "de": "DATUM"
+ },
+ "Date": {
+  "fr": "Date",
+  "it": "Data",
+  "es": "Fecha",
+  "de": "Datum"
+ },
+ "ARENA": {
+  "fr": "CARRIÈRE",
+  "it": "CAMPO",
+  "es": "PISTA",
+  "de": "REITPLATZ"
+ },
+ "Analysed": {
+  "fr": "Analysée",
+  "it": "Analizzato",
+  "es": "Analizado",
+  "de": "Analysiert"
+ },
+ "Analysing": {
+  "fr": "Analyse en cours",
+  "it": "Analisi in corso",
+  "es": "Analizando",
+  "de": "Wird analysiert"
+ },
+ "Actions": {
+  "fr": "Actions",
+  "it": "Azioni",
+  "es": "Acciones",
+  "de": "Aktionen"
+ },
+ "Open the analysis": {
+  "fr": "Ouvrir l'analyse",
+  "it": "Apri l'analisi",
+  "es": "Abrir el análisis",
+  "de": "Analyse öffnen"
+ },
+ "Cancel the analysis": {
+  "fr": "Annuler l'analyse",
+  "it": "Annulla l'analisi",
+  "es": "Cancelar el análisis",
+  "de": "Analyse abbrechen"
+ },
+ "Show or training": {
+  "fr": "Concours ou entraînement",
+  "it": "Concorso o allenamento",
+  "es": "Concurso o entrenamiento",
+  "de": "Turnier oder Training"
+ },
+ "Any time": {
+  "fr": "Toutes les dates",
+  "it": "Sempre",
+  "es": "Cualquier fecha",
+  "de": "Beliebiger Zeitraum"
+ },
+ "Last 7 days": {
+  "fr": "7 derniers jours",
+  "it": "Ultimi 7 giorni",
+  "es": "Últimos 7 días",
+  "de": "Letzte 7 Tage"
+ },
+ "Last 30 days": {
+  "fr": "30 derniers jours",
+  "it": "Ultimi 30 giorni",
+  "es": "Últimos 30 días",
+  "de": "Letzte 30 Tage"
+ },
+ "Last 3 months": {
+  "fr": "3 derniers mois",
+  "it": "Ultimi 3 mesi",
+  "es": "Últimos 3 meses",
+  "de": "Letzte 3 Monate"
+ },
+ "Custom range": {
+  "fr": "Période personnalisée",
+  "it": "Intervallo personalizzato",
+  "es": "Rango personalizado",
+  "de": "Eigener Zeitraum"
+ },
+ "Period": {
+  "fr": "Période",
+  "it": "Periodo",
+  "es": "Periodo",
+  "de": "Zeitraum"
+ },
+ "From": {
+  "fr": "Du",
+  "it": "Dal",
+  "es": "Desde",
+  "de": "Von"
+ },
+ "To": {
+  "fr": "Au",
+  "it": "Al",
+  "es": "Hasta",
+  "de": "Bis"
+ },
+ "Apply": {
+  "fr": "Appliquer",
+  "it": "Applica",
+  "es": "Aplicar",
+  "de": "Anwenden"
+ },
+ "Clear filters": {
+  "fr": "Effacer les filtres",
+  "it": "Cancella i filtri",
+  "es": "Borrar filtros",
+  "de": "Filter zurücksetzen"
+ },
+ "Clear the search": {
+  "fr": "Effacer la recherche",
+  "it": "Cancella la ricerca",
+  "es": "Borrar la búsqueda",
+  "de": "Suche löschen"
+ },
+ "Try another horse, period or word.": {
+  "fr": "Essayez un autre cheval, une autre période ou un autre mot.",
+  "it": "Prova un altro cavallo, un altro periodo o un'altra parola.",
+  "es": "Prueba con otro caballo, otro periodo u otra palabra.",
+  "de": "Versuch es mit einem anderen Pferd, Zeitraum oder Wort."
+ },
+ "Showing {#} of {#} sessions": {
+  "fr": "{#} vidéos affichées sur {#}",
+  "it": "{#} video mostrati su {#}",
+  "es": "Mostrando {#} de {#} vídeos",
+  "de": "{#} von {#} Videos angezeigt"
+ },
+ "Sent again": {
+  "fr": "Renvoyée",
+  "it": "Inviato di nuovo",
+  "es": "Enviado de nuevo",
+  "de": "Erneut gesendet"
+ },
+ "~{#} min": {
+  "fr": "~{#} min",
+  "it": "~{#} min",
+  "es": "~{#} min",
+  "de": "~{#} Min."
+ },
+ "Almost done": {
+  "fr": "Presque fini",
+  "it": "Quasi finito",
+  "es": "Casi listo",
+  "de": "Fast fertig"
+ },
+ "Moved here": {
+  "fr": "Déplacée ici",
+  "it": "Spostato qui",
+  "es": "Movido aquí",
+  "de": "Hierher verschoben"
+ },
+ "We check the video right away, before anything is sent.": {
+  "fr": "Nous vérifions la vidéo tout de suite, avant tout envoi.",
+  "it": "Controlliamo subito il video, prima di inviare qualsiasi cosa.",
+  "es": "Revisamos el vídeo enseguida, antes de enviar nada.",
+  "de": "Wir prüfen das Video sofort, bevor etwas gesendet wird."
+ },
+ "or choose a file on this computer": {
+  "fr": "ou choisissez un fichier sur cet ordinateur",
+  "it": "oppure scegli un file su questo computer",
+  "es": "o elige un archivo de este ordenador",
+  "de": "oder wähle eine Datei auf diesem Computer"
+ },
+ "Click the day of the session": {
+  "fr": "Cliquez sur le jour de la séance",
+  "it": "Clicca sul giorno della sessione",
+  "es": "Haz clic en el día de la sesión",
+  "de": "Klick auf den Tag der Einheit"
+ },
+ "Optional: skip it if you are in a hurry": {
+  "fr": "Facultatif : passez si vous êtes pressé",
+  "it": "Facoltativo: salta se vai di fretta",
+  "es": "Opcional: sáltalo si tienes prisa",
+  "de": "Optional: überspring es, wenn du es eilig hast"
+ },
+ "1 thing to fix.": {
+  "fr": "1 point à corriger.",
+  "it": "1 cosa da correggere.",
+  "es": "1 cosa por corregir.",
+  "de": "1 Punkt zu korrigieren."
+ },
+ "{#} things to fix.": {
+  "fr": "{#} points à corriger.",
+  "it": "{#} cose da correggere.",
+  "es": "{#} cosas por corregir.",
+  "de": "{#} Punkte zu korrigieren."
+ },
+ "See the list on the right.": {
+  "fr": "Voir la liste à droite.",
+  "it": "Vedi l'elenco a destra.",
+  "es": "Mira la lista a la derecha.",
+  "de": "Siehe Liste rechts."
+ },
+ "Checking the video…": {
+  "fr": "Vérification de la vidéo…",
+  "it": "Controllo del video…",
+  "es": "Comprobando el vídeo…",
+  "de": "Video wird geprüft…"
+ },
+ "This file is not a video. Pick the video of the round.": {
+  "fr": "Ce fichier n'est pas une vidéo. Choisissez la vidéo du parcours.",
+  "it": "Questo file non è un video. Scegli il video del percorso.",
+  "es": "Este archivo no es un vídeo. Elige el vídeo del recorrido.",
+  "de": "Diese Datei ist kein Video. Wähle das Video der Runde."
+ },
+ "Fix the video, or pick another one": {
+  "fr": "Corrigez la vidéo, ou choisissez-en une autre",
+  "it": "Correggi il video o scegline un altro",
+  "es": "Corrige el vídeo o elige otro",
+  "de": "Korrigiere das Video oder wähle ein anderes"
+ },
+ "Analysing the round": {
+  "fr": "Analyse du parcours",
+  "it": "Analisi del percorso",
+  "es": "Analizando el recorrido",
+  "de": "Runde wird analysiert"
+ },
+ "This month": {
+  "fr": "Ce mois-ci",
+  "it": "Questo mese",
+  "es": "Este mes",
+  "de": "Dieser Monat"
+ },
+ "Just now": {
+  "fr": "À l'instant",
+  "it": "Proprio ora",
+  "es": "Ahora mismo",
+  "de": "Gerade eben"
+ }
+}

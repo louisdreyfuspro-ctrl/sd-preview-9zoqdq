@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.SD_I18N_BASE='../';
+/* the sign-up strings (web/strings-signup.json) join the language dictionary before it translates the page,
+   and the page waits for them so it never shows a flash of English */
+(function(){ let lang='en'; try{ lang=localStorage.getItem('sdLang')||'en'; }catch(e){}
+  if(lang==='en') return;
+  document.documentElement.classList.add('i18nWait');
+  const done=()=>{ document.documentElement.classList.remove('i18nWait'); window.SDS_I18N_OK=true; dispatchEvent(new Event('sds-i18n')); };
+  setTimeout(()=>{ if(!window.SDS_I18N_OK) done(); },1600);
+  let run;
+  Object.defineProperty(window,'SD_I18N_RUN',{configurable:true,get(){ return run; },set(f){
+    run=function(D){ const go=()=>{ try{ f(D); }catch(e){} done(); };
+      fetch('strings-signup.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{ const l=D.lang||lang;
+        Object.keys(J).forEach(k=>{ const v=J[k]&&J[k][l]; if(v&&!Object.prototype.hasOwnProperty.call(D.T,k)) D.T[k]=v; }); }).catch(()=>{}).then(go); }; }});
+})();</script>
+<script src="../i18n.js?v=1026123817"></script>
+<script>window.SD_OFFERS_ONLY=true;   /* plan.js gives this page only the plans (one source with Profile and the phone's sign-up) */</script>
+<script src="../plan.js?v=1026123817"></script>
+<script>/* theme: the same setting as Profile > Appearance on the phone */
+(function(){ let t='dark'; try{ t=localStorage.getItem('sdTheme')||'dark'; }catch(e){}
+  document.documentElement.dataset.theme=t==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t; })();</script>
+<link rel="stylesheet" href="web.css?v=1026123817">
+<link rel="stylesheet" href="signup.css?v=1026123817">
+<script src="icons.js?v=1026123817"></script>
+<title>StrydeUp · Sign up</title>
+</head>
+<body class="su0" data-page="signup">
+<div class="su" id="su">
+  <aside class="suArt" id="suArt" aria-hidden="true">
+    <div class="grain"></div>
+    <div class="suArtTop"><span class="wm" translate="no">STRYDEUP</span><span class="tg" id="suArtTg"></span></div>
+    <div id="suStories"></div>
+    <div class="suPrev" id="suPrev"></div>
+  </aside>
+  <main class="suPanel" id="suPanel">
+    <header class="suTop">
+      <button class="suBk" id="suBack" aria-label="Back" hidden></button>
+      <span class="wm" translate="no">STRYDEUP</span>
+      <div class="r">
+        <button class="wIconB wLangB" id="suLang" aria-haspopup="menu" aria-label="Language"></button>
+        <button class="wIconB" id="suTheme" aria-label="Appearance"></button>
+      </div>
+    </header>
+    <div class="suIn" id="suIn"></div>
+    <footer class="suFoot" id="suFoot"></footer>
+  </main>
+</div>
+<div class="leave" id="suLeave" aria-hidden="true"><div class="in"><span class="wm" translate="no">STRYDEUP</span><div class="bar"><b></b></div><p id="suLeaveT"></p></div></div>
+<script src="signup.js?v=1026123817"></script>
+</body>
+</html>

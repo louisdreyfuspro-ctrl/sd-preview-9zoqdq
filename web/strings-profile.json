@@ -1,0 +1,770 @@
+{
+ "{#} result": {
+  "fr": "{#} résultat",
+  "it": "{#} risultato",
+  "es": "{#} resultado",
+  "de": "{#} Ergebnis"
+ },
+ "{#} results": {
+  "fr": "{#} résultats",
+  "it": "{#} risultati",
+  "es": "{#} resultados",
+  "de": "{#} Ergebnisse"
+ },
+ "{#} invitation pending": {
+  "fr": "{#} invitation en attente",
+  "it": "{#} invito in attesa",
+  "es": "{#} invitación pendiente",
+  "de": "{#} Einladung ausstehend"
+ },
+ "{#} invitations pending": {
+  "fr": "{#} invitations en attente",
+  "it": "{#} inviti in attesa",
+  "es": "{#} invitaciones pendientes",
+  "de": "{#} Einladungen ausstehend"
+ },
+ "Plan & billing": {
+  "fr": "Formule et facturation",
+  "it": "Piano e fatturazione",
+  "es": "Plan y facturación",
+  "de": "Abo & Abrechnung"
+ },
+ "Preferences": {
+  "fr": "Préférences",
+  "it": "Preferenze",
+  "es": "Preferencias",
+  "de": "Präferenzen"
+ },
+ "Security": {
+  "fr": "Sécurité",
+  "it": "Sicurezza",
+  "es": "Seguridad",
+  "de": "Sicherheit"
+ },
+ "Help": {
+  "fr": "Aide",
+  "it": "Aiuto",
+  "es": "Ayuda",
+  "de": "Hilfe"
+ },
+ "Support": {
+  "fr": "Assistance",
+  "it": "Assistenza",
+  "es": "Soporte",
+  "de": "Support"
+ },
+ "Your stable": {
+  "fr": "Votre écurie",
+  "it": "La tua scuderia",
+  "es": "Tu cuadra",
+  "de": "Dein Stall"
+ },
+ "Your stables": {
+  "fr": "Vos écuries",
+  "it": "Le tue scuderie",
+  "es": "Tus cuadras",
+  "de": "Deine Ställe"
+ },
+ "Stables": {
+  "fr": "Écuries",
+  "it": "Scuderie",
+  "es": "Cuadras",
+  "de": "Ställe"
+ },
+ "Profile and settings": {
+  "fr": "Profil et réglages",
+  "it": "Profilo e impostazioni",
+  "es": "Perfil y ajustes",
+  "de": "Profil und Einstellungen"
+ },
+ "PROFILE": {
+  "fr": "PROFIL",
+  "it": "PROFILO",
+  "es": "PERFIL",
+  "de": "PROFIL"
+ },
+ "Your name and email, on your badge and for the people you work with.": {
+  "fr": "Votre nom et votre e-mail, sur votre badge et pour les personnes avec qui vous travaillez.",
+  "it": "Il tuo nome e la tua email, sul tuo badge e per le persone con cui lavori.",
+  "es": "Tu nombre y tu correo, en tu insignia y para las personas con las que trabajas.",
+  "de": "Dein Name und deine E-Mail, auf deinem Badge und für die Menschen, mit denen du arbeitest."
+ },
+ "Shown to the people you work with.": {
+  "fr": "Visible par les personnes avec qui vous travaillez.",
+  "it": "Visibile alle persone con cui lavori.",
+  "es": "Visible para las personas con las que trabajas.",
+  "de": "Sichtbar für die Menschen, mit denen du arbeitest."
+ },
+ "Not added": {
+  "fr": "Non renseigné",
+  "it": "Non aggiunto",
+  "es": "Sin añadir",
+  "de": "Nicht angegeben"
+ },
+ "On this computer": {
+  "fr": "Sur cet ordinateur",
+  "it": "Su questo computer",
+  "es": "En este ordenador",
+  "de": "Auf diesem Computer"
+ },
+ "Your horses, sessions and scores are deleted for good.": {
+  "fr": "Vos chevaux, vidéos et scores sont supprimés définitivement.",
+  "it": "I tuoi cavalli, video e punteggi vengono eliminati per sempre.",
+  "es": "Tus caballos, vídeos y puntuaciones se eliminan para siempre.",
+  "de": "Deine Pferde, Videos und Scores werden endgültig gelöscht."
+ },
+ "Your horses, sessions and scores are deleted for good. This cannot be undone.": {
+  "fr": "Vos chevaux, vidéos et scores sont supprimés définitivement. Cette action est irréversible.",
+  "it": "I tuoi cavalli, video e punteggi vengono eliminati per sempre. Non si può annullare.",
+  "es": "Tus caballos, vídeos y puntuaciones se eliminan para siempre. No se puede deshacer.",
+  "de": "Deine Pferde, Videos und Scores werden endgültig gelöscht. Das lässt sich nicht rückgängig machen."
+ },
+ "Sign out of StrydeUp?": {
+  "fr": "Se déconnecter de StrydeUp ?",
+  "it": "Uscire da StrydeUp?",
+  "es": "¿Cerrar sesión en StrydeUp?",
+  "de": "Von StrydeUp abmelden?"
+ },
+ "You can sign in again with your email and password.": {
+  "fr": "Vous pourrez vous reconnecter avec votre e-mail et votre mot de passe.",
+  "it": "Puoi accedere di nuovo con la tua email e la tua password.",
+  "es": "Puedes volver a iniciar sesión con tu correo y tu contraseña.",
+  "de": "Du kannst dich mit deiner E-Mail und deinem Passwort wieder anmelden."
+ },
+ "Delete your account?": {
+  "fr": "Supprimer votre compte ?",
+  "it": "Eliminare il tuo account?",
+  "es": "¿Eliminar tu cuenta?",
+  "de": "Dein Konto löschen?"
+ },
+ "Demo: you stay signed in.": {
+  "fr": "Démo : vous restez connecté.",
+  "it": "Demo: resti connesso.",
+  "es": "Demo: sigues con la sesión iniciada.",
+  "de": "Demo: Du bleibst angemeldet."
+ },
+ "Demo: nothing was deleted.": {
+  "fr": "Démo : rien n'a été supprimé.",
+  "it": "Demo: non è stato eliminato nulla.",
+  "es": "Demo: no se ha eliminado nada.",
+  "de": "Demo: Es wurde nichts gelöscht."
+ },
+ "Saved": {
+  "fr": "Enregistré",
+  "it": "Salvato",
+  "es": "Guardado",
+  "de": "Gespeichert"
+ },
+ "Your plan, what it gives you and how it is billed.": {
+  "fr": "Votre formule, ce qu'elle vous apporte et comment elle est facturée.",
+  "it": "Il tuo piano, cosa ti offre e come viene fatturato.",
+  "es": "Tu plan, lo que te ofrece y cómo se factura.",
+  "de": "Dein Abo, was es dir bietet und wie es abgerechnet wird."
+ },
+ "Your access to StrydeUp and who pays for it.": {
+  "fr": "Votre accès à StrydeUp et qui le paie.",
+  "it": "Il tuo accesso a StrydeUp e chi lo paga.",
+  "es": "Tu acceso a StrydeUp y quién lo paga.",
+  "de": "Dein Zugang zu StrydeUp und wer ihn bezahlt."
+ },
+ "YOUR ACCESS": {
+  "fr": "VOTRE ACCÈS",
+  "it": "IL TUO ACCESSO",
+  "es": "TU ACCESO",
+  "de": "DEIN ZUGANG"
+ },
+ "Billing": {
+  "fr": "Facturation",
+  "it": "Fatturazione",
+  "es": "Facturación",
+  "de": "Abrechnung"
+ },
+ "Billed by the App Store": {
+  "fr": "Facturé par l'App Store",
+  "it": "Fatturato dall'App Store",
+  "es": "Facturado por la App Store",
+  "de": "Abgerechnet über den App Store"
+ },
+ "Premium, Pro and Stable Account, side by side": {
+  "fr": "Premium, Pro et Compte Écurie, côte à côte",
+  "it": "Premium, Pro e Account Scuderia, a confronto",
+  "es": "Premium, Pro y Cuenta Cuadra, lado a lado",
+  "de": "Premium, Pro und Stall-Konto im Vergleich"
+ },
+ "Users": {
+  "fr": "Utilisateurs",
+  "it": "Utenti",
+  "es": "Usuarios",
+  "de": "Nutzer"
+ },
+ "Billed on strydeup.com": {
+  "fr": "Facturé sur strydeup.com",
+  "it": "Fatturato su strydeup.com",
+  "es": "Facturado en strydeup.com",
+  "de": "Abgerechnet auf strydeup.com"
+ },
+ "The Stable Account is managed on the StrydeUp website.": {
+  "fr": "Le Compte Écurie se gère sur le site de StrydeUp.",
+  "it": "L'Account Scuderia si gestisce sul sito di StrydeUp.",
+  "es": "La Cuenta Cuadra se gestiona en la web de StrydeUp.",
+  "de": "Das Stall-Konto wird auf der StrydeUp-Website verwaltet."
+ },
+ "Paid by the stable": {
+  "fr": "Payé par l'écurie",
+  "it": "Pagato dalla scuderia",
+  "es": "Pagado por la cuadra",
+  "de": "Vom Stall bezahlt"
+ },
+ "Paid by each stable": {
+  "fr": "Payé par chaque écurie",
+  "it": "Pagato da ogni scuderia",
+  "es": "Pagado por cada cuadra",
+  "de": "Von jedem Stall bezahlt"
+ },
+ "Nothing to pay on your side. The stable gives you access to its horses.": {
+  "fr": "Rien à payer de votre côté. L'écurie vous donne accès à ses chevaux.",
+  "it": "Nulla da pagare da parte tua. La scuderia ti dà accesso ai suoi cavalli.",
+  "es": "Nada que pagar por tu parte. La cuadra te da acceso a sus caballos.",
+  "de": "Für dich fällt nichts an. Der Stall gibt dir Zugang zu seinen Pferden."
+ },
+ "Open StrydeUp on your iPhone to start the trial.": {
+  "fr": "Ouvrez StrydeUp sur votre iPhone pour démarrer l'essai.",
+  "it": "Apri StrydeUp sul tuo iPhone per iniziare la prova.",
+  "es": "Abre StrydeUp en tu iPhone para empezar la prueba.",
+  "de": "Öffne StrydeUp auf deinem iPhone, um die Testphase zu starten."
+ },
+ "Manage your plan": {
+  "fr": "Gérer votre formule",
+  "it": "Gestisci il tuo piano",
+  "es": "Gestionar tu plan",
+  "de": "Dein Abo verwalten"
+ },
+ "Your plan is managed by the App Store. Go to your iPhone Settings, your name, Subscriptions, StrydeUp.": {
+  "fr": "Votre formule est gérée par l'App Store. Allez dans Réglages de l'iPhone, votre nom, Abonnements, StrydeUp.",
+  "it": "Il tuo piano è gestito dall'App Store. Vai in Impostazioni dell'iPhone, il tuo nome, Abbonamenti, StrydeUp.",
+  "es": "Tu plan lo gestiona la App Store. Ve a Ajustes del iPhone, tu nombre, Suscripciones, StrydeUp.",
+  "de": "Dein Abo wird über den App Store verwaltet. Öffne die iPhone-Einstellungen, deinen Namen, Abonnements, StrydeUp."
+ },
+ "Start 30-day free trial": {
+  "fr": "Commencer l'essai gratuit de 30 jours",
+  "it": "Inizia la prova gratuita di 30 giorni",
+  "es": "Empezar la prueba gratuita de 30 días",
+  "de": "30 Tage kostenlos testen"
+ },
+ "The stable you run, its team and the owners of its horses.": {
+  "fr": "L'écurie que vous dirigez, son équipe et les propriétaires de ses chevaux.",
+  "it": "La scuderia che gestisci, la sua squadra e i proprietari dei suoi cavalli.",
+  "es": "La cuadra que diriges, su equipo y los propietarios de sus caballos.",
+  "de": "Der Stall, den du führst, sein Team und die Besitzer seiner Pferde."
+ },
+ "Team & access": {
+  "fr": "Équipe et accès",
+  "it": "Squadra e accessi",
+  "es": "Equipo y accesos",
+  "de": "Team & Zugänge"
+ },
+ "Each person sees only the horses you give them.": {
+  "fr": "Chaque personne ne voit que les chevaux que vous lui donnez.",
+  "it": "Ogni persona vede solo i cavalli che le assegni.",
+  "es": "Cada persona ve solo los caballos que le asignas.",
+  "de": "Jede Person sieht nur die Pferde, die du ihr zuweist."
+ },
+ "Owners": {
+  "fr": "Propriétaires",
+  "it": "Proprietari",
+  "es": "Propietarios",
+  "de": "Besitzer"
+ },
+ "The private owners of the horses. They see the horses they own: sessions and scores.": {
+  "fr": "Les propriétaires privés des chevaux. Ils voient les chevaux qu'ils possèdent : vidéos et scores.",
+  "it": "I proprietari privati dei cavalli. Vedono i cavalli di cui sono proprietari: video e punteggi.",
+  "es": "Los propietarios privados de los caballos. Ven los caballos que poseen: vídeos y puntuaciones.",
+  "de": "Die privaten Besitzer der Pferde. Sie sehen die Pferde, die ihnen gehören: Videos und Scores."
+ },
+ "They get their own access, with their horses only.": {
+  "fr": "Ils ont leur propre accès, avec leurs chevaux uniquement.",
+  "it": "Hanno un loro accesso, solo con i loro cavalli.",
+  "es": "Tienen su propio acceso, solo con sus caballos.",
+  "de": "Sie bekommen einen eigenen Zugang, nur mit ihren Pferden."
+ },
+ "The stables you work with. Each one gives you access to the horses it shares with you.": {
+  "fr": "Les écuries avec lesquelles vous travaillez. Chacune vous donne accès aux chevaux qu'elle partage avec vous.",
+  "it": "Le scuderie con cui lavori. Ognuna ti dà accesso ai cavalli che condivide con te.",
+  "es": "Las cuadras con las que trabajas. Cada una te da acceso a los caballos que comparte contigo.",
+  "de": "Die Ställe, mit denen du arbeitest. Jeder gibt dir Zugang zu den Pferden, die er mit dir teilt."
+ },
+ "The stable that gives you access to its horses.": {
+  "fr": "L'écurie qui vous donne accès à ses chevaux.",
+  "it": "La scuderia che ti dà accesso ai suoi cavalli.",
+  "es": "La cuadra que te da acceso a sus caballos.",
+  "de": "Der Stall, der dir Zugang zu seinen Pferden gibt."
+ },
+ "How StrydeUp looks and reads.": {
+  "fr": "L'apparence et la langue de StrydeUp.",
+  "it": "Aspetto e lingua di StrydeUp.",
+  "es": "El aspecto y el idioma de StrydeUp.",
+  "de": "Aussehen und Sprache von StrydeUp."
+ },
+ "Dark is the default. Same as my computer follows the setting of your computer.": {
+  "fr": "Sombre par défaut. Comme mon ordinateur suit le réglage de votre ordinateur.",
+  "it": "Scuro è l'impostazione predefinita. Come il mio computer segue l'impostazione del tuo computer.",
+  "es": "Oscuro por defecto. Como mi ordenador sigue el ajuste de tu ordenador.",
+  "de": "Dunkel ist Standard. Wie mein Computer folgt der Einstellung deines Computers."
+ },
+ "Same as my computer": {
+  "fr": "Comme mon ordinateur",
+  "it": "Come il mio computer",
+  "es": "Como mi ordenador",
+  "de": "Wie mein Computer"
+ },
+ "The whole app, in the language you pick.": {
+  "fr": "Toute l'app, dans la langue de votre choix.",
+  "it": "Tutta l'app, nella lingua che scegli.",
+  "es": "Toda la app, en el idioma que elijas.",
+  "de": "Die ganze App in der Sprache deiner Wahl."
+ },
+ "Distances, heights and speeds": {
+  "fr": "Distances, hauteurs et vitesses",
+  "it": "Distanze, altezze e velocità",
+  "es": "Distancias, alturas y velocidades",
+  "de": "Distanzen, Höhen und Geschwindigkeiten"
+ },
+ "Saves your mobile data. On the phone app.": {
+  "fr": "Économise vos données mobiles. Dans l'app mobile.",
+  "it": "Risparmia i dati mobili. Nell'app sul telefono.",
+  "es": "Ahorra datos móviles. En la app del móvil.",
+  "de": "Spart mobile Daten. In der Handy-App."
+ },
+ "Film the whole arena": {
+  "fr": "Filmez toute la carrière",
+  "it": "Riprendi tutto il campo",
+  "es": "Graba toda la pista",
+  "de": "Den ganzen Platz filmen"
+ },
+ "Keep it steady": {
+  "fr": "Restez stable",
+  "it": "Tieni fermo il telefono",
+  "es": "Mantén el móvil estable",
+  "de": "Ruhig halten"
+ },
+ "The whole horse": {
+  "fr": "Le cheval en entier",
+  "it": "Il cavallo intero",
+  "es": "El caballo entero",
+  "de": "Das ganze Pferd"
+ },
+ "The right settings": {
+  "fr": "Les bons réglages",
+  "it": "Le impostazioni giuste",
+  "es": "Los ajustes correctos",
+  "de": "Die richtigen Einstellungen"
+ },
+ "27 fps at least, 60 fps is best. Full HD is best. From 7 seconds to 3 minutes.": {
+  "fr": "27 i/s minimum, 60 i/s idéalement. Full HD idéalement. De 7 secondes à 3 minutes.",
+  "it": "Almeno 27 fps, meglio 60 fps. Meglio in Full HD. Da 7 secondi a 3 minuti.",
+  "es": "Al menos 27 fps, mejor 60 fps. Mejor en Full HD. De 7 segundos a 3 minutos.",
+  "de": "Mindestens 27 fps, am besten 60 fps. Am besten Full HD. Von 7 Sekunden bis 3 Minuten."
+ },
+ "What StrydeUp tells you about.": {
+  "fr": "Ce que StrydeUp vous signale.",
+  "it": "Cosa ti segnala StrydeUp.",
+  "es": "Lo que StrydeUp te avisa.",
+  "de": "Worüber StrydeUp dich informiert."
+ },
+ "On the computer, notifications show under the bell, at the top of every page.": {
+  "fr": "Sur l'ordinateur, les notifications s'affichent sous la cloche, en haut de chaque page.",
+  "it": "Sul computer, le notifiche compaiono sotto la campanella, in cima a ogni pagina.",
+  "es": "En el ordenador, las notificaciones aparecen bajo la campana, arriba de cada página.",
+  "de": "Am Computer erscheinen Benachrichtigungen unter der Glocke, oben auf jeder Seite."
+ },
+ "Your password, how you sign in, and where you are signed in.": {
+  "fr": "Votre mot de passe, votre façon de vous connecter et les appareils connectés.",
+  "it": "La tua password, come accedi e dove hai effettuato l'accesso.",
+  "es": "Tu contraseña, cómo inicias sesión y dónde tienes la sesión abierta.",
+  "de": "Dein Passwort, wie du dich anmeldest und wo du angemeldet bist."
+ },
+ "Change password": {
+  "fr": "Changer le mot de passe",
+  "it": "Cambia password",
+  "es": "Cambiar la contraseña",
+  "de": "Passwort ändern"
+ },
+ "Sign in": {
+  "fr": "Connexion",
+  "it": "Accesso",
+  "es": "Inicio de sesión",
+  "de": "Anmeldung"
+ },
+ "No password on your iPhone": {
+  "fr": "Sans mot de passe sur votre iPhone",
+  "it": "Senza password sul tuo iPhone",
+  "es": "Sin contraseña en tu iPhone",
+  "de": "Ohne Passwort auf deinem iPhone"
+ },
+ "Devices signed in": {
+  "fr": "Appareils connectés",
+  "it": "Dispositivi connessi",
+  "es": "Dispositivos conectados",
+  "de": "Angemeldete Geräte"
+ },
+ "This computer": {
+  "fr": "Cet ordinateur",
+  "it": "Questo computer",
+  "es": "Este ordenador",
+  "de": "Dieser Computer"
+ },
+ "Geneva": {
+  "fr": "Genève",
+  "it": "Ginevra",
+  "es": "Ginebra",
+  "de": "Genf"
+ },
+ "Last used today": {
+  "fr": "Utilisé aujourd'hui",
+  "it": "Usato oggi",
+  "es": "Usado hoy",
+  "de": "Heute verwendet"
+ },
+ "Signed out of this device": {
+  "fr": "Déconnecté de cet appareil",
+  "it": "Disconnesso da questo dispositivo",
+  "es": "Sesión cerrada en este dispositivo",
+  "de": "Von diesem Gerät abgemeldet"
+ },
+ "Your export is being prepared. It comes by email.": {
+  "fr": "Votre export est en préparation. Il arrive par e-mail.",
+  "it": "La tua esportazione è in preparazione. Arriva via email.",
+  "es": "Tu exportación se está preparando. Llegará por correo.",
+  "de": "Dein Export wird vorbereitet. Er kommt per E-Mail."
+ },
+ "Private by default": {
+  "fr": "Privé par défaut",
+  "it": "Privato per impostazione predefinita",
+  "es": "Privado por defecto",
+  "de": "Standardmäßig privat"
+ },
+ "Your horses and sessions are seen only by you and the people you give access to.": {
+  "fr": "Seuls vous et les personnes à qui vous donnez accès voyez vos chevaux et vos vidéos.",
+  "it": "I tuoi cavalli e i tuoi video li vedi solo tu e le persone a cui dai accesso.",
+  "es": "Tus caballos y vídeos solo los ves tú y las personas a las que das acceso.",
+  "de": "Deine Pferde und Videos sehen nur du und die Personen, denen du Zugang gibst."
+ },
+ "Each person sees only the horses you give them. Horse owners see only their horses.": {
+  "fr": "Chaque personne ne voit que les chevaux que vous lui donnez. Les propriétaires ne voient que leurs chevaux.",
+  "it": "Ogni persona vede solo i cavalli che le assegni. I proprietari vedono solo i loro cavalli.",
+  "es": "Cada persona ve solo los caballos que le asignas. Los propietarios solo ven sus caballos.",
+  "de": "Jede Person sieht nur die Pferde, die du ihr zuweist. Besitzer sehen nur ihre Pferde."
+ },
+ "Marie S. sees the horses of the stable and their sessions. Horses you add to My Horses stay private and never count in its numbers.": {
+  "fr": "Marie S. voit les chevaux de l'écurie et leurs vidéos. Les chevaux que vous ajoutez à Mes chevaux restent privés et ne comptent jamais dans ses chiffres.",
+  "it": "Marie S. vede i cavalli della scuderia e i loro video. I cavalli che aggiungi a I miei cavalli restano privati e non contano mai nei suoi numeri.",
+  "es": "Marie S. ve los caballos de la cuadra y sus vídeos. Los caballos que añades a Mis caballos siguen siendo privados y nunca cuentan en sus cifras.",
+  "de": "Marie S. sieht die Pferde des Stalls und ihre Videos. Pferde, die du zu Meine Pferde hinzufügst, bleiben privat und zählen nie in seinen Zahlen."
+ },
+ "Not a medical diagnosis": {
+  "fr": "Pas un diagnostic médical",
+  "it": "Non è una diagnosi medica",
+  "es": "No es un diagnóstico médico",
+  "de": "Keine medizinische Diagnose"
+ },
+ "The scores and alerts come from the video analysis. They help you decide when to look closer.": {
+  "fr": "Les scores et les alertes viennent de l'analyse vidéo. Ils vous aident à savoir quand regarder de plus près.",
+  "it": "Punteggi e avvisi vengono dall'analisi video. Ti aiutano a capire quando guardare più da vicino.",
+  "es": "Las puntuaciones y alertas vienen del análisis de vídeo. Te ayudan a decidir cuándo mirar más de cerca.",
+  "de": "Scores und Warnungen stammen aus der Videoanalyse. Sie helfen dir zu entscheiden, wann du genauer hinsehen solltest."
+ },
+ "Guides and answers. Write to us if you do not find yours.": {
+  "fr": "Guides et réponses. Écrivez-nous si vous ne trouvez pas la vôtre.",
+  "it": "Guide e risposte. Scrivici se non trovi la tua.",
+  "es": "Guías y respuestas. Escríbenos si no encuentras la tuya.",
+  "de": "Anleitungen und Antworten. Schreib uns, wenn du deine nicht findest."
+ },
+ "Popular questions": {
+  "fr": "Questions fréquentes",
+  "it": "Domande frequenti",
+  "es": "Preguntas frecuentes",
+  "de": "Häufige Fragen"
+ },
+ "On strydeup.com": {
+  "fr": "Sur strydeup.com",
+  "it": "Su strydeup.com",
+  "es": "En strydeup.com",
+  "de": "Auf strydeup.com"
+ },
+ "YOUR MESSAGE": {
+  "fr": "VOTRE MESSAGE",
+  "it": "IL TUO MESSAGGIO",
+  "es": "TU MENSAJE",
+  "de": "DEINE NACHRICHT"
+ },
+ "Tell us what happened, and on which horse or video.": {
+  "fr": "Dites-nous ce qui s'est passé, et sur quel cheval ou quelle vidéo.",
+  "it": "Raccontaci cosa è successo, e su quale cavallo o video.",
+  "es": "Cuéntanos qué ha pasado y en qué caballo o vídeo.",
+  "de": "Erzähl uns, was passiert ist und bei welchem Pferd oder Video."
+ },
+ "We answer at": {
+  "fr": "Nous répondons à",
+  "it": "Ti rispondiamo a",
+  "es": "Te respondemos a",
+  "de": "Wir antworten an"
+ },
+ "Send": {
+  "fr": "Envoyer",
+  "it": "Invia",
+  "es": "Enviar",
+  "de": "Senden"
+ },
+ "Who can see your horses, and which ones.": {
+  "fr": "Qui peut voir vos chevaux, et lesquels.",
+  "it": "Chi può vedere i tuoi cavalli, e quali.",
+  "es": "Quién puede ver tus caballos, y cuáles.",
+  "de": "Wer deine Pferde sehen kann, und welche."
+ },
+ "They ride the horses you give them.": {
+  "fr": "Ils montent les chevaux que vous leur confiez.",
+  "it": "Montano i cavalli che gli assegni.",
+  "es": "Montan los caballos que les asignas.",
+  "de": "Sie reiten die Pferde, die du ihnen zuweist."
+ },
+ "Vet, farrier, trainer, groom: each one follows the horses you choose.": {
+  "fr": "Vétérinaire, maréchal-ferrant, entraîneur, groom : chacun suit les chevaux que vous choisissez.",
+  "it": "Veterinario, maniscalco, allenatore, groom: ognuno segue i cavalli che scegli.",
+  "es": "Veterinario, herrador, entrenador, mozo: cada uno sigue los caballos que eliges.",
+  "de": "Tierarzt, Hufschmied, Trainer, Pfleger: Jeder betreut die Pferde, die du auswählst."
+ },
+ "Horse owners": {
+  "fr": "Propriétaires de chevaux",
+  "it": "Proprietari di cavalli",
+  "es": "Propietarios de caballos",
+  "de": "Pferdebesitzer"
+ },
+ "They see the horses they own: sessions and scores.": {
+  "fr": "Ils voient les chevaux qu'ils possèdent : vidéos et scores.",
+  "it": "Vedono i cavalli di cui sono proprietari: video e punteggi.",
+  "es": "Ven los caballos que poseen: vídeos y puntuaciones.",
+  "de": "Sie sehen die Pferde, die ihnen gehören: Videos und Scores."
+ },
+ "HORSES THEY FOLLOW": {
+  "fr": "CHEVAUX SUIVIS",
+  "it": "CAVALLI SEGUITI",
+  "es": "CABALLOS QUE SIGUE",
+  "de": "BETREUTE PFERDE"
+ },
+ "HORSES THEY OWN": {
+  "fr": "CHEVAUX POSSÉDÉS",
+  "it": "CAVALLI DI PROPRIETÀ",
+  "es": "CABALLOS EN PROPIEDAD",
+  "de": "EIGENE PFERDE"
+ },
+ "VIDEOS THIS WEEK": {
+  "fr": "VIDÉOS CETTE SEMAINE",
+  "it": "VIDEO QUESTA SETTIMANA",
+  "es": "VÍDEOS ESTA SEMANA",
+  "de": "VIDEOS DIESE WOCHE"
+ },
+ "STATUS": {
+  "fr": "STATUT",
+  "it": "STATO",
+  "es": "ESTADO",
+  "de": "STATUS"
+ },
+ "Invite a rider": {
+  "fr": "Inviter un cavalier",
+  "it": "Invita un cavaliere",
+  "es": "Invitar a un jinete",
+  "de": "Reiter einladen"
+ },
+ "Invite a vet, a farrier, a trainer or a groom": {
+  "fr": "Inviter un vétérinaire, un maréchal-ferrant, un entraîneur ou un groom",
+  "it": "Invita un veterinario, un maniscalco, un allenatore o un groom",
+  "es": "Invitar a un veterinario, un herrador, un entrenador o un mozo",
+  "de": "Tierarzt, Hufschmied, Trainer oder Pfleger einladen"
+ },
+ "Nobody yet.": {
+  "fr": "Personne pour l'instant.",
+  "it": "Ancora nessuno.",
+  "es": "Nadie todavía.",
+  "de": "Noch niemand."
+ },
+ "Horses they own": {
+  "fr": "Chevaux possédés",
+  "it": "Cavalli di proprietà",
+  "es": "Caballos en propiedad",
+  "de": "Eigene Pferde"
+ },
+ "Everything": {
+  "fr": "Tout",
+  "it": "Tutto",
+  "es": "Todo",
+  "de": "Alles"
+ },
+ "See sessions and scores": {
+  "fr": "Voir les vidéos et les scores",
+  "it": "Vedere video e punteggi",
+  "es": "Ver vídeos y puntuaciones",
+  "de": "Videos und Scores sehen"
+ },
+ "No horse yet": {
+  "fr": "Aucun cheval pour l'instant",
+  "it": "Ancora nessun cavallo",
+  "es": "Ningún caballo todavía",
+  "de": "Noch kein Pferd"
+ },
+ "No horse yet. Give them horses with Edit access.": {
+  "fr": "Aucun cheval pour l'instant. Donnez-lui des chevaux avec Modifier l'accès.",
+  "it": "Ancora nessun cavallo. Assegnagli dei cavalli con Modifica accesso.",
+  "es": "Ningún caballo todavía. Asígnale caballos con Editar acceso.",
+  "de": "Noch kein Pferd. Weise Pferde über Zugang bearbeiten zu."
+ },
+ "No video yet. They join when they accept the invitation.": {
+  "fr": "Aucune vidéo pour l'instant. Ils arrivent dès qu'ils acceptent l'invitation.",
+  "it": "Ancora nessun video. Entrano quando accettano l'invito.",
+  "es": "Ningún vídeo todavía. Se unen cuando aceptan la invitación.",
+  "de": "Noch kein Video. Sie kommen dazu, sobald sie die Einladung annehmen."
+ },
+ "No video yet.": {
+  "fr": "Aucune vidéo pour l'instant.",
+  "it": "Ancora nessun video.",
+  "es": "Ningún vídeo todavía.",
+  "de": "Noch kein Video."
+ },
+ "Edit access": {
+  "fr": "Modifier l'accès",
+  "it": "Modifica accesso",
+  "es": "Editar acceso",
+  "de": "Zugang bearbeiten"
+ },
+ "Resend invite": {
+  "fr": "Renvoyer l'invitation",
+  "it": "Reinvia l'invito",
+  "es": "Reenviar la invitación",
+  "de": "Einladung erneut senden"
+ },
+ "Remove from the team": {
+  "fr": "Retirer de l'équipe",
+  "it": "Rimuovi dalla squadra",
+  "es": "Quitar del equipo",
+  "de": "Aus dem Team entfernen"
+ },
+ "View profile": {
+  "fr": "Voir le profil",
+  "it": "Vedi profilo",
+  "es": "Ver perfil",
+  "de": "Profil ansehen"
+ },
+ "Cancel the invitation": {
+  "fr": "Annuler l'invitation",
+  "it": "Annulla l'invito",
+  "es": "Cancelar la invitación",
+  "de": "Einladung zurückziehen"
+ },
+ "Remove {H}?": {
+  "fr": "Retirer {H} ?",
+  "it": "Rimuovere {H}?",
+  "es": "¿Quitar a {H}?",
+  "de": "{H} entfernen?"
+ },
+ "They lose access to the horses of the stable. Their videos stay with the horses.": {
+  "fr": "Ils perdent l'accès aux chevaux de l'écurie. Leurs vidéos restent avec les chevaux.",
+  "it": "Perdono l'accesso ai cavalli della scuderia. I loro video restano con i cavalli.",
+  "es": "Pierden el acceso a los caballos de la cuadra. Sus vídeos se quedan con los caballos.",
+  "de": "Sie verlieren den Zugang zu den Pferden des Stalls. Ihre Videos bleiben bei den Pferden."
+ },
+ "The invitation is cancelled. You can invite them again later.": {
+  "fr": "L'invitation est annulée. Vous pourrez l'inviter à nouveau plus tard.",
+  "it": "L'invito viene annullato. Potrai invitarli di nuovo più tardi.",
+  "es": "La invitación se cancela. Puedes volver a invitarle más tarde.",
+  "de": "Die Einladung wird zurückgezogen. Du kannst später erneut einladen."
+ },
+ "They lose access to their horses in StrydeUp. The horses and their videos stay in the stable.": {
+  "fr": "Ils perdent l'accès à leurs chevaux dans StrydeUp. Les chevaux et leurs vidéos restent à l'écurie.",
+  "it": "Perdono l'accesso ai loro cavalli in StrydeUp. I cavalli e i loro video restano in scuderia.",
+  "es": "Pierden el acceso a sus caballos en StrydeUp. Los caballos y sus vídeos se quedan en la cuadra.",
+  "de": "Sie verlieren in StrydeUp den Zugang zu ihren Pferden. Die Pferde und ihre Videos bleiben im Stall."
+ },
+ "Removed from the team": {
+  "fr": "Retiré de l'équipe",
+  "it": "Rimosso dalla squadra",
+  "es": "Quitado del equipo",
+  "de": "Aus dem Team entfernt"
+ },
+ "Invitation cancelled": {
+  "fr": "Invitation annulée",
+  "it": "Invito annullato",
+  "es": "Invitación cancelada",
+  "de": "Einladung zurückgezogen"
+ },
+ "Invitation sent again": {
+  "fr": "Invitation renvoyée",
+  "it": "Invito inviato di nuovo",
+  "es": "Invitación reenviada",
+  "de": "Einladung erneut gesendet"
+ },
+ "Access updated": {
+  "fr": "Accès mis à jour",
+  "it": "Accesso aggiornato",
+  "es": "Acceso actualizado",
+  "de": "Zugang aktualisiert"
+ },
+ "Choose their role and the horses they can see.": {
+  "fr": "Choisissez son rôle et les chevaux qu'il peut voir.",
+  "it": "Scegli il ruolo e i cavalli che può vedere.",
+  "es": "Elige su rol y los caballos que puede ver.",
+  "de": "Wähle die Rolle und die Pferde, die die Person sehen kann."
+ },
+ "Clear": {
+  "fr": "Tout retirer",
+  "it": "Togli tutti",
+  "es": "Quitar todos",
+  "de": "Alle entfernen"
+ },
+ "They see the horses you give them, their sessions and their scores, and can add videos.": {
+  "fr": "Ils voient les chevaux que vous leur donnez, leurs vidéos et leurs scores, et peuvent ajouter des vidéos.",
+  "it": "Vedono i cavalli che gli assegni, i loro video e punteggi, e possono aggiungere video.",
+  "es": "Ven los caballos que les asignas, sus vídeos y puntuaciones, y pueden añadir vídeos.",
+  "de": "Sie sehen die Pferde, die du ihnen zuweist, deren Videos und Scores, und können Videos hinzufügen."
+ },
+ "They follow the horses you give them and can add videos. You keep every video and every horse.": {
+  "fr": "Ils suivent les chevaux que vous leur donnez et peuvent ajouter des vidéos. Vous gardez toutes les vidéos et tous les chevaux.",
+  "it": "Seguono i cavalli che gli assegni e possono aggiungere video. Tu mantieni tutti i video e tutti i cavalli.",
+  "es": "Siguen los caballos que les asignas y pueden añadir vídeos. Tú conservas todos los vídeos y todos los caballos.",
+  "de": "Sie betreuen die Pferde, die du ihnen zuweist, und können Videos hinzufügen. Du behältst alle Videos und alle Pferde."
+ },
+ "They see the horses they own, their sessions and their scores. Nothing else of the stable.": {
+  "fr": "Ils voient les chevaux qu'ils possèdent, leurs vidéos et leurs scores. Rien d'autre de l'écurie.",
+  "it": "Vedono i cavalli di cui sono proprietari, i loro video e punteggi. Nient'altro della scuderia.",
+  "es": "Ven los caballos que poseen, sus vídeos y puntuaciones. Nada más de la cuadra.",
+  "de": "Sie sehen die Pferde, die ihnen gehören, deren Videos und Scores. Sonst nichts vom Stall."
+ },
+ "The team is managed by": {
+  "fr": "L'équipe est gérée par",
+  "it": "La squadra è gestita da",
+  "es": "El equipo lo gestiona",
+  "de": "Das Team wird verwaltet von"
+ },
+ "Only the Stable Owner sees and manages the people of the stable and their access.": {
+  "fr": "Seul le propriétaire de l'écurie voit et gère les personnes de l'écurie et leurs accès.",
+  "it": "Solo il proprietario della scuderia vede e gestisce le persone della scuderia e i loro accessi.",
+  "es": "Solo el propietario de la cuadra ve y gestiona a las personas de la cuadra y sus accesos.",
+  "de": "Nur der Stallbesitzer sieht und verwaltet die Personen des Stalls und ihre Zugänge."
+ },
+ "Teams come with the Stable Account": {
+  "fr": "Les équipes viennent avec le Compte Écurie",
+  "it": "Le squadre sono incluse nell'Account Scuderia",
+  "es": "Los equipos vienen con la Cuenta Cuadra",
+  "de": "Teams gibt es mit dem Stall-Konto"
+ },
+ "A Stable Account adds riders, vets, farriers, grooms and owners, each with the horses you give them.": {
+  "fr": "Un Compte Écurie ajoute cavaliers, vétérinaires, maréchaux-ferrants, grooms et propriétaires, chacun avec les chevaux que vous lui donnez.",
+  "it": "Un Account Scuderia aggiunge cavalieri, veterinari, maniscalchi, groom e proprietari, ognuno con i cavalli che gli assegni.",
+  "es": "Una Cuenta Cuadra añade jinetes, veterinarios, herradores, mozos y propietarios, cada uno con los caballos que le asignas.",
+  "de": "Ein Stall-Konto fügt Reiter, Tierärzte, Hufschmiede, Pfleger und Besitzer hinzu, jeweils mit den Pferden, die du zuweist."
+ },
+ "Taking you back to Home in a few seconds.": {
+  "fr": "Retour à l'accueil dans quelques secondes.",
+  "it": "Torni alla Home tra qualche secondo.",
+  "es": "Vuelves al inicio en unos segundos.",
+  "de": "In wenigen Sekunden geht es zurück zur Startseite."
+ }
+}
