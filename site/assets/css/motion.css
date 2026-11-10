@@ -42,7 +42,7 @@ html.mo .hdr.small .hdr-bar{height:68px;border-color:rgba(255,255,255,.28)}
 /* ---------- split text ---------- */
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
 .wi{display:inline-block;will-change:transform}
-html.mo :is(.hero-txt h1,.h-xl,.h-lg,.fhero-txt h1,.shero h1,.fq-head h1,.dl-in h2,.scat h2,.vision-txt h2):not(.split-done){visibility:hidden}
+html.mo :is(.hero-txt h1,.h-xl,.h-lg,.fhero-txt h1,.shero h1,.fq-head h1,.dl-in h2,.scat h2,.vision-txt h2,.stride-txt h2):not(.split-done){visibility:hidden}
 html.mo.enter main,html.mo.enter .hdr,html.mo.enter .ftr{opacity:0}
 html.mo main,html.mo .hdr-bar,html.mo .ftr{transition:opacity .6s var(--ease)}
 
@@ -163,3 +163,10 @@ mark{background:rgba(195,138,103,.35);color:#fff;border-radius:3px;padding:0 2px
 /* the phone glow must never widen the page */
 .hero{overflow-x:clip}
 @media (max-width:980px){.phone-glow{inset:8% -6% -10%}}
+
+/* living dashed paths on the marquee cards */
+.mov .mo-l{animation:march 1.4s linear infinite}
+@keyframes march{to{stroke-dashoffset:-24}}
+
+html.mo .step-n{transition:opacity .45s var(--ease)}
+html.mo .step-n.gone{opacity:0!important}
