@@ -415,6 +415,7 @@
       new MutationObserver(roll).observe(p, { childList: true, characterData: true, subtree: true });
       roll();
     });
+    gsap.from('.cap u.on', { scaleY: 0, transformOrigin: '50% 100%', duration: 0.4, ease: 'back.out(2)', stagger: 0.02, delay: 1.3 });
     gsap.from('.plan', { y: 90, rotateX: 12, opacity: 0, transformPerspective: 1000, duration: 1.4, ease: EASE, stagger: 0.12, delay: 0.5 });
   }
 
@@ -425,6 +426,30 @@
       .from(words($('.shero h1')), { yPercent: 115, duration: 1.2, ease: EASE, stagger: 0.06 }, 0.4)
       .from('.shero .sub', { opacity: 0, y: -20, duration: 1, ease: EASE }, 0.9)
       .from('.cat', { y: 40, opacity: 0, duration: 1, ease: EASE, stagger: 0.08 }, 0.8);
+    var shs = $('.shero-svg');
+    if (shs) {
+      var bn = $$('.bone', shs);
+      bn.forEach(function (n) { var L = n.getTotalLength(); n.style.strokeDasharray = L; n.style.strokeDashoffset = L; });
+      var tg = $$('tspan[data-to]', shs);
+      heroTl.from($$('.joint', shs), { scale: 0, transformOrigin: '50% 50%', duration: 0.35, stagger: 0.07, ease: 'back.out(3)' }, 1.1)
+        .to(bn, { strokeDashoffset: 0, duration: 1, stagger: 0.15, ease: 'power2.inOut' }, 1.3)
+        .from($$('.arc', shs), { opacity: 0, duration: 0.6 }, 1.9)
+        .from($$('.tag', shs), { opacity: 0, y: 10, duration: 0.6, stagger: 0.15, ease: EASE }, 2.0)
+        .add(function () { tg.forEach(function (t) { count(t, +t.getAttribute('data-to'), { duration: 1.4 }); }); }, 2.0);
+    }
+    var wv = $('.wave');
+    if (wv) {
+      var wp = $('path', wv), wc = $('circle', wv), ph = 0, on = false;
+      ST.create({ trigger: wv, start: 'top bottom', end: 'bottom top', onToggle: function (st) { on = st.isActive; } });
+      gsap.ticker.add(function () {
+        if (!on) return; ph += 0.06; var d = '', y = 20;
+        for (var xx = 0; xx <= 210; xx += 6) {
+          y = 20 + Math.sin(xx * 0.06 + ph) * 7 + Math.sin(xx * 0.17 + ph * 1.7) * 4 + (xx > 120 && xx < 150 ? Math.sin(ph * 3) * 6 : 0);
+          d += (xx ? ' L' : 'M') + xx + ' ' + y.toFixed(1);
+        }
+        wp.setAttribute('d', d); wc.setAttribute('cx', 210); wc.setAttribute('cy', y.toFixed(1));
+      });
+    }
     gsap.to('.shero>img', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.shero', start: 'top top', end: 'bottom top', scrub: true } });
     $$('.srail').forEach(function (rail) {
       gsap.from($$('.story', rail), { y: 60, opacity: 0, duration: 1.3, ease: EASE, stagger: 0.07, scrollTrigger: { trigger: rail, start: 'top 85%', once: true } });
@@ -448,6 +473,9 @@
   if (page === 'faqs') {
     heroTl.from('.fq-search', { opacity: 0, y: 20, duration: 1, ease: EASE }, 0.6)
       .from('.fq-side a', { x: -20, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.05 }, 0.5);
+    var trk = $('.fq-track i');
+    if (trk) gsap.to(trk, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.fq', start: 'top 30%', end: 'bottom bottom', scrub: true } });
+    $$('.fq-rule').forEach(function (r) { gsap.fromTo(r, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.8, ease: 'expo.inOut', delay: 0.5 }); });
     // smooth accordion
     $$('.qa').forEach(function (q) {
       var s = $('summary', q), a = $('.a', q);
@@ -483,6 +511,40 @@
       });
     }
   }
+
+  /* ------------------------------------------------ analysis HUDs (every page) */
+  $$('.hud').forEach(function (h) {
+    var host = h.parentNode, live = false, fr = 0;
+    var fEl = $('[data-hframe]', h), ret = $('.hud-ret', h), reads = $$('[data-j]', h);
+    gsap.set($$('.hc', h), { opacity: 0, scale: 1.7 });
+    gsap.set($$('.hud-lab,.hud-rec,.hud-read > div', h), { opacity: 0, y: 8 });
+    if (ret) gsap.set(ret, { opacity: 0, scale: 2 });
+    ST.create({ trigger: host, start: 'top 85%', end: 'bottom top', onToggle: function (st) { live = st.isActive; },
+      onEnter: function () {
+        if (h.__in) return; h.__in = 1;
+        gsap.to($$('.hc', h), { opacity: 1, scale: 1, duration: 0.9, ease: EASE, stagger: 0.07, delay: 0.3 });
+        gsap.to($$('.hud-lab,.hud-rec', h), { opacity: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.1, delay: 0.6 });
+        gsap.to($$('.hud-read > div', h), { opacity: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.1, delay: 0.8 });
+        reads.forEach(function (r, i) { count(r, +r.getAttribute('data-j'), { duration: 1.6, delay: 0.8 + i * 0.1 }); });
+        if (ret) {
+          gsap.to(ret, { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(2)', delay: 0.9 });
+          var hop = function () {
+            var w = host.clientWidth, hh = host.clientHeight;
+            gsap.to(ret, { x: gsap.utils.random(-w * 0.16, w * 0.16), y: gsap.utils.random(-hh * 0.14, hh * 0.14), duration: gsap.utils.random(1.2, 2.2), ease: 'power3.inOut', onComplete: function () { gsap.delayedCall(gsap.utils.random(0.3, 1.2), hop); } });
+          };
+          gsap.delayedCall(1.8, hop);
+        }
+      } });
+    if (fEl) gsap.ticker.add(function () { if (live) { fr = (fr + 1) % 10000; if (fr % 2 === 0) fEl.textContent = ('000' + fr).slice(-4); } });
+    if (reads.length) setInterval(function () {
+      if (!live || !h.__in) return;
+      reads.forEach(function (r) {
+        var base = +r.getAttribute('data-j'), d = (r.getAttribute('data-j').split('.')[1] || '').length;
+        var v = base + (Math.random() - 0.5) * (d ? 0.06 : 2);
+        r.textContent = v.toFixed(d);
+      });
+    }, 900);
+  });
 
   /* ------------------------------------------------ every page: download block + footer */
   var dl = $('.dl');
