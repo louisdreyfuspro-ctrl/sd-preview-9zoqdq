@@ -15,14 +15,8 @@
   var EASE = 'expo.out';
 
   /* ------------------------------------------------ smooth scroll */
-  var lenis = null;
-  if (window.Lenis) {
-    lenis = new window.Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
-    lenis.on('scroll', ST.update);
-    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-    gsap.ticker.lagSmoothing(0);
-  }
-  function scrollToEl(t) { if (lenis) lenis.scrollTo(t, { offset: -110, duration: 1.4 }); else t.scrollIntoView({ behavior: 'smooth' }); }
+  var lenis = null;   // native scrolling on purpose: no scroll hijacking, no latency
+  function scrollToEl(t) { scrollTo({ top: t.getBoundingClientRect().top + pageYOffset - 110, behavior: 'smooth' }); }
   d.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -168,8 +162,8 @@
     var logo = $('.hdr .logo svg');
     var ld = el('div', 'loader', '<div class="loader-in"><div class="loader-logo">' + (logo ? logo.outerHTML : '') + '</div><div class="loader-bar"><i></i></div><div class="loader-meta"><span>Equine performance</span><span class="ld-n">000</span></div></div>');
     var n = $('.ld-n', ld), o = { v: 0 };
-    if (lenis) lenis.stop();
-    gsap.timeline({ onComplete: function () { ld.remove(); if (lenis) lenis.start(); } })
+    H.style.overflow = 'hidden';
+    gsap.timeline({ onComplete: function () { ld.remove(); H.style.overflow = ''; } })
       .to($('.loader-logo svg', ld), { y: 0, duration: 1.1, ease: EASE }, 0.15)
       .to($('.loader-bar i', ld), { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0.2)
       .to(o, { v: 100, duration: 1.5, ease: 'power2.inOut', onUpdate: function () { n.textContent = ('00' + Math.round(o.v)).slice(-3); } }, 0.2)
@@ -209,15 +203,15 @@
       var x = 0, vel = 0, dir = 1, half = 0, cards = $$('.mcard', track);
       var measure = function () { half = track.scrollWidth / 2; };
       measure(); addEventListener('resize', measure); addEventListener('load', measure);
-      var skew = gsap.quickTo(cards, 'skewX', { duration: 0.6, ease: 'power3' });
+      var sk = 0;
       ST.create({ start: 0, end: 'max', onUpdate: function (s) { vel = s.getVelocity(); dir = s.direction; } });
       var hover = false; track.addEventListener('mouseenter', function () { hover = true; }); track.addEventListener('mouseleave', function () { hover = false; });
       gsap.ticker.add(function (t, dt) {
         var boost = Math.min(Math.abs(vel) / 120, 18);
         x -= ((hover ? 0.15 : 1) * 0.6 + boost) * dir * (dt / 16.7);
         if (x <= -half) x += half; if (x > 0) x -= half;
-        track.style.transform = 'translate3d(' + x + 'px,0,0)';
-        skew(gsap.utils.clamp(-8, 8, vel / -180));
+        sk += (gsap.utils.clamp(-6, 6, vel / -200) - sk) * 0.1;
+        track.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0) skewX(' + sk.toFixed(2) + 'deg)';
         vel *= 0.92;
       });
       gsap.from(cards, { yPercent: 30, opacity: 0, duration: 1.4, ease: EASE, stagger: 0.06, scrollTrigger: { trigger: '.marquee', start: 'top 90%', once: true } });
@@ -276,7 +270,7 @@
       gsap.from(card, { clipPath: 'inset(18% 10% 18% 10% round 16px)', duration: 1.5, ease: 'expo.inOut', scrollTrigger: { trigger: s, start: 'top 82%', once: true } });
       gsap.from($$('.step-glass > *', s), { y: 30, opacity: 0, duration: 1, ease: EASE, stagger: 0.1, delay: 0.4, scrollTrigger: { trigger: s, start: 'top 82%', once: true } });
       gsap.from($('.step-n', s), { yPercent: 60, opacity: 0, duration: 1.2, ease: EASE, scrollTrigger: { trigger: s, start: 'top 82%', once: true } });
-      if (desk && steps[i + 1]) gsap.to(card, { scale: 0.92, filter: 'brightness(.45)', ease: 'none',
+      if (desk && steps[i + 1]) gsap.to(card, { scale: 0.92, opacity: 0.4, ease: 'none',
         scrollTrigger: { trigger: steps[i + 1], start: 'top bottom', end: 'top 160px', scrub: true } });
     });
 
