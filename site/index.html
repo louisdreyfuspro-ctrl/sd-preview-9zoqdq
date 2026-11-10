@@ -15,9 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=1110172530">
+<link rel="stylesheet" href="assets/css/site.css?v=1110174731">
+<link rel="stylesheet" href="assets/css/motion.css?v=1110174731">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mo","enter");setTimeout(function(){if(!window.SU_MOTION)d.classList.remove("mo","enter")},3000)}})(document.documentElement)</script>
 </head>
-<body>
+<body data-page="index">
 <a class="sr" href="#main">Skip to content</a>
 <header class="hdr" id="top">
   <div class="hdr-bar">
@@ -233,7 +235,7 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
 <main id="main">
 <section class="wrap hero">
   <div class="hero-card">
-    <img src="assets/img/hero-sunset.jpg" alt="Rider cantering at sunset" fetchpriority="high">
+    <img src="assets/img/hero-sunset.jpg" alt="Rider cantering at sunset" fetchpriority="high"><span class="scan" aria-hidden="true"></span>
     <div class="hero-txt">
       <h1>We make the invisible, visible.</h1>
       <p>StrydeUp turns a simple video into detailed analysis of your horse. With up to 27 key metrics to understand your horse’s performance.</p>
@@ -243,7 +245,7 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
     </div>
   </div>
   <div class="hero-phone" aria-label="The StrydeUp app">
-    <div class="phone"><div class="phone-screen">
+    <span class="phone-glow" aria-hidden="true"></span><div class="phone"><span class="phone-shine" aria-hidden="true"></span><div class="phone-screen">
       <div class="phone-scroll"><img src="assets/img/app-home.jpg" alt="StrydeUp app home screen with top performers and latest sessions"></div>
       <img class="phone-nav" src="assets/img/app-nav.png" alt="">
     </div></div>
@@ -252,25 +254,50 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
 
 <section class="intel">
   <div class="wrap">
-    <h2 class="h-xl reveal">Intelligence in every <span class="accent">stride</span></h2>
+    <h2 class="h-xl">Intelligence in every <span class="accent">stride</span></h2>
     <p class="lead reveal">StrydeUp brings objective data alongside your experience, helping you put what you see and feel into context.</p>
   </div>
   <div class="marquee" aria-label="What StrydeUp analyses"><div class="marquee-track"><article class="mcard"><img src="assets/img/jump-1.jpg" alt="" loading="lazy"><h3>Jump Analysis</h3></article><article class="mcard"><img src="assets/img/jump-2.jpg" alt="" loading="lazy"><h3>Stride Details</h3></article><article class="mcard"><img src="assets/img/jump-3.jpg" alt="" loading="lazy"><h3>Balance &amp; Symmetry</h3></article><article class="mcard"><img src="assets/img/jump-4.jpg" alt="" loading="lazy"><h3>Lead Changes</h3></article><article class="mcard" aria-hidden="true"><img src="assets/img/jump-1.jpg" alt="" loading="lazy"><h3>Jump Analysis</h3></article><article class="mcard" aria-hidden="true"><img src="assets/img/jump-2.jpg" alt="" loading="lazy"><h3>Stride Details</h3></article><article class="mcard" aria-hidden="true"><img src="assets/img/jump-3.jpg" alt="" loading="lazy"><h3>Balance &amp; Symmetry</h3></article><article class="mcard" aria-hidden="true"><img src="assets/img/jump-4.jpg" alt="" loading="lazy"><h3>Lead Changes</h3></article></div></div>
+  <div class="wrap"><div class="stats">
+    <div class="stat reveal"><b><span data-count="27">27</span></b><p>Key metrics to understand your horse’s performance.</p></div>
+    <div class="stat reveal"><b><span data-count="0">0</span></b><p>Sensors. No hardware, no special equipment. Just a video.</p></div>
+    <div class="stat reveal"><b><span data-count="5">5</span><small>min</small></b><p>To analyse a two-minute session video.</p></div>
+  </div></div>
   <p class="empower wrap reveal">StrydeUp has been built to empower horsemanship, not replace it.<br>We provide the science; while Equestrians offer the skills and experience.<br>Your experience guides the training. StrydeUp adds another layer of understanding.</p>
 </section>
 
+<section class="vision" id="vision" aria-labelledby="vision-h">
+  <div class="vision-pin">
+    <img class="vision-img" src="assets/img/vision.jpg" alt="Bay horse clearing a fence, legs folded" loading="lazy">
+    <div class="vision-shade"></div>
+    <div class="vision-scan" aria-hidden="true"></div>
+    <svg class="vision-svg" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="v-box"><path class="box" d="M20 54 V22 H52"/><path class="box" d="M748 22 H780 V54"/><path class="box" d="M780 346 V378 H748"/><path class="box" d="M52 378 H20 V346"/><g class="detl"><rect x="58" y="26" width="128" height="16" fill="#fff"/><text class="det" x="64" y="37">HORSE · 99.2% · TRACKED</text></g></g>
+      <path class="arc" d="M40 150 Q 330 -60 700 14"/>
+      <line class="meas" x1="466" y1="298" x2="466" y2="386"/>
+      <g class="v-bones"><path class="bone" d="M690 10 L745 115"/><path class="bone" d="M690 10 L668 78"/><path class="bone" d="M668 78 L530 130"/><path class="bone" d="M430 8 L530 130"/><path class="bone" d="M430 8 L260 92"/><path class="bone" d="M260 92 L40 138"/><path class="bone" d="M40 138 L120 300"/><path class="bone" d="M530 130 L505 205"/><path class="bone" d="M505 205 L620 172"/><path class="bone" d="M620 172 L612 298"/><path class="bone" d="M612 298 L572 330"/><path class="bone" d="M505 205 L565 212"/><path class="bone" d="M565 212 L520 290"/><path class="bone" d="M520 290 L462 292"/><path class="bone" d="M505 205 L330 314"/><path class="bone" d="M330 314 L120 300"/></g><g class="v-joints"><circle class="joint" cx="690" cy="10" r="4"/><circle class="joint" cx="745" cy="115" r="4"/><circle class="joint" cx="668" cy="78" r="4"/><circle class="joint" cx="430" cy="8" r="4"/><circle class="joint" cx="530" cy="130" r="4"/><circle class="joint" cx="505" cy="205" r="4"/><circle class="joint k" cx="620" cy="172" r="5"/><circle class="joint k" cx="612" cy="298" r="5"/><circle class="joint" cx="572" cy="330" r="4"/><circle class="joint k" cx="565" cy="212" r="5"/><circle class="joint k" cx="520" cy="290" r="5"/><circle class="joint" cx="462" cy="292" r="4"/><circle class="joint" cx="260" cy="92" r="4"/><circle class="joint" cx="40" cy="138" r="4"/><circle class="joint" cx="330" cy="314" r="4"/><circle class="joint" cx="120" cy="300" r="4"/></g>
+      <g class="v-tags"><g class="tag" transform="translate(250 30)"><rect width="118" height="44" rx="6"/><text class="t1" x="10" y="15">BASCULE</text><text class="t2" x="10" y="35"><tspan data-to="86">86</tspan></text></g><g class="tag" transform="translate(650 214)"><rect width="118" height="44" rx="6"/><text class="t1" x="10" y="15">LEG COMPACTNESS</text><text class="t2" x="10" y="35"><tspan data-to="89">89</tspan></text></g><g class="tag" transform="translate(338 330)"><rect width="118" height="44" rx="6"/><text class="t1" x="10" y="15">JUMP HEIGHT</text><text class="t2" x="10" y="35"><tspan data-to="1.35">1.35</tspan> m</text></g><g class="tag" transform="translate(768 150)"><rect width="118" height="44" rx="6"/><text class="t1" x="10" y="15">SYMMETRY</text><text class="t2" x="10" y="35"><tspan data-to="92">92</tspan></text></g></g>
+    </svg>
+    <div class="vision-hud" aria-hidden="true"><span class="rec"></span>ANALYSING<br>FRAME <b data-frame>0000</b> / 2184<br>60 FPS · 1080P</div>
+    <div class="vision-txt">
+      <span class="eyebrow">Computer vision</span>
+      <h2 id="vision-h">See what the eye can’t.</h2>
+      <p>StrydeUp follows your horse’s movement frame by frame and turns every jump into clear, objective metrics.</p>
+    </div>
+  </div>
+</section>
 <section class="steps wrap" aria-labelledby="how">
-  <h2 class="h-lg center reveal" id="how">Capture, analyse and measure your performance<br>in <span class="accent">three simple steps</span></h2>
-  <div class="steps-list"><div class="step reveal"><div class="step-n num">01</div>
-      <div class="step-card"><img src="assets/img/step-film.jpg" alt="" loading="lazy"><div class="step-glass"><h3>Film &amp; upload your session</h3><p>Film a training session or competition round and upload your video to StrydeUp.</p></div></div></div><div class="step reveal"><div class="step-n num">02</div>
-      <div class="step-card"><img src="assets/img/step-explore.jpg" alt="" loading="lazy"><div class="step-glass"><h3>Explore the analysis</h3><p>Get an objective breakdown of your horse’s movement, with key metrics available in minutes.</p></div></div></div><div class="step reveal"><div class="step-n num">03</div>
+  <h2 class="h-lg center" id="how">Capture, analyse and measure your performance<br>in <span class="accent">three simple steps</span></h2>
+  <div class="steps-list"><div class="step"><div class="step-n num"><span class="ol">0</span>1</div>
+      <div class="step-card"><img src="assets/img/step-film.jpg" alt="" loading="lazy"><div class="step-glass"><h3>Film &amp; upload your session</h3><p>Film a training session or competition round and upload your video to StrydeUp.</p></div></div></div><div class="step"><div class="step-n num"><span class="ol">0</span>2</div>
+      <div class="step-card"><img src="assets/img/step-explore.jpg" alt="" loading="lazy"><div class="step-glass"><h3>Explore the analysis</h3><p>Get an objective breakdown of your horse’s movement, with key metrics available in minutes.</p></div></div></div><div class="step"><div class="step-n num"><span class="ol">0</span>3</div>
       <div class="step-card"><img src="assets/img/step-progress.jpg" alt="" loading="lazy"><div class="step-glass"><h3>Follow the progress</h3><p>Compare sessions, revisit patterns and build a clearer picture of how your horse’s performance develops.</p></div></div></div></div>
 </section>
 
 <section class="sec who">
   <hr class="divider">
   <div class="wrap">
-    <h2 class="h-lg center reveal">For riders, trainers and the teams behind them.</h2>
+    <h2 class="h-lg center">For riders, trainers and the teams behind them.</h2>
     <div class="who-grid"><div class="who-label reveal">Who is it for</div><div class="who-list"><div class="who-row reveal"><b>RIDERS</b><div class="pill">To achieve an edge in competitive events, by gaining continuous, objective feedback that accelerates skill acquisition and improves consistency and turns every training session into a source of measurable progress.</div></div><div class="who-row reveal"><b>OWNERS</b><div class="pill">To gain visibility of horse progress, ensuring performance growth without compromising welfare.</div></div><div class="who-row reveal"><b>TRAINERS</b><div class="pill">To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</div></div><div class="who-row reveal"><b>VETS</b><div class="pill">To access critical data points which detect anomalies in horses by accessing reliable, repeatable movement metrics to monitor welfare, rehab, and recovery.</div></div></div></div>
   </div>
 </section>
@@ -278,24 +305,24 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
 <section class="sec proj" style="padding-top:0">
   <hr class="divider">
   <div class="wrap" style="padding-top:clamp(56px,6vw,84px)">
-    <h2 class="h-lg center reveal">Computer vision analysis across<br><span class="accent">Equine Sports</span></h2>
-    <div class="proj-grid"><article class="pcard reveal"><img src="assets/img/proj-strydeup.jpg" alt="" loading="lazy"><div class="pcard-b"><h3>STRYDEUP</h3><p>To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</p></div></article><article class="pcard reveal"><img src="assets/img/proj-live.jpg" alt="" loading="lazy"><div class="pcard-b"><h3>LIVE ANALYTICS</h3><p>To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</p></div></article><article class="pcard reveal"><img src="assets/img/proj-racing.jpg" alt="" loading="lazy"><div class="pcard-b"><h3>HORSE RACING</h3><p>To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</p></div></article></div>
+    <h2 class="h-lg center">Computer vision analysis across<br><span class="accent">Equine Sports</span></h2>
+    <div class="proj-grid"><article class="pcard reveal tilt"><span class="glare"></span><img src="assets/img/proj-strydeup.jpg" alt="" loading="lazy"><div class="pcard-b"><h3>STRYDEUP</h3><p>To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</p></div></article><article class="pcard reveal tilt"><span class="glare"></span><img src="assets/img/proj-live.jpg" alt="" loading="lazy"><div class="pcard-b"><h3>LIVE ANALYTICS</h3><p>To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</p></div></article><article class="pcard reveal tilt"><span class="glare"></span><img src="assets/img/proj-racing.jpg" alt="" loading="lazy"><div class="pcard-b"><h3>HORSE RACING</h3><p>To give the best possible recommendations to their riders; extending influence between lessons with objective data that supports targeted training.</p></div></article></div>
   </div>
 </section>
 
 <section class="sec trust" style="padding-top:clamp(20px,3vw,40px)">
   <div class="wrap">
-    <h2 class="h-lg center reveal">Trusted by <span class="accent">professionals</span></h2>
+    <h2 class="h-lg center">Trusted by <span class="accent">professionals</span></h2>
     <div class="tslider" data-slider><div class="tslide on" role="tabpanel" id="t0" aria-label="Emmanuelle Van Erck">
-      <div class="tvid"><img src="assets/img/testimonial.jpg" alt=""><span class="play"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></span></div>
+      <div class="tvid" data-cursor="Play"><img src="assets/img/testimonial.jpg" alt=""><span class="play"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></span></div>
       <div class="tq"><h3>Emmanuelle Van Erck</h3><p class="role">Belgian Equine Veterinarian</p><blockquote><p>“Body language is the way horses speak. As vets, we are constantly on the watch to detect abnormal patterns or behaviors that indicate if the horse is uncomfortable or lame. AI-powered tools have been a game changer to improve our capacity to analyse motion and enhance our diagnostic skills. For the first time, with StrydeUp, we are taking motion analysis to the next level: we can objectively assess horses during a training session or a competition with the highest precision. We can see if the horse is fit or fatigued, consistent or compensating and act before injury occurs.”</p></blockquote></div>
     </div><div class="tslide" role="tabpanel" id="t1" aria-label="Morgane Dassio">
-      <div class="tvid"><img src="assets/img/jump-5.jpg" alt=""><span class="play"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></span></div>
+      <div class="tvid" data-cursor="Play"><img src="assets/img/jump-5.jpg" alt=""><span class="play"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></span></div>
       <div class="tq"><h3>Morgane Dassio</h3><p class="role">Swiss International Show Jumper CSI3*</p><blockquote><p>“What makes StrydeUp so exciting is that it brings objective performance insights to every rider, not just professionals. Nothing will ever replace the feeling and instinct you develop with your horse, but having data to confirm those impressions gives you greater confidence in the decisions you make. Whether you’re training, monitoring progress or assessing a new horse, it provides an extra level of understanding that helps you make better-informed choices.</p><p>Making this kind of technology accessible to the wider equestrian community is a real step forward for the future of our sport.”</p></blockquote></div>
     </div><div class="tslide" role="tabpanel" id="t2" aria-label="Nathan Budd">
-      <div class="tvid"><img src="assets/img/jump-6.jpg" alt=""><span class="play"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></span></div>
+      <div class="tvid" data-cursor="Play"><img src="assets/img/jump-6.jpg" alt=""><span class="play"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></span></div>
       <div class="tq"><h3>Nathan Budd</h3><p class="role">Belgian International Show Jumper</p><blockquote><p>“The data we’ve built StrydeUp on addresses something I’ve felt my entire career: that feel alone isn’t enough at the highest level. Now we can actually see what’s happening.”</p></blockquote></div>
-    </div><div class="tdots" role="tablist"><button role="tab" aria-label="Testimonial 1" aria-controls="t0" aria-selected="true"></button><button role="tab" aria-label="Testimonial 2" aria-controls="t1" aria-selected="false"></button><button role="tab" aria-label="Testimonial 3" aria-controls="t2" aria-selected="false"></button></div></div>
+    </div><div class="tbar" aria-hidden="true"><i></i></div><div class="tdots" role="tablist"><button role="tab" aria-label="Testimonial 1" aria-controls="t0" aria-selected="true"></button><button role="tab" aria-label="Testimonial 2" aria-controls="t1" aria-selected="false"></button><button role="tab" aria-label="Testimonial 3" aria-controls="t2" aria-selected="false"></button></div></div>
   </div>
 </section>
 
@@ -513,7 +540,11 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
     <div class="ftr-meta"><span>&copy; <span data-year>2026</span> StrydeUp</span><nav aria-label="Footer"><a href="index.html">Home</a><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="stories.html">Stories</a><a href="faqs.html">FAQs</a><a href="mailto:info@strydeup.com">info@strydeup.com</a></nav></div>
   </div>
 </footer>
-<script src="assets/js/config.js?v=1110172530"></script>
-<script src="assets/js/site.js?v=1110172530"></script>
+<script src="assets/js/config.js?v=1110174731"></script>
+<script src="assets/js/site.js?v=1110174731"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="assets/js/motion.js?v=1110174731"></script>
 </body>
 </html>

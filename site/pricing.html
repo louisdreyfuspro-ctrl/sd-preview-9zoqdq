@@ -15,9 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=1110172530">
+<link rel="stylesheet" href="assets/css/site.css?v=1110174731">
+<link rel="stylesheet" href="assets/css/motion.css?v=1110174731">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mo","enter");setTimeout(function(){if(!window.SU_MOTION)d.classList.remove("mo","enter")},3000)}})(document.documentElement)</script>
 </head>
-<body>
+<body data-page="pricing">
 <a class="sr" href="#main">Skip to content</a>
 <header class="hdr" id="top">
   <div class="hdr-bar">
@@ -233,24 +235,24 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
 <main id="main">
 <section class="wrap">
   <div class="pbox center">
-    <h1 class="h-xl reveal">Choose your plan</h1>
+    <h1 class="h-xl">Choose your plan</h1>
     <p class="lead reveal">Whether you’re an individual or managing a stable, StrydeUp has a plan built around your needs.<br>Each account comes with a one month free trial.</p>
     <div class="ptoggle" role="group" aria-label="Billing period"><span class="knob"></span><button type="button" aria-pressed="true" data-period="monthly">Monthly</button><button type="button" aria-pressed="false" data-period="six">6 Months</button></div>
-    <div class="plans"><article class="plan reveal" data-plan="premium">
+    <div class="plans"><article class="plan reveal spot" data-plan="premium">
       <div class="plan-top"><h2>PREMIUM</h2><span class="badge">FIRST MONTH FREE</span></div>
       <div class="price num"><b data-price>&nbsp;</b><span>/month</span></div>
       <p class="price-note" data-note></p>
       <p class="who-for">One user. One horse.</p><p class="desc">Perfect for amateur riders looking to improve their performance.</p>
       <ul><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Every session analysed</span></li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Overview, heatmap, jumps &amp; performance metrics</span></li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Track trends and progress over time</span></li></ul>
       <a class="cta" href="#" data-link="trial">Start your free month</a>
-    </article><article class="plan reveal" data-plan="pro">
+    </article><article class="plan reveal spot" data-plan="pro">
       <div class="plan-top"><h2>PRO</h2><span class="badge">FIRST MONTH FREE</span></div>
       <div class="price num"><b data-price>&nbsp;</b><span>/month</span></div>
       <p class="price-note" data-note></p>
       <p class="who-for">One user. Unlimited horses.</p><p class="desc">Perfect for professional riders competing at the highest level.</p>
       <ul><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Advanced AI analytics</span></li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Add multiple horses</span></li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Unlimited video uploads</span></li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg><span>Trend analysis</span></li></ul>
       <a class="cta" href="#" data-link="trial">Start your free month</a>
-    </article><article class="plan reveal" data-plan="stable">
+    </article><article class="plan reveal spot" data-plan="stable">
       <div class="plan-top"><h2>STABLE</h2><span class="badge">FIRST MONTH FREE</span></div>
       <div class="price num"><b data-price>&nbsp;</b><span>/month</span></div>
       <p class="price-note" data-note></p>
@@ -476,7 +478,11 @@ m1212 -533 c287 -3 302 -4 340 -25 21 -12 52 -22 67 -22 16 0 39 -11 56 -27
     <div class="ftr-meta"><span>&copy; <span data-year>2026</span> StrydeUp</span><nav aria-label="Footer"><a href="index.html">Home</a><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="stories.html">Stories</a><a href="faqs.html">FAQs</a><a href="mailto:info@strydeup.com">info@strydeup.com</a></nav></div>
   </div>
 </footer>
-<script src="assets/js/config.js?v=1110172530"></script>
-<script src="assets/js/site.js?v=1110172530"></script>
+<script src="assets/js/config.js?v=1110174731"></script>
+<script src="assets/js/site.js?v=1110174731"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="assets/js/motion.js?v=1110174731"></script>
 </body>
 </html>
