@@ -428,6 +428,50 @@
         if ($('.cal-pill', c)) gsap.from($$('.cal-pill', c), { scale: 0.4, opacity: 0, duration: 0.9, ease: 'back.out(2)', stagger: 0.07, transformOrigin: '100% 50%' });
       } });
     });
+
+    /* live charts: each card keeps moving while it is on screen */
+    var NS = 'http://www.w3.org/2000/svg';
+    function mk(tag, attrs, parent) { var e = d.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+    function whileVisible(card, start, stop) {
+      ST.create({ trigger: card, start: 'top bottom', end: 'bottom top', onToggle: function (st) { if (st.isActive) start(); else stop(); } });
+    }
+    $$('.fcard[data-k]').forEach(function (card) {
+      var k = card.getAttribute('data-k'), sv = $('.fviz svg', card), iv = null, tw = [];
+      var every = function (ms, fn) { return { start: function () { if (!iv) iv = setInterval(fn, ms); }, stop: function () { clearInterval(iv); iv = null; } }; };
+      var run;
+      if (k === 'score' && sv) {
+        var num = $$('text', sv).filter(function (t) { return +t.getAttribute('font-size') >= 30; })[0];
+        var dots = $$('g[fill] circle', sv);
+        dots.forEach(function (c) { tw.push(gsap.to(c, { attr: { cx: '+=' + gsap.utils.random(-14, 14), cy: '+=' + gsap.utils.random(-14, 14) }, duration: gsap.utils.random(2, 4), repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true })); });
+        run = every(1400, function () { num.textContent = Math.round(92 + (Math.random() - 0.5) * 3); });
+      } else if (k === 'bio' && sv) {
+        var fills = $$('.fill', sv), vals = $$('text[text-anchor="end"]', sv), base = vals.map(function (t) { return +t.textContent; });
+        run = every(1300, function () {
+          fills.forEach(function (f, i) { var v = Math.max(60, Math.min(99, base[i] + Math.round((Math.random() - 0.5) * 6))); gsap.to(f, { attr: { width: 325 * v / 100 }, duration: 0.9, ease: 'power3.out' }); vals[i].textContent = v; });
+        });
+      } else if (k === 'jump' && sv) {
+        var pf = $$('.fill', sv), head = mk('line', { x1: 88, x2: 88, y1: 0, y2: 150, stroke: '#F2D3BE', 'stroke-width': 1.5 }, sv);
+        tw.push(gsap.fromTo(head, { attr: { x1: 88, x2: 88 } }, { attr: { x1: 365, x2: 365 }, duration: 2.6, ease: 'none', repeat: -1, paused: true,
+          onUpdate: function () { var x = +head.getAttribute('x1'); pf.forEach(function (r) { var rx = +r.getAttribute('x'), rw = +r.getAttribute('width'); r.style.opacity = x >= rx && x <= rx + rw ? 1 : 0.45; }); } }));
+      } else if ((k === 'trend' || k === 'welfare') && sv) {
+        var paths = $$('path.draw', sv), total = 0, segs = paths.map(function (p) { var L = p.getTotalLength(); total += L; return { p: p, L: L }; });
+        var glow = mk('circle', { r: 9, class: 'runner-glow' }, sv), dot = mk('circle', { r: 4, class: 'runner' }, sv), o = { t: 0 };
+        tw.push(gsap.to(o, { t: 1, duration: k === 'trend' ? 3.2 : 4, ease: 'none', repeat: -1, paused: true, onUpdate: function () {
+          var dist = o.t * total, i = 0; while (i < segs.length - 1 && dist > segs[i].L) { dist -= segs[i].L; i++; }
+          var pt = segs[i].p.getPointAtLength(Math.min(dist, segs[i].L)); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); glow.setAttribute('cx', pt.x); glow.setAttribute('cy', pt.y);
+        } }));
+        if (k === 'trend') { var last = $$('circle[stroke]', sv).pop(); if (last) tw.push(gsap.fromTo(last, { attr: { r: 5 } }, { attr: { r: 8 }, duration: 0.8, yoyo: true, repeat: -1, ease: 'sine.inOut', paused: true })); }
+      } else if (k === 'precision' && sv) {
+        var rings = $$('.ring', sv), nums = $$('text', sv).filter(function (t) { return +t.getAttribute('font-size') >= 30; }), B = [84, 92];
+        run = every(1600, function () {
+          rings.forEach(function (r, i) { var v = B[i] + Math.round((Math.random() - 0.5) * 4), L = +r.getAttribute('stroke-dasharray'); r.style.strokeDashoffset = L * (1 - v / 100); nums[i].textContent = v; });
+        });
+      } else if (k === 'cal') {
+        var days = $$('.cal-pill span', card), di = 0;
+        run = every(700, function () { days.forEach(function (s) { s.classList.remove('today'); }); days[di % days.length].classList.add('today'); di++; });
+      }
+      whileVisible(card, function () { if (run) run.start(); tw.forEach(function (t) { t.play(); }); }, function () { if (run) run.stop(); tw.forEach(function (t) { t.pause(); }); });
+    });
     $$('.fcard circle[fill="#EED27A"]').forEach(function (cc) {
       if (cc.getAttribute('opacity')) gsap.to(cc, { attr: { r: 16 }, opacity: 0, duration: 1.6, repeat: -1, ease: 'power2.out' });
     });

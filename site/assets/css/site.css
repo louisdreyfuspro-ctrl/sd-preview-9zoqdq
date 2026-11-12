@@ -522,3 +522,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .hud-sr .hud-lab,.hud-sr .hud-ret{display:none}
 .gait-svg .st{transition:opacity .15s}
 .gait-svg .gl{transition:fill .15s}
+
+/* features: live tag + live charts */
+.live-tag{position:absolute;top:22px;right:24px;z-index:2;display:flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.7)}
+.live-tag b{width:7px;height:7px;border-radius:50%;background:#EC5F57;animation:rec 1.2s infinite}
+.radar .sweep{transform-origin:110px 110px;animation:sweep 3.2s linear infinite}
+@keyframes sweep{to{transform:rotate(-360deg)}}
+.radar .blip{animation:blip 3.2s ease-out infinite;opacity:.15}
+.radar .blip:nth-of-type(2){animation-delay:-.8s}.radar .blip:nth-of-type(3){animation-delay:-1.6s}.radar .blip:nth-of-type(4){animation-delay:-2.4s}
+@keyframes blip{0%{opacity:1}60%,100%{opacity:.15}}
+.fcard .runner{fill:#fff}
+.fcard .runner-glow{fill:#fff;opacity:.25}
+.cal-pill span b{transition:transform .25s}
+.cal-pill span.today b{display:inline-block;transform:scale(1.35)}
+.cal-pill span.today::after{content:"";position:absolute;left:50%;bottom:-11px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#fff}
