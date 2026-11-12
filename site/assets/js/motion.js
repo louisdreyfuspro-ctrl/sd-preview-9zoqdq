@@ -240,6 +240,7 @@
       var vo = { p: 0 };
       var tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
         trigger: vis, start: 'top top', end: desk ? '+=230%' : '+=170%', scrub: 0.8, pin: '.vision-pin', anticipatePin: 1,
+        onToggle: function (st) { var hd = $('.hdr'); if (hd) hd.classList.toggle('pinned', st.isActive); },
         onUpdate: function (s) { if (frame) frame.textContent = ('000' + Math.round(s.progress * 2184)).slice(-4); } } });
       tl.fromTo(['.vision-img', '.vision-svg'], { scale: 1.22 }, { scale: 1, duration: 3, transformOrigin: '50% 50%' }, 0)
         .to('.vision-shade', { opacity: 1, duration: 0.6 }, 0.2)
@@ -324,13 +325,46 @@
       stl.from('.stride-txt .eyebrow', { opacity: 0, y: 12, duration: 0.6, ease: EASE }, 0.2)
         .from(words($('.stride-txt h2')), { yPercent: 115, duration: 1, stagger: 0.05, ease: EASE }, 0.3)
         .from('.stride-txt p', { opacity: 0, y: 16, duration: 0.8, ease: EASE }, 0.7);
+      // live layer: everything keeps breathing at the rhythm of the trot (one stride = 1.3 s)
+      var STRIDE_T = 1.3, alive = false;
+      gsap.set($$('.rip circle', ssv), { transformOrigin: '50% 50%' });
+      var pulse = function (sel) { gsap.fromTo($$(sel, ssv), { attr: { r: 5 }, opacity: 0.95 }, { attr: { r: 26 }, opacity: 0, duration: 1, ease: 'power2.out' }); };
+      var live = gsap.timeline({ paused: true, repeat: -1 })
+        .add(function () { pulse('.ra'); }, 0)
+        .fromTo($('.mdot', ssv), { attr: { cx: 150 } }, { attr: { cx: 397 }, duration: STRIDE_T * 0.9, ease: 'power1.inOut' }, 0)
+        .fromTo($$('.ghost path', ssv)[0], { opacity: 1 }, { opacity: 0.25, duration: STRIDE_T * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0)
+        .add(function () { pulse('.rb'); }, STRIDE_T / 2)
+        .to({}, { duration: STRIDE_T }, 0);
+      var scanTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 2.4 })
+        .fromTo($('.sscan', ssv), { attr: { x: -80 } }, { attr: { x: 900 }, duration: 2.6, ease: 'power2.inOut' });
+      // tracking jitter on the joints, like a live detector
+      var jit = $$('.s-joints circle', ssv).map(function (c) { return { c: c, x: +c.getAttribute('cx'), y: +c.getAttribute('cy') }; });
+      var jitter = function () {
+        if (!alive) return;
+        jit.forEach(function (j) { gsap.to(j.c, { attr: { cx: j.x + gsap.utils.random(-1.6, 1.6), cy: j.y + gsap.utils.random(-1.6, 1.6) }, duration: 0.18, ease: 'none' }); });
+      };
+      setInterval(jitter, 200);
+      // live readouts
+      var ang = $('.ang', ssv), sTags = $$('tspan[data-to]', ssv);
+      setInterval(function () {
+        if (!alive) return;
+        ang.textContent = (1.2 + (Math.random() - 0.5) * 0.4).toFixed(1) + '°';
+        sTags.forEach(function (t) { var v = t.getAttribute('data-to'), d = (v.split('.')[1] || '').length; t.textContent = (+v + (Math.random() - 0.5) * (d ? 0.04 : 2)).toFixed(d); });
+      }, 1100);
+      stl.eventCallback('onComplete', function () { alive = true; live.play(); scanTl.play(); });
+      ST.create({ trigger: sc, start: 'top bottom', end: 'bottom top', onToggle: function (st) {
+        if (!stl.progress() || stl.progress() < 1) return;
+        alive = st.isActive; if (alive) { live.play(); scanTl.play(); } else { live.pause(); scanTl.pause(); }
+      } });
       ST.create({ trigger: sc, start: 'top 65%', once: true, onEnter: function () { stl.play(); } });
       gsap.to('.stride-img', { yPercent: 6, ease: 'none', scrollTrigger: { trigger: sc, start: 'top bottom', end: 'bottom top', scrub: true } });
       // footfall diagram: bars grow, then a playhead loops
       var gs = $('.gait-svg');
       ST.create({ trigger: gs, start: 'top 85%', once: true, onEnter: function () {
         gsap.from($$('.st', gs), { scaleX: 0, transformOrigin: '0 50%', duration: 0.6, ease: 'power3.out', stagger: 0.05 });
-        gsap.fromTo($('.ph', gs), { attr: { x1: 60, x2: 60 } }, { attr: { x1: 580, x2: 580 }, duration: 2.6, ease: 'none', repeat: -1, delay: 0.8 });
+        var phl = $('.ph', gs), bars = $$('.st', gs).map(function (b) { return { b: b, x: +b.getAttribute('x'), w: +b.getAttribute('width') }; });
+        gsap.fromTo(phl, { attr: { x1: 60, x2: 60 } }, { attr: { x1: 580, x2: 580 }, duration: 2.6, ease: 'none', repeat: -1, delay: 0.8,
+          onUpdate: function () { var px = +phl.getAttribute('x1'); bars.forEach(function (o) { o.b.style.opacity = px >= o.x && px <= o.x + o.w ? 1 : 0.38; }); } });
       } });
     }
 

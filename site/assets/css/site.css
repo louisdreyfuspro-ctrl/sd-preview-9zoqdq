@@ -513,3 +513,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .fq-track i{position:absolute;left:0;top:0;width:1px;height:100%;background:var(--accent);transform-origin:0 0;transform:scaleY(0)}
 .fq-idx{display:block;font-size:11px;letter-spacing:.2em;font-weight:700;color:var(--ink-3);margin-bottom:10px;font-variant-numeric:tabular-nums lining-nums}
 @media (max-width:980px){.fq-track{display:none}}
+
+/* stride scene, live layer */
+.stride-svg .rip circle{fill:none;stroke:#F2D3BE;stroke-width:2;opacity:0}
+.stride-svg .mdot{fill:#fff}
+.stride-svg .ang{fill:#F2D3BE;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.06em}
+.stride-svg .sscan{mix-blend-mode:screen}
+.hud-sr .hud-lab,.hud-sr .hud-ret{display:none}
+.gait-svg .st{transition:opacity .15s}
+.gait-svg .gl{transition:fill .15s}
