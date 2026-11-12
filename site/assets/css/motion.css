@@ -176,3 +176,16 @@ html.mo .hdr.pinned{transform:translateY(-130%)}
 
 .loader-icon{width:clamp(70px,9vw,110px);margin:0 auto 34px;color:#F8F6F1}
 .loader-icon svg{width:100%;height:auto;display:block}
+
+/* splash emblem: traced, scanned, then filled */
+.loader-icon{width:clamp(96px,11vw,150px);margin:0 auto 30px}
+.mark{overflow:visible}
+.mark .mk-ln{fill:none;stroke:#F8F6F1;stroke-width:140;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:1}
+.mark .mk-fl{fill:#F8F6F1}
+.mark .mk-cn{fill:none;stroke:rgba(248,246,241,.55);stroke-width:26}
+.mark .mk-bn{stroke:#F2D3BE;stroke-width:9;stroke-dasharray:1 1;stroke-dashoffset:1;opacity:.85}
+.mark .mk-kp{fill:#000;stroke:#F2D3BE;stroke-width:14;opacity:0}
+.mark .mk-scan line{stroke:#F2D3BE;stroke-width:12}
+.mark .mk-scan{opacity:0}
+.loader-tag{display:flex;justify-content:center;gap:18px;margin:-14px 0 26px;font-size:10px;font-weight:700;letter-spacing:.22em;color:rgba(248,246,241,.45);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.loader-tag b{color:#F2D3BE;font-weight:700}

@@ -161,17 +161,43 @@
     gsap.set(curtain, { yPercent: -100 });
     var logo = $('.hdr .logo svg');
     var icT = d.getElementById('su-icon'), icon = icT ? icT.innerHTML : '';
-    var ld = el('div', 'loader', '<div class="loader-in"><div class="loader-icon">' + icon + '</div><div class="loader-logo">' + (logo ? logo.outerHTML : '') + '</div><div class="loader-bar"><i></i></div><div class="loader-meta"><span>Equine performance</span><span class="ld-n">000</span></div></div>');
+    var ld = el('div', 'loader', '<div class="loader-in"><div class="loader-icon">' + icon + '</div><div class="loader-tag"><span>Keypoints <b class="ld-k">00</b>/11</span><span>Confidence <b class="ld-c">0.00</b></span></div><div class="loader-logo">' + (logo ? logo.outerHTML : '') + '</div><div class="loader-bar"><i></i></div><div class="loader-meta"><span>Equine performance</span><span class="ld-n">000</span></div></div>');
     var n = $('.ld-n', ld), o = { v: 0 };
     H.style.overflow = 'hidden';
-    gsap.timeline({ onComplete: function () { ld.remove(); H.style.overflow = ''; } })
-      .fromTo($('.loader-icon svg', ld), { opacity: 0, scale: 0.7, filter: 'blur(12px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: EASE }, 0)
-      .to($('.loader-logo svg', ld), { y: 0, duration: 1.1, ease: EASE }, 0.35)
-      .to($('.loader-bar i', ld), { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0.2)
-      .to(o, { v: 100, duration: 1.5, ease: 'power2.inOut', onUpdate: function () { n.textContent = ('00' + Math.round(o.v)).slice(-3); } }, 0.2)
-      .to($('.loader-in', ld), { yPercent: -40, opacity: 0, duration: 0.7, ease: 'power3.in' }, 1.85)
-      .add(arrive, 2.25)
-      .to(ld, { clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'expo.inOut' }, 2.2);
+    var mk = $('.mark', ld), kc = $('.ld-k', ld), cc = $('.ld-c', ld), q = { k: 0, c: 0 };
+    var tl = gsap.timeline({ onComplete: function () { ld.remove(); H.style.overflow = ''; } });
+    window.SU_SPLASH = tl;
+    if (mk) {
+      var cns = $$('.mk-cn', mk), sc = $('.mk-scan', mk), cr = $('.mk-cr', mk);
+      tl
+        // 1. tracking corners lock onto the emblem
+        .fromTo(cns, { opacity: 0, scale: 1.35, svgOrigin: '672 1224' }, { opacity: 1, scale: 1, duration: 0.7, ease: 'expo.out', stagger: 0.04 }, 0)
+        // 2. keypoints detected, skeleton joins them
+        .to($$('.mk-kp', mk), { opacity: 1, duration: 0.18, stagger: { each: 0.045, from: 'start' } }, 0.15)
+        .fromTo($$('.mk-kp', mk), { attr: { r: 90 } }, { attr: { r: 34 }, duration: 0.5, ease: 'expo.out', stagger: 0.045 }, 0.15)
+        .to($$('.mk-bn', mk), { strokeDashoffset: 0, duration: 0.45, ease: 'power2.out', stagger: 0.04 }, 0.3)
+        .to(q, { k: 11, duration: 0.5, ease: 'none', onUpdate: function () { kc.textContent = ('0' + Math.round(q.k)).slice(-2); } }, 0.15)
+        // 3. the outline of each part is traced
+        .to($$('.mk-ln', mk), { strokeDashoffset: 0, duration: 0.95, ease: 'power2.inOut', stagger: 0.12 }, 0.45)
+        // 4. a scan sweeps top to bottom and fills the logo behind it
+        .set(sc, { opacity: 1 }, 1.05)
+        .fromTo(sc, { attr: { transform: 'translate(0,-260)' } }, { attr: { transform: 'translate(0,2690)' }, duration: 0.85, ease: 'power2.inOut' }, 1.05)
+        .fromTo(cr, { attr: { y: -3220 } }, { attr: { y: -270 }, duration: 0.85, ease: 'power2.inOut' }, 1.05)
+        .to(q, { c: 0.97, duration: 0.85, ease: 'power2.out', onUpdate: function () { cc.textContent = q.c.toFixed(2); } }, 1.05)
+        .to(sc, { opacity: 0, duration: 0.2 }, 1.8)
+        // 5. the data layer steps back, the clean emblem remains
+        .to($$('.mk-sk, .mk-ln', mk), { opacity: 0, duration: 0.45, ease: 'power2.out' }, 1.75)
+        .to(cns, { opacity: 0.25, duration: 0.45 }, 1.85)
+        .fromTo(mk, { scale: 1 }, { scale: 1.06, duration: 0.25, ease: 'power2.out', yoyo: true, repeat: 1, transformOrigin: '50% 50%' }, 1.8);
+    }
+    tl
+      .fromTo($('.loader-tag', ld), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.1)
+      .to($('.loader-logo svg', ld), { y: 0, duration: 1.1, ease: EASE }, 1.55)
+      .to($('.loader-bar i', ld), { scaleX: 1, duration: 2.1, ease: 'power2.inOut' }, 0.2)
+      .to(o, { v: 100, duration: 2.1, ease: 'power2.inOut', onUpdate: function () { n.textContent = ('00' + Math.round(o.v)).slice(-3); } }, 0.2)
+      .to($('.loader-in', ld), { yPercent: -40, opacity: 0, duration: 0.7, ease: 'power3.in' }, 2.75)
+      .add(arrive, 3.15)
+      .to(ld, { clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'expo.inOut' }, 3.1);
   } else {
     gsap.fromTo(curtain, { yPercent: 0 }, { yPercent: -100, duration: 0.9, ease: 'expo.inOut', delay: 0.05, onStart: arrive });
   }
