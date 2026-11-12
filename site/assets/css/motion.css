@@ -189,3 +189,22 @@ html.mo .hdr.pinned{transform:translateY(-130%)}
 .mark .mk-scan{opacity:0}
 .loader-tag{display:flex;justify-content:center;gap:18px;margin:-14px 0 26px;font-size:10px;font-weight:700;letter-spacing:.22em;color:rgba(248,246,241,.45);text-transform:uppercase;font-variant-numeric:tabular-nums}
 .loader-tag b{color:#F2D3BE;font-weight:700}
+
+/* vision scene on phones: the photo sits in a square-ish frame on top, copy underneath */
+@media (max-width:640px){
+  .vision :is(.vision-img,.vision-svg,.vision-shade,.vision-scan){top:max(16px,3svh);bottom:auto;height:min(100vw,460px)}
+  .vision-shade{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,#000 100%)}
+  .vision-txt{right:var(--gut);bottom:max(28px,5svh)}
+  .vision-txt h2{font-size:36px}
+  .vision-hud{display:none}
+}
+
+/* hero scan line: always behind the copy, off on phones */
+.hero-card .scan{z-index:0}.hero-txt{position:relative;z-index:2}
+@media (max-width:640px){.hero-card .scan{display:none}.vision-svg .detl{display:none}}
+@media (min-width:641px) and (max-width:980px){
+  .vision :is(.vision-img,.vision-svg,.vision-shade,.vision-scan){top:max(20px,3svh);bottom:auto;height:min(78vw,600px)}
+  .vision-shade{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,#000 100%)}
+  .vision-txt{right:var(--gut)}
+  .vision-hud{display:none}
+}

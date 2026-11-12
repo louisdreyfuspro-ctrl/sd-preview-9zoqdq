@@ -209,7 +209,7 @@
       .from(himg, { scale: 1.28, duration: 2.4, ease: EASE }, 0)
       .from(hcard, { clipPath: 'inset(8% 6% 8% 6% round 22px)', duration: 1.6, ease: 'expo.inOut' }, 0)
       .from(words(h1), { yPercent: 115, filter: 'blur(14px)', opacity: 0, duration: 1.4, ease: EASE, stagger: 0.08 }, 0.35)
-      .from($$('.hero-txt p, .hero-btns .glass-btn'), { y: 30, opacity: 0, duration: 1, ease: EASE, stagger: 0.07 }, 0.75)
+      .fromTo($$('.hero-txt p, .hero-btns .glass-btn'), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: EASE, stagger: 0.07, clearProps: 'transform' }, 0.75)
       .from(phone, { y: 220, rotateX: 28, rotateZ: -8, opacity: 0, duration: 1.8, ease: EASE }, 0.55)
       .from('.phone-glow', { opacity: 0, scale: 0.6, duration: 2, ease: EASE }, 0.9);
     // the word "visible" sharpens last
@@ -656,7 +656,7 @@
   var dl = $('.dl');
   if (dl) {
     gsap.fromTo('.dl img', { yPercent: -12, scale: 1.15 }, { yPercent: 12, scale: 1.02, ease: 'none', scrollTrigger: { trigger: dl, start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.from('.dl-row .glass-btn', { y: 40, opacity: 0, duration: 1.1, ease: EASE, stagger: 0.1, scrollTrigger: { trigger: dl, start: 'top 75%', once: true } });
+    gsap.fromTo('.dl-row .glass-btn', { y: 40, opacity: 0 }, { y: 0, opacity: 1, clearProps: 'transform', duration: 1.1, ease: EASE, stagger: 0.1, scrollTrigger: { trigger: dl, start: 'top 75%', once: true } });
   }
   var fl = $('.ftr-logo svg');
   if (fl) gsap.fromTo(fl, { yPercent: 100, scale: 0.92 }, { yPercent: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: '.ftr', start: 'top bottom', end: 'top 45%', scrub: 1 } });
