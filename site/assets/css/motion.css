@@ -173,3 +173,6 @@ html.mo .step-n.gone{opacity:0!important}
 
 /* the header steps aside while the vision scene is pinned */
 html.mo .hdr.pinned{transform:translateY(-130%)}
+
+.loader-icon{width:clamp(70px,9vw,110px);margin:0 auto 34px;color:#F8F6F1}
+.loader-icon svg{width:100%;height:auto;display:block}

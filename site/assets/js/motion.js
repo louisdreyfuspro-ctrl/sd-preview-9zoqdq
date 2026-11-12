@@ -160,11 +160,13 @@
   if (first) {
     gsap.set(curtain, { yPercent: -100 });
     var logo = $('.hdr .logo svg');
-    var ld = el('div', 'loader', '<div class="loader-in"><div class="loader-logo">' + (logo ? logo.outerHTML : '') + '</div><div class="loader-bar"><i></i></div><div class="loader-meta"><span>Equine performance</span><span class="ld-n">000</span></div></div>');
+    var icT = d.getElementById('su-icon'), icon = icT ? icT.innerHTML : '';
+    var ld = el('div', 'loader', '<div class="loader-in"><div class="loader-icon">' + icon + '</div><div class="loader-logo">' + (logo ? logo.outerHTML : '') + '</div><div class="loader-bar"><i></i></div><div class="loader-meta"><span>Equine performance</span><span class="ld-n">000</span></div></div>');
     var n = $('.ld-n', ld), o = { v: 0 };
     H.style.overflow = 'hidden';
     gsap.timeline({ onComplete: function () { ld.remove(); H.style.overflow = ''; } })
-      .to($('.loader-logo svg', ld), { y: 0, duration: 1.1, ease: EASE }, 0.15)
+      .fromTo($('.loader-icon svg', ld), { opacity: 0, scale: 0.7, filter: 'blur(12px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: EASE }, 0)
+      .to($('.loader-logo svg', ld), { y: 0, duration: 1.1, ease: EASE }, 0.35)
       .to($('.loader-bar i', ld), { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0.2)
       .to(o, { v: 100, duration: 1.5, ease: 'power2.inOut', onUpdate: function () { n.textContent = ('00' + Math.round(o.v)).slice(-3); } }, 0.2)
       .to($('.loader-in', ld), { yPercent: -40, opacity: 0, duration: 0.7, ease: 'power3.in' }, 1.85)
